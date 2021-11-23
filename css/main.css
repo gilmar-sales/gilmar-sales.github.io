@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/cascadia-code.min.css");
+
+body {
+  font-family: "KoHo", sans-serif;
+  background: url(/images/grid.svg);
+  background-size: 1.5rem;
+  margin: 0;
+}
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.6rem;
+  user-select: none;
+}
+.nav a {
+  font-size: larger;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  background-color: black;
+  padding: 0.9rem 1.6rem;
+}
+
+.nav a:hover {
+  color: #3182ce;
+}
+
+.container {
+  width: 1024px;
+  margin: 0 auto;
+}
+
+.content {
+  width: 45rem;
+  margin: 0 auto;
+}
+
+.profile {
+  position: relative;
+  display: flex;
+  width: 250px;
+  user-select: none;
+}
+
+.bubble {
+  top: 0;
+  left: 0;
+  width: 100%;
+  animation: spin infinite 15s linear;
+  -webkit-user-drag: none;
+}
+
+.portrait {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  border-radius: 100%;
+  -webkit-user-drag: none;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+  width: 45rem;
+  margin: 0 auto 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.post-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  background-color: black;
+  padding: 1rem 2rem;
+}
+
+.post-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.post-info {
+  color: white;
+}
+
+.post-content {
+  background-color: white;
+  padding: 0 2rem;
+}

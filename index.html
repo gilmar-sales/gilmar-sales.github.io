@@ -1,0 +1,44 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: default
+title: gilmar sales
+---
+
+<div style="display: flex;">
+  <div class="profile">
+    <img class="bubble" src="/images/bubble.svg"/>
+    <img class="portrait" src="https://avatars.githubusercontent.com/u/7975964"/>
+  </div>
+  <div>
+    <h1>Gilmar Sales</h1>
+    <p>Estudante de Ciência da Computação</p>
+  </div>
+</div>
+
+<!-- This loops through the paginated posts -->
+{% for post in paginator.posts %}
+  {% include post.html post=post %}
+{% endfor %}
+
+<!-- Pagination links -->
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">
+      Previous
+    </a>
+  {% else %}
+    <span class="previous">Previous</span>
+  {% endif %}
+  <span class="page_number ">
+    Page: {{ paginator.page }} of {{ paginator.total_pages }}
+  </span>
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+  {% else %}
+    <span class="next ">Next</span>
+  {% endif %}
+</div>
+{% endif %}

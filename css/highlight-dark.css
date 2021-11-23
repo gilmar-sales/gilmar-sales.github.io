@@ -1,0 +1,57 @@
+.highlight {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #d1d1d1;
+  background: #111111;
+  font-family: "Cascadia Code";
+}
+
+.c1,
+.c2,
+.cm {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.k,
+.kt {
+  color: #ca68e7;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e04956;
+}
+
+.s,
+.s2,
+.hljs-addition,
+.hljs-attribute {
+  color: #ce594a;
+}
+
+.nc,
+.nf {
+  color: #49b6e9;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #e48023;
+}
+
+.si,
+.nl,
+.cp {
+  color: #e04956;
+}

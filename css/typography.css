@@ -1,0 +1,16 @@
+html {
+  font-size: 1.2rem;
+}
+
+a:link {
+  text-decoration: none;
+}
+p {
+  line-height: 1.45rem;
+}
+
+code.highlighter-rouge {
+  color: #4299e1;
+  background-color: #eeeeee;
+  padding: 0.3rem;
+}
