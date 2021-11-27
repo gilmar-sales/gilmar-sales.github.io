@@ -13,7 +13,7 @@ social_links:
   twitter: Gilmarxd0
   github: gilmarxd
 
-paginate: 1
+paginate: 5
 paginate_path: "/page/:num/"
 max_pages: 5
 # Build settings
