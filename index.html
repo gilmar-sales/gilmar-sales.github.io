@@ -8,7 +8,7 @@ title: gilmar sales
 
 <div style="display: flex;">
   <div class="profile">
-    <img class="bubble" src="/images/bubble.svg"/>
+    <img class="bubble" src="{{ site.baseurl }}/images/bubble.svg"/>
     <img class="portrait" src="https://avatars.githubusercontent.com/u/7975964"/>
   </div>
   <div>
@@ -17,28 +17,12 @@ title: gilmar sales
   </div>
 </div>
 
+{% include pagination.html paginator='paginator' %}
+
 <!-- This loops through the paginated posts -->
 {% for post in paginator.posts %}
   {% include post.html post=post %}
 {% endfor %}
 
 <!-- Pagination links -->
-{% if paginator.total_pages > 1 %}
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path }}" class="previous">
-      Previous
-    </a>
-  {% else %}
-    <span class="previous">Previous</span>
-  {% endif %}
-  <span class="page_number ">
-    Page: {{ paginator.page }} of {{ paginator.total_pages }}
-  </span>
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
-  {% else %}
-    <span class="next ">Next</span>
-  {% endif %}
-</div>
-{% endif %}
+{% include pagination.html paginator='paginator' %}

@@ -1,0 +1,95 @@
+
+<!-- Pagination links -->
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous page">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+  {% else %}
+    <span class="previous page disabled"><i class="fas fa-arrow-left"></i></span>
+  {% endif %}
+  
+  {% if paginator.page == 1 %}
+  <a class="page current">
+    {{1}}
+  </a>
+  {% else %}
+  {% assign page_url =  site.paginate_path | replace: ":num", 1  %}
+  <a href="/" class="page">
+    {{1}}
+  </a>
+  {% endif%}
+
+  {% if paginator.total_pages > site.max_pages %}
+    {% assign pages_per_view = site.max_pages | minus: 2 %}
+    {% assign sector = paginator.page | minus: 1 | divided_by: pages_per_view  %}
+    {% assign offset = sector | times: pages_per_view %} 
+
+    {% assign start = offset | plus: 1 | at_least: 2 %}
+
+    {% assign last = paginator.total_pages | minus: 1 %}
+    {% assign end = sector | plus: 1 | times: pages_per_view | at_most: last %}
+    {% if sector == 0 %}
+      {% assign end = end | plus: 1%}
+    {% endif%}
+
+    {% assign diff = paginator.total_pages | minus: paginator.page %}
+    {% if diff < pages_per_view %}
+      {% assign start = paginator.total_pages | minus: pages_per_view %}
+      {% assign end = paginator.total_pages | minus: 1 %}
+    {% endif %}
+  
+    {% for i in (start .. end ) %}
+    {% if i!= 1 %}
+      {% assign page_url =  site.paginate_path | replace: ":num", i  %}
+    {% else %}
+      {% assign page_url =  "/"  %}
+    {% endif %}
+    {% if paginator.page == i %}
+    <a class="page current">
+      {{i}}
+    </a>
+    {% else %}
+    <a href="{{page_url}}" class="page">
+      {{i}}
+    </a>
+    {% endif%}
+    {% endfor %}
+  {% else %}
+    {% for i in (1 .. paginator.total_pages) %}
+    {% if i!= 1 %}
+      {% assign page_url =  site.paginate_path | replace: ":num", i  %}
+    {% else %}
+      {% assign page_url =  "/"  %}
+    {% endif %}
+    {% if paginator.page == i %}
+    <a class="page current">
+      {{i}}
+    </a>
+    {% else %}
+    <a href="{{page_url}}" class="page">
+      {{i}}
+    </a>
+    {% endif%}
+  {% endfor %}
+  {% endif %}
+
+  {% if paginator.page == paginator.total_pages %}
+  <a class="page current">
+    {{paginator.total_pages}}
+  </a>
+  {% else %}
+  {% assign page_url =  site.paginate_path | replace: ":num", paginator.total_pages  %}
+  <a href="{{page_url}}" class="page">
+    {{paginator.total_pages}}
+  </a>
+  {% endif%}
+  
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next page"><i class="fas fa-arrow-right"></i></a>
+  {% else %}
+    <span class="next page disabled"><i class="fas fa-arrow-right"></i></span>
+  {% endif %}
+</div>
+{% endif %}
