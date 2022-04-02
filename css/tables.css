@@ -1,0 +1,18 @@
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table th {
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+}
+
+table td {
+    padding: 0.3rem
+}
+
+table tr:nth-child(even) {
+    background-color: rgb(238, 238, 238);
+}

@@ -19,6 +19,7 @@ max_pages: 5
 # Build settings
 plugins:
   - jekyll-feed
+  - jekyll-katex
 sass:
   style: compressed
   sass_dir: _sass
