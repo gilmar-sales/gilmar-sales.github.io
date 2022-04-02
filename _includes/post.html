@@ -1,10 +1,13 @@
 <div class="post-container">
   <div class="post-header">
     <a class="post-title" href="{{ post.url }}">{{ post.title }}</a>
-    <a class="post-info">{{post.date | date: "%d-%m-%Y"}} - Por: {{ post.author }}</a>
+    <a class="post-info">{{post.date | date: "%d-%m-%Y"}}</a>
   </div>
   <div class="post-content">
     {{post.content}}
+  </div>
+  <div class="post-footer">
+    Por: {{ post.author }}
   </div>
 </div>
 

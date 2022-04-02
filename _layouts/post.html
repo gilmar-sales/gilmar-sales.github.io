@@ -6,10 +6,13 @@ layout: default
   <div class="post-container">
     <div class="post-header">
         <a class="post-title">{{ page.title }}</a>
-        <a class="post-info">{{ page.date | date: "%d-%m-%Y" }} - Por: {{ page.author }}</a>
+        <a class="post-info">{{ page.date | date: "%d-%m-%Y" }} </a>
     </div>
     <div class="post-content">
         {{page.content}}
+    </div>
+    <div class="post-footer">
+      Por: {{ page.author }}
     </div>
   </div>
 </div>
