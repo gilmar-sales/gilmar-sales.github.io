@@ -9,6 +9,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 author:
   name: Gilmar Sales
   email: gilmar_custodio_@hotmail.com
+  description: Estudante de Ciências da Computação no Instituto Federal Goiano.
 social_links:
   twitter: Gilmarxd0
   github: gilmarxd
