@@ -25,24 +25,20 @@ Iterar     |O(n)           |O(n)
 Espaço     |O(n)           |O(n)           
 
 # Sparse Sets
-
-{% katexmm %}
-**Sparse Set** é uma estrutura de dados simples e muito eficiente que garante um conjunto de números únicos, porém não ordenados. Sua implementação é formada por dois arranjos de números, um esparso ($S$) e outro denso ($D$), sendo $|S| + 1$ o valor máximo que pode ser inserido no conjunto, e para que um elemento n exista no conjunto esparso, as seguintes restrições devem ser atendidas:
-{% endkatexmm %}
+**Sparse Set** é uma estrutura de dados simples e muito eficiente que garante um conjunto de números únicos, porém não ordenados. Sua implementação é formada por dois arranjos de números, um esparso ($$S$$) e outro denso ($$D$$), sendo $$|S| + 1$$ o valor máximo que pode ser inserido no conjunto, e para que um elemento n exista no conjunto esparso, as seguintes restrições devem ser atendidas:
 
 ## Restrições
 
 ### Quantidade
-{% katexmm %}
 A quantidade máxima de números que podem ser adicionados é igual ao maior número que será inserido mais 1:
+
 $$0 < S[n] < |S|$$
-{% endkatexmm %}
 
 ### Índice
-{% katexmm %}
-O índice $n$ do conjunto esparso aponta para o índice do número $n$ no conjunto denso:
+O índice $$n$$ do conjunto esparso aponta para o índice do número $$n$$ no conjunto denso:
+
 $$D[S[n]] == n$$
-{% endkatexmm %}
+
 
 Ex: {5, 1, 4}
 

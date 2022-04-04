@@ -1,17 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css">
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css">
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/typography.css">
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/tables.css">
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/highlight-dark.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/typography.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/tables.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/highlight-dark.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scaleable=no">
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scaleable=no"
+    />
     <style>
       body {
         font-family: "KoHo", sans-serif;
@@ -30,9 +43,7 @@
           <a href="/tools/">ferramentas</a>
         </div>
       </div>
-      <section>
-        {{ content }}
-      </section>
+      <section>{{ content }}</section>
     </div>
     {% include footer.html %}
   </body>
