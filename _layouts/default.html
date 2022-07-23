@@ -5,6 +5,7 @@
     <title>{{ page.title }}</title>
     <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/mobile.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/typography.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/tables.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/highlight-dark.css" />
@@ -21,10 +22,7 @@
       async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scaleable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scaleable=no"/>
     <style>
       body {
         font-family: "KoHo", sans-serif;
@@ -36,15 +34,15 @@
   </head>
   <body>
     <div class="container">
-      <div>
-        <div class="nav">
-          <a href="/">início</a>
-          <a href="/projects/">projetos</a>
-          <a href="/tools/">ferramentas</a>
-        </div>
+      <div class="nav">
+        <a href="/">início</a>
+        <a href="/projects/">projetos</a>
+        <a href="/tools/">ferramentas</a>
       </div>
-      <section>{{ content }}</section>
+      <div class="content">
+        <section>{{ content }}</section>
+        {% include footer.html %}
+      </div>
     </div>
-    {% include footer.html %}
   </body>
 </html>

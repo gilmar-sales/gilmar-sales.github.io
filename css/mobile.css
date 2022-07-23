@@ -1,0 +1,31 @@
+ /* landscape mode */ 
+@media screen and (min-aspect-ratio: 13/9) {}
+
+/* portrait mode */ 
+@media screen and (max-aspect-ratio: 10/9) {
+    .container {
+        flex-direction: column-reverse;
+    }
+
+    .nav {
+        justify-content: center;
+        background-color: black;
+        width: 100vw;
+        left: 0;
+    }
+
+    .content {
+        padding: 0 0 4.5rem 0;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .profile {
+        width: 12rem;
+        height: 12rem;
+    }
+}
