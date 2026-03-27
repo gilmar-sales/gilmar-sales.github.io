@@ -1,31 +1,66 @@
- /* landscape mode */ 
+/* landscape mode */
 @media screen and (min-aspect-ratio: 13/9) {}
 
-/* portrait mode */ 
+/* portrait mode */
 @media screen and (max-aspect-ratio: 10/9) {
-    .container {
-        flex-direction: column-reverse;
-    }
+  .container {
+    flex-direction: column-reverse;
+  }
 
-    .nav {
-        justify-content: center;
-        background-color: black;
-        width: 100vw;
-        left: 0;
-    }
+  .nav {
+    justify-content: center;
+    top: auto;
+    bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: none;
+    padding: 0.75rem 1.25rem;
+  }
 
-    .content {
-        padding: 0 0 4.5rem 0;
-    }
+  .nav-brand {
+    display: none;
+  }
 
-    .profile-container {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .profile {
-        width: 12rem;
-        height: 12rem;
-    }
+  .nav-links {
+    justify-content: center;
+    gap: 0.25rem;
+  }
+
+  .content {
+    padding: 1.5rem 0 5rem;
+  }
+
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+    padding: 1.25rem 0 1.75rem;
+  }
+
+  .profile {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .hero-name {
+    font-size: 1.75rem;
+  }
+
+  .main-wrapper {
+    padding: 1rem 1rem;
+  }
+
+  .post-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .post-info {
+    font-size: 0.78rem;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
 }
