@@ -21,7 +21,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 code.highlighter-rouge {
-  color: var(--inline-code-color, #2563eb);
+  color: var(--inline-code-color, #4b9af3);
   background-color: var(--inline-code-bg, #eff6ff);
   padding: 0.2rem 0.4rem;
   border-radius: 0.25rem;
