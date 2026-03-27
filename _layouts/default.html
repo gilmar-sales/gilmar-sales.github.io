@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <title>{{ page.title }}</title>
@@ -26,7 +26,8 @@
     <style>
       body {
         font-family: "KoHo", sans-serif;
-        background: url("{{ site.baseurl }}/images/grid.svg");
+        background-color: #f8faff;
+        background-image: url("{{ site.baseurl }}/images/grid.svg");
         background-size: 1.5rem;
         margin: 0;
       }
@@ -34,14 +35,19 @@
   </head>
   <body>
     <div class="container">
-      <div class="nav">
-        <a href="/">início</a>
-        <a href="/projects/">projetos</a>
-        <a href="/tools/">ferramentas</a>
-      </div>
+      <nav class="nav">
+        <span class="nav-brand">gs</span>
+        <div class="nav-links">
+          <a href="/">início</a>
+          <a href="/projects/">projetos</a>
+          <a href="/tools/">ferramentas</a>
+        </div>
+      </nav>
       <div class="content">
-        <section>{{ content }}</section>
-        {% include footer.html %}
+        <div class="main-wrapper">
+          <section>{{ content }}</section>
+          {% include footer.html %}
+        </div>
       </div>
     </div>
   </body>
