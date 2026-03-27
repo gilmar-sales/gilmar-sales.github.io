@@ -84,7 +84,6 @@ GEM
     tzinfo-data (1.2026.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.6.0)
-    wdm (0.1.1)
     webrick (1.7.0)
 
 PLATFORMS
@@ -97,7 +96,6 @@ DEPENDENCIES
   jekyll-paginate (~> 1.1.0)
   tzinfo (~> 1.2)
   tzinfo-data
-  wdm (~> 0.1.1)
   webrick
 
 BUNDLED WITH
