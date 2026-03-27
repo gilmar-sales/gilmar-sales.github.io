@@ -3,6 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <title>{{ page.title }}</title>
+    <!-- Anti-flash: apply saved theme before any rendering -->
+    <script>
+      (function () {
+        var saved = localStorage.getItem("gs-theme");
+        var sys = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+        document.documentElement.setAttribute("data-theme", saved || sys);
+        document.documentElement.classList.add("no-transition");
+        window.addEventListener("load", function () {
+          document.documentElement.classList.remove("no-transition");
+        });
+      })();
+    </script>
     <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css" />
     <link rel="stylesheet" href="{{ site.baseurl }}/css/mobile.css" />
@@ -23,15 +37,6 @@
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scaleable=no"/>
-    <style>
-      body {
-        font-family: "KoHo", sans-serif;
-        background-color: #f8faff;
-        background-image: url("{{ site.baseurl }}/images/grid.svg");
-        background-size: 1.5rem;
-        margin: 0;
-      }
-    </style>
   </head>
   <body>
     <div class="container">
@@ -42,6 +47,13 @@
           <a href="/projects/">projetos</a>
           <a href="/tools/">ferramentas</a>
         </div>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Alternar tema claro/escuro"
+        >
+          <i id="theme-icon"></i>
+        </button>
       </nav>
       <div class="content">
         <div class="main-wrapper">
@@ -50,5 +62,29 @@
         </div>
       </div>
     </div>
+    <script>
+      (function () {
+        var html = document.documentElement;
+        var btn = document.getElementById("theme-toggle");
+        var icon = document.getElementById("theme-icon");
+
+        function updateIcon() {
+          icon.className =
+            html.getAttribute("data-theme") === "dark"
+              ? "fas fa-sun"
+              : "fas fa-moon";
+        }
+
+        updateIcon();
+
+        btn.addEventListener("click", function () {
+          var next =
+            html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          html.setAttribute("data-theme", next);
+          localStorage.setItem("gs-theme", next);
+          updateIcon();
+        });
+      })();
+    </script>
   </body>
 </html>
