@@ -4,9 +4,7 @@
 /* ===== LIGHT THEME (default) ===== */
 
 :root {
-  --accent:         #87bbfb;
-  --accent-dark:    #4b9af3;
-  --accent-light:   #c3d9fd;
+  --accent:         #4b9af3;
 
   --text-primary:   #0f172a;
   --text-secondary: #475569;
@@ -51,6 +49,8 @@
 /* ===== DARK THEME ===== */
 
 [data-theme="dark"] {
+  --accent:         #87bbfb;
+  
   --text-primary:   #e2e8f0;
   --text-secondary: #94a3b8;
 
