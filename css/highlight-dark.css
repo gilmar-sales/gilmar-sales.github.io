@@ -2,43 +2,37 @@
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  color: #d1d1d1;
-  background: #111111;
+  color: #2b2b2b;
+  background: #f7f7f7;
   font-family: "Cascadia Code";
   margin: 2rem 0 2rem;
 }
-
 .c1,
 .c2,
 .cm {
-  color: #5c6370;
+  color: #8a8a8a;
   font-style: italic;
 }
-
 .k,
 .kt {
-  color: #ca68e7;
+  color: #7c3aed;
 }
-
 .hljs-section,
 .hljs-name,
 .hljs-selector-tag,
 .hljs-deletion,
 .hljs-subst {
-  color: #e04956;
+  color: #b91c1c;
 }
-
 .s,
 .s1,
 .s2 {
-  color: #ce594a;
+  color: #b83028;
 }
-
 .nc,
 .nf {
-  color: #49b6e9;
+  color: #0369a1;
 }
-
 .hljs-attr,
 .hljs-variable,
 .hljs-template-variable,
@@ -47,53 +41,58 @@
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-number {
-  color: #e48023;
+  color: #c2570a;
 }
-
 .si,
 .nl,
 .cp {
-  color: #e04956;
+  color: #b91c1c;
 }
 
 /* ===== DARK THEME ===== */
 
 [data-theme="dark"] {
-  .highlight {
+   .highlight {
     display: block;
     overflow-x: auto;
     padding: 0.5em;
-    color: #2b2b2b;
-    background: #f7f7f7;
+    color: #d1d1d1;
+    background: #111111;
     font-family: "Cascadia Code";
     margin: 2rem 0 2rem;
   }
+  
   .c1,
   .c2,
   .cm {
-    color: #8a8a8a;
+    color: #5c6370;
     font-style: italic;
   }
+  
   .k,
   .kt {
-    color: #7c3aed;
+    color: #ca68e7;
   }
+  
   .hljs-section,
   .hljs-name,
   .hljs-selector-tag,
   .hljs-deletion,
   .hljs-subst {
-    color: #b91c1c;
+    color: #e04956;
   }
+  
   .s,
   .s1,
   .s2 {
-    color: #b83028;
+    color: #ce594a;
   }
+  
   .nc,
   .nf {
-    color: #0369a1;
+    color: #49b6e9;
   }
+  
   .hljs-attr,
   .hljs-variable,
   .hljs-template-variable,
@@ -102,11 +101,12 @@
   .hljs-selector-attr,
   .hljs-selector-pseudo,
   .hljs-number {
-    color: #c2570a;
+    color: #e48023;
   }
+  
   .si,
   .nl,
   .cp {
-    color: #b91c1c;
+    color: #e04956;
   }
 }
