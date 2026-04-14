@@ -155,19 +155,18 @@ body {
   transition: background-color 0.3s ease;
 }
 
-[data-theme="dark"] body {
+/* ===== LAYOUT ===== */
+.grid {
   background-color: #080d1a;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cline x1='0' y1='32' x2='64' y2='32' stroke='rgb(30,50,100)' stroke-width='1'/%3E%3Cline x1='32' y1='0' x2='32' y2='64' stroke='rgb(30,50,100)' stroke-width='1'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) body {
+  html:not([data-theme="light"]) .grid {
     background-color: #080d1a;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cline x1='0' y1='32' x2='64' y2='32' stroke='rgb(30,50,100)' stroke-width='1'/%3E%3Cline x1='32' y1='0' x2='32' y2='64' stroke='rgb(30,50,100)' stroke-width='1'/%3E%3C/svg%3E");
   }
 }
-
-/* ===== LAYOUT ===== */
 
 .container {
   display: flex;
