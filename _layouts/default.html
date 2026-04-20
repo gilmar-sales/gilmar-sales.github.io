@@ -1,90 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <title>{{ page.title }}</title>
     <!-- Anti-flash: apply saved theme before any rendering -->
     <script>
-      (function () {
-        var saved = localStorage.getItem("gs-theme");
-        var sys = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-        document.documentElement.setAttribute("data-theme", saved || sys);
-        document.documentElement.classList.add("no-transition");
-        window.addEventListener("load", function () {
-          document.documentElement.classList.remove("no-transition");
-        });
-      })();
+        (function () {
+            var saved = localStorage.getItem("gs-theme");
+            var sys = window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+            document.documentElement.setAttribute("data-theme", saved || sys);
+            document.documentElement.classList.add("no-transition");
+            window.addEventListener("load", function () {
+                document.documentElement.classList.remove("no-transition");
+            });
+        })();
     </script>
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/mobile.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/typography.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/tables.css" />
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/highlight-dark.css" />
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/mobile.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/typography.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/tables.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/highlight-dark.css"/>
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+            integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
     />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script
-      id="MathJax-script"
-      async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-    ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scaleable=no"/>
-  </head>
-  <body class="grid">
-    <div class="container">
-      <nav class="nav">
+</head>
+<body class="grid">
+<div class="container">
+    <nav class="nav">
         <span class="nav-brand">gs</span>
         <div class="nav-links">
-          <a href="/">início</a>
-          <a href="/projects/">projetos</a>
-          <a href="/tools/">ferramentas</a>
+            <a href="/">início</a>
+            <a href="/projects/">projetos</a>
+            <a href="/tools/">ferramentas</a>
         </div>
-        <button
-          class="theme-toggle"
-          id="theme-toggle"
-          aria-label="Alternar tema claro/escuro"
-        >
-          <i id="theme-icon"></i>
-        </button>
-      </nav>
-      <div class="content">
+        <div class="nav-links">
+            <button
+                    class="search-toggle"
+                    id="search-toggle"
+                    aria-label="Buscar"
+            >
+                <i class="fas fa-search"></i>
+            </button>
+            <button
+                    class="theme-toggle"
+                    id="theme-toggle"
+                    aria-label="Alternar tema claro/escuro"
+            >
+                <i id="theme-icon"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="content">
         <div class="main-wrapper">
-          <section>{{ content }}</section>
-          {% include footer.html %}
+            <section>{{ content }}</section>
+            {% include footer.html %}
         </div>
-      </div>
     </div>
-    <script>
-      (function () {
+</div>
+{% include search.html %}
+<script>
+    (function () {
         var html = document.documentElement;
         var btn = document.getElementById("theme-toggle");
         var icon = document.getElementById("theme-icon");
 
         function updateIcon() {
-          icon.className =
-            html.getAttribute("data-theme") === "dark"
-              ? "fas fa-sun"
-              : "fas fa-moon";
+            icon.className =
+                html.getAttribute("data-theme") === "dark"
+                    ? "fas fa-sun"
+                    : "fas fa-moon";
         }
 
         updateIcon();
 
         btn.addEventListener("click", function () {
-          var next =
-            html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-          html.setAttribute("data-theme", next);
-          localStorage.setItem("gs-theme", next);
-          updateIcon();
+            var next =
+                html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            html.setAttribute("data-theme", next);
+            localStorage.setItem("gs-theme", next);
+            updateIcon();
         });
-      })();
-    </script>
-  </body>
+    })();
+</script>
+</body>
 </html>

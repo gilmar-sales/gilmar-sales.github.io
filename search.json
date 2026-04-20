@@ -1,0 +1,27 @@
+---
+layout: null
+---
+{% assign filtered_pages = site.pages | where_exp: "page", "page.url != '/tools/' and page.url != '/404.html' and page.url != '/feed.xml' and page.url != '/search.json' and page.url != '/sitemap.xml'" | where_exp: "page", "page.url != '/about/' and page.url != '/'" %}
+
+[
+  {% for post in site.posts %}
+    {
+      "title": {{ post.title | jsonify }},
+      "url": {{ post.url | absolute_url | jsonify }},
+      "excerpt": {{ post.excerpt | strip_html | jsonify }},
+      "content": {{ post.content | strip_html | jsonify }},
+      "type": "post",
+      "categories": {{ post.categories | jsonify }},
+      "date": {{ post.date | date: "%Y-%m-%d" | jsonify }}
+    },
+  {% endfor %}
+  {% for page in filtered_pages %}
+    {
+      "title": {{ page.title | default: page.name | jsonify }},
+      "url": {{ page.url | absolute_url | jsonify }},
+      "excerpt": {{ page.content | strip_html | truncatewords: 20 | jsonify }},
+      "content": {{ page.content | strip_html | jsonify }},
+      "type": "page"
+    }{% if forloop.last == false %},{% endif %}
+  {% endfor %}
+]
