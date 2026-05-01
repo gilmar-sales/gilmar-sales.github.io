@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="article">
+<div class="article scroll">
     <!-- TOC Sidebar -->
     <aside class="toc" style="background-color: var(--paper);">
         <div class="label">SUMÁRIO</div>
@@ -13,22 +13,22 @@ layout: default
 
 <ul style="list-style: none; padding-left: 0;">
 {% for chunk in content_array offset:1 %}
-  
+
   {%- comment -%} Get the very first character after '<h' (will be '1', '2', 'e' for header, etc.) {%- endcomment -%}
   {% assign heading_level = chunk | slice: 0, 1 %}
-  
+
   {%- comment -%} Only process if it is an h1 or h2 {%- endcomment -%}
   {% if heading_level == '1' or heading_level == '2' %}
-    
+
     {%- comment -%} Isolate the block up to the closing tag {%- endcomment -%}
     {% assign h_block = chunk | split: '</h' | first %}
-    
+
     {%- comment -%} Isolate attributes and the title {%- endcomment -%}
     {% assign attributes = h_block | split: '>' | first %}
     {% assign section_title = h_block | remove_first: attributes | remove_first: '>' | strip_html | strip %}
 
     {% if section_title != blank %}
-      
+
       {%- comment -%} --- HIERARCHY LOGIC --- {%- endcomment -%}
       {% if heading_level == '1' %}
         {% assign h1_counter = h1_counter | plus: 1 %}
@@ -59,7 +59,7 @@ layout: default
           {{ section_title }}
         </a>
       </li>
-      
+
     {% endif %}
   {% endif %}
 {% endfor %}
@@ -158,25 +158,27 @@ layout: default
     (function () {
         var article = document.querySelector(".article");
         var progressBar = document.getElementById("progress-bar");
-        var topProgressBar = document.getElementById("top-progress-bar");
+        var navProgressBar = document.getElementById("nav-progress-bar");
         var progressText = document.getElementById("reading-progress");
 
-        if (!article || !progressBar) return;
+        if (!article || !progressBar && !navProgressBar) return;
 
         function updateProgress() {
-            var totalHeight =
-                document.documentElement.scrollHeight - window.innerHeight;
-            var scrolled = Math.max(0, window.pageYOffset);
+            var totalHeight = article.scrollHeight - window.innerHeight;
+            var scrolled = Math.max(0, article.scrollTop);
             var progress = Math.min(100, (scrolled / totalHeight) * 100);
 
-            topProgressBar.style.width = progress + "%";
+            if (navProgressBar) {
+                navProgressBar.style.width = progress + "%";
+            }
+
             progressBar.style.width = progress + "%";
             progressText.innerHTML =
                 Math.round(progress) +
                 '<span style="color: var(--ink-4); font-size: 14px;">%</span>';
         }
 
-        window.addEventListener("scroll", updateProgress);
+        article.addEventListener("scroll", updateProgress);
         updateProgress();
         document.addEventListener("DOMContentLoaded", function () {
             // 1. Seleciona o container do conteúdo e onde o sumário será inserido

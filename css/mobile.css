@@ -4,4 +4,39 @@
 
 /* portrait mode */
 @media screen and (max-aspect-ratio: 10/9) {
+    .grid {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .nav-name {
+        display: none;
+    }
+    .nav-progress-bar {
+        top: auto;
+        bottom: 4rem;
+    }
+}
+
+@media screen and (max-aspect-ratio: 9/10) {
+    .home {
+        display: grid;
+        grid-template-columns: 1fr 0 !important;
+    }
+    aside.side {
+        display: none;
+    }
+    .article {
+        display: grid;
+        grid-template-columns: 1fr 0px 0px !important;
+        max-width: 100vw;
+        overflow-x: hidden !important;
+    }
+    .article .main {
+        width: calc(100vw - 7rem) !important;
+        overflow-x: hidden;
+    }
+    .toc {
+        display: none;
+    }
 }

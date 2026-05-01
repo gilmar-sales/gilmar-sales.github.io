@@ -7,31 +7,20 @@ title: gilmar sales
     <div class="main">
         <!-- Hero Section -->
         <section class="hero">
-            <div class="tagline">
+            <!--<div class="tagline">
                 <span class="pulse"></span>
-                <!--<span class="mono-label">escrevendo · status: online</span>-->
-            </div>
+                <span class="mono-label">escrevendo · status: online</span>
+            </div>-->
             <div class="eyebrow">
                 NOTAS · ENG. DE SOFTWARE · ESTRUTURAS DE DADOS
             </div>
 
             <div class="meta-row">
-                <div class="profile">
-                    <img
-                        class="bubble"
-                        src="{{ site.baseurl }}/images/bubble.svg"
-                    />
-                    <img
-                        class="portrait"
-                        src="https://avatars.githubusercontent.com/u/7975964"
-                    />
-                </div>
-                <h1 class="h-display" style="margin-top: auto">Gilmar Sales</h1>
+                <h1 class="h-display" style="margin-top: auto">
+                    {{ site.author.name }}
+                </h1>
             </div>
-            <p class="lead">
-                Engenheiro de sistemas, estudando o que faz o
-                <em>silício</em> cantar. 
-            </p>
+            <p class="lead">{{ site.description }}</p>
             <div class="meta-row">
                 <span><b>{{site.posts | size }}</b> posts</span>
                 <span><b>{{site.categories | size }}</b> categorias</span>
@@ -84,15 +73,31 @@ title: gilmar sales
         <div class="side-card">
             <h3>SOBRE</h3>
             <div class="about-card">
-                <div class="avatar">GS</div>
+                <!--<img
+                    class="avatar"
+                    src="https://avatars.githubusercontent.com/u/7975964"
+                />-->
+
+                <div class="profile" style="margin-right:">
+                    <img
+                        class="bubble"
+                        src="{{ site.baseurl }}/images/bubble.svg"
+                    />
+                    <img
+                        class="portrait"
+                        src="https://avatars.githubusercontent.com/u/7975964"
+                    />
+                </div>
                 <div class="who">
-                    <div class="name">Gilmar Sales</div>
-                    <div class="role">Eng. de Software · Goiás, BR</div>
+                    <div class="name">{{ site.author.name }}</div>
+                    <div class="role">
+                        {{ site.author.profession }} · {{ site.author.city }},
+                        {{ site.author.country }}
+                    </div>
                 </div>
             </div>
             <p class="about-text">
-                Morrinhos, Goiás. 
-                Tese de graduação sobre uma biblioteca ECS. 
+                {{ site.author.city }}, {{ site.author.description }}
             </p>
             {% include social.html %}
         </div>
