@@ -798,6 +798,26 @@
     color: var(--accent);
     font-weight: 500;
 }
+.repo-card .docs {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-4);
+    padding: 2px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.repo-card .view {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-4);
+    padding: 2px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
 .repo-card .vis {
     font-family: var(--font-mono);
     font-size: 10px;
@@ -808,6 +828,7 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
+
 .repo-card .desc {
     font-family: var(--font-serif);
     font-size: 14.5px;
