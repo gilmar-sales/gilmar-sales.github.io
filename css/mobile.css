@@ -1,66 +1,7 @@
 /* landscape mode */
-@media screen and (min-aspect-ratio: 13/9) {}
+@media screen and (min-aspect-ratio: 13/9) {
+}
 
 /* portrait mode */
 @media screen and (max-aspect-ratio: 10/9) {
-  .container {
-    flex-direction: column-reverse;
-  }
-
-  .nav {
-    justify-content: center;
-    top: auto;
-    bottom: 0;
-    border-top: 1px solid var(--nav-border);
-    border-bottom: none;
-    padding: 0.75rem 1.25rem;
-  }
-
-  .nav-brand {
-    display: none;
-  }
-
-  .nav-links {
-    justify-content: center;
-    gap: 0.25rem;
-  }
-
-  .content {
-    padding: 1.5rem 0 5rem;
-  }
-
-  .hero {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1.25rem;
-    padding: 1.25rem 0 1.75rem;
-  }
-
-  .profile {
-    width: 8rem;
-    height: 8rem;
-  }
-
-  .hero-name {
-    font-size: 1.75rem;
-  }
-
-  .main-wrapper {
-    padding: 1rem 1rem;
-  }
-
-  .post-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-  }
-
-  .post-info {
-    font-size: 0.78rem;
-  }
-
-  .social-links {
-    justify-content: center;
-  }
 }

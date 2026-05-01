@@ -2,15 +2,223 @@
 layout: default
 ---
 
-<div class="post-container">
-  <div class="post-header">
-    <a class="post-title">{{ page.title }}</a>
-    <span class="post-info">{{ page.date | date: "%d-%m-%Y" }}</span>
-  </div>
-  <div class="post-content">
-    {{ page.content }}
-  </div>
-  <div class="post-footer">
-    Por: {{ page.author }}
-  </div>
+<div class="article">
+    <!-- TOC Sidebar -->
+    <aside class="toc" style="background-color: var(--paper);">
+        <div class="label">SUMÁRIO</div>
+        <ul>
+{% assign content_array = page.content | split: '<h' %}
+{% assign h1_counter = 0 %}
+{% assign h2_counter = 0 %}
+
+<ul style="list-style: none; padding-left: 0;">
+{% for chunk in content_array offset:1 %}
+  
+  {%- comment -%} Get the very first character after '<h' (will be '1', '2', 'e' for header, etc.) {%- endcomment -%}
+  {% assign heading_level = chunk | slice: 0, 1 %}
+  
+  {%- comment -%} Only process if it is an h1 or h2 {%- endcomment -%}
+  {% if heading_level == '1' or heading_level == '2' %}
+    
+    {%- comment -%} Isolate the block up to the closing tag {%- endcomment -%}
+    {% assign h_block = chunk | split: '</h' | first %}
+    
+    {%- comment -%} Isolate attributes and the title {%- endcomment -%}
+    {% assign attributes = h_block | split: '>' | first %}
+    {% assign section_title = h_block | remove_first: attributes | remove_first: '>' | strip_html | strip %}
+
+    {% if section_title != blank %}
+      
+      {%- comment -%} --- HIERARCHY LOGIC --- {%- endcomment -%}
+      {% if heading_level == '1' %}
+        {% assign h1_counter = h1_counter | plus: 1 %}
+        {% assign h2_counter = 0 %} {%- comment -%} Reset h2 counter {%- endcomment -%}
+        {% assign display_number = h1_counter %}
+        {% assign indent = "0px" %}
+      {% elsif heading_level == '2' %}
+        {% assign h2_counter = h2_counter | plus: 1 %}
+        {%- comment -%} If an h2 appears before any h1, just use 0.X {%- endcomment -%}
+        {% assign display_number = h1_counter | append: "." | append: h2_counter %}
+        {% assign indent = "16px" %} {%- comment -%} Indent sub-items {%- endcomment -%}
+      {% endif %}
+
+      {%- comment -%} --- EXTRACT ID FOR LINK --- {%- endcomment -%}
+      {%- comment -%} Try to find a real ID, fallback to handleized title if none exists {%- endcomment -%}
+      {% if attributes contains 'id="' %}
+        {% assign anchor_id = attributes | split: 'id="' | last | split: '"' | first %}
+      {% else %}
+        {% assign anchor_id = section_title | handleize %}
+      {% endif %}
+
+      {%- comment -%} --- OUTPUT HTML --- {%- endcomment -%}
+      <li style="margin-left: {{ indent }}; margin-bottom: 8px;">
+        <a href="#{{ anchor_id }}" style="text-decoration: none;">
+          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--ink-4); margin-right: 8px;">
+            §{{ display_number }}
+          </span>
+          {{ section_title }}
+        </a>
+      </li>
+      
+    {% endif %}
+  {% endif %}
+{% endfor %}
+</ul>
+        </ul>
+        <div
+            style="
+                margin-top: 28px;
+                border-top: 1px solid var(--rule);
+                padding-top: 14px;
+            "
+        >
+            <div class="label">PROGRESSO</div>
+            <div
+                style="
+                    font-family: var(--font-mono);
+                    font-size: 22px;
+                    color: var(--ink);
+                    font-weight: 400;
+                "
+                id="reading-progress"
+            >
+                0<span style="color: var(--ink-4); font-size: 14px">%</span>
+            </div>
+            <div
+                style="
+                    height: 3px;
+                    background: var(--rule);
+                    border-radius: 2px;
+                    margin-top: 4px;
+                "
+            >
+                <div
+                    style="
+                        height: 100%;
+                        background: var(--accent);
+                        width: 0%;
+                        border-radius: 2px;
+                    "
+                    id="progress-bar"
+                ></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <article class="main prose">
+        <header class="article-head">
+            <div class="cat">{{ page.categories | join: ' · ' | upcase }}</div>
+            <h1>{{ page.title }}</h1>
+            {% if page.subtitle %}
+            <p class="sub">{{ page.subtitle }}</p>
+            {% endif %}
+            <div class="byline">
+                <span>{{ page.author | default: site.author.name }}</span>
+                <span class="dot"></span>
+                <span>{{ page.date | date: "%d de %B, %Y" }}</span>
+                {% if page.readtime %}
+                <span class="dot"></span>
+                <span>{{ page.readtime }} de leitura</span>
+                {% endif %}
+                <span style="margin-left: auto" class="tag blue"
+                    >#{{ page.categories | first | downcase | replace: ' ', '-'
+                    }}</span
+                >
+            </div>
+        </header>
+
+        {{ page.content }}
+
+        <!-- References section if available -->
+        {% if page.references %}
+        <div class="refs">
+            <h3>REFERÊNCIAS</h3>
+            <ol>
+                {% for ref in page.references %}
+                <li>{{ ref }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+    </article>
+
+    <!-- Margins -->
+    <aside class="margins">
+        {% if page.margin_notes %} {% for note in page.margin_notes %}
+        <div class="margin-note">
+            <div class="tag-n">{{ note.tag }}</div>
+            <div>{{ note.content }}</div>
+        </div>
+        {% endfor %} {% endif %}
+    </aside>
 </div>
+
+<script>
+    (function () {
+        var article = document.querySelector(".article");
+        var progressBar = document.getElementById("progress-bar");
+        var topProgressBar = document.getElementById("top-progress-bar");
+        var progressText = document.getElementById("reading-progress");
+
+        if (!article || !progressBar) return;
+
+        function updateProgress() {
+            var totalHeight =
+                document.documentElement.scrollHeight - window.innerHeight;
+            var scrolled = Math.max(0, window.pageYOffset);
+            var progress = Math.min(100, (scrolled / totalHeight) * 100);
+
+            topProgressBar.style.width = progress + "%";
+            progressBar.style.width = progress + "%";
+            progressText.innerHTML =
+                Math.round(progress) +
+                '<span style="color: var(--ink-4); font-size: 14px;">%</span>';
+        }
+
+        window.addEventListener("scroll", updateProgress);
+        updateProgress();
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. Seleciona o container do conteúdo e onde o sumário será inserido
+            const postContent = document.querySelector(".post-content");
+            const tocContainer = document.querySelector("#toc-js");
+
+            if (!postContent || !tocContainer) return;
+
+            // 2. Busca todos os headers (h2 e h3) dentro do post
+            const headings = postContent.querySelectorAll("h2, h3");
+
+            if (headings.length === 0) return;
+
+            const tocList = document.createElement("ul");
+            tocList.classList.add("toc-list");
+
+            headings.forEach((heading) => {
+                // Garante que o header tenha um ID (Jekyll/Kramdown geralmente cria)
+                // Se não tiver, criamos um a partir do texto
+                if (!heading.id) {
+                    heading.id = heading.innerText
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")
+                        .replace(/[^\w-]/g, "");
+                }
+
+                // 3. Cria o item da lista
+                const li = document.createElement("li");
+                li.classList.add(
+                    `toc-item`,
+                    `depth-${heading.tagName.toLowerCase()}`,
+                );
+
+                const link = document.createElement("a");
+                link.setAttribute("href", `#${heading.id}`);
+                link.textContent = heading.innerText;
+
+                li.appendChild(link);
+                tocList.appendChild(li);
+            });
+
+            tocContainer.appendChild(tocList);
+        });
+    })();
+</script>

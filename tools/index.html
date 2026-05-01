@@ -1,0 +1,329 @@
+---
+layout: default
+title: Ferramentas
+---
+
+<div class="screen paper">
+    <div class="scroll">
+        <div class="tool">
+            <!-- Header -->
+            <header class="tool-head">
+                <div class="eyebrow">FERRAMENTA · ESTRUTURAS DE DADOS</div>
+                <h1>Travessia de árvore — playground</h1>
+                <p>Compare in-ordem, pré-ordem, pós-ordem e BFS lado a lado em uma BST balanceada de 13 nós.</p>
+            </header>
+
+            <div class="tool-grid">
+                <div>
+                    <!-- Stage with tree -->
+                    <div class="stage">
+                        <div class="stage-head">
+                            <span>BST · n=13 · h=3</span>
+                            <span class="badge" id="traversal-badge">in-ordem</span>
+                        </div>
+                       <svg viewBox="0 0 640 320" style="width: 100%; height: auto; display: block;" xmlns="http://www.w3.org/2000/svg">
+    <!-- edges -->
+    <line x1="320" y1="60" x2="160" y2="120" stroke="var(--ink-4)" stroke-width="1.2" />
+    <line x1="320" y1="60" x2="480" y2="120" stroke="var(--ink-4)" stroke-width="1.2" />
+    
+    <line x1="160" y1="120" x2="80" y2="180" stroke="var(--ink-4)" stroke-width="1.2" />
+    <line x1="160" y1="120" x2="240" y2="180" stroke="var(--ink-4)" stroke-width="1.2" />
+    
+    <line x1="480" y1="120" x2="400" y2="180" stroke="var(--ink-4)" stroke-width="1.2" />
+    <line x1="480" y1="120" x2="560" y2="180" stroke="var(--ink-4)" stroke-width="1.2" />
+    
+    <line x1="80" y1="180" x2="120" y2="240" stroke="var(--ink-4)" stroke-width="1.2" />
+    <line x1="240" y1="180" x2="200" y2="240" stroke="var(--ink-4)" stroke-width="1.2" />
+    <line x1="240" y1="180" x2="280" y2="240" stroke="var(--ink-4)" stroke-width="1.2" />
+    <line x1="400" y1="180" x2="440" y2="240" stroke="var(--ink-4)" stroke-width="1.2" />
+    <line x1="560" y1="180" x2="520" y2="240" stroke="var(--ink-4)" stroke-width="1.2" />
+    <line x1="560" y1="180" x2="600" y2="240" stroke="var(--ink-4)" stroke-width="1.2" />
+
+    <!-- nodes -->
+    <g class="node" data-value="50">
+        <circle cx="320" cy="60" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="320" y="64" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">50</text>
+    </g>
+    <g class="node" data-value="30">
+        <circle cx="160" cy="120" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="160" y="124" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">30</text>
+    </g>
+    <g class="node" data-value="70">
+        <circle cx="480" cy="120" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="480" y="124" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">70</text>
+    </g>
+    <g class="node" data-value="20">
+        <circle cx="80" cy="180" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="80" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">20</text>
+    </g>
+    <g class="node" data-value="40">
+        <circle cx="240" cy="180" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="240" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">40</text>
+    </g>
+    <g class="node" data-value="60">
+        <circle cx="400" cy="180" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="400" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">60</text>
+    </g>
+    <g class="node" data-value="80">
+        <circle cx="560" cy="180" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="560" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">80</text>
+    </g>
+    <g class="node " data-value="25">
+        <circle cx="120" cy="240" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="120" y="244" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">25</text>
+    </g>
+    <g class="node" data-value="35">
+        <circle cx="200" cy="240" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="200" y="244" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">35</text>
+    </g>
+    <g class="node" data-value="45">
+        <circle cx="280" cy="240" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="280" y="244" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">45</text>
+    </g>
+    <g class="node" data-value="65">
+        <circle cx="440" cy="240" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="440" y="244" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">65</text>
+    </g>
+    <g class="node pulse" data-value="75">
+        <circle cx="520" cy="240" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="520" y="244" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">75</text>
+    </g>
+    <g class="node" data-value="90">
+        <circle cx="600" cy="240" r="18" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5" />
+        <text x="600" y="244" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="var(--ink-2)" font-weight="500">90</text>
+    </g>
+</svg>
+
+
+                        <!-- Sequence ribbon -->
+                        <div class="sequence-ribbon">
+                            <div class="ribbon-label">SEQUÊNCIA</div>
+                            <div class="sequence" id="sequence-ribbon">
+                                <span class="seq-item">20</span>
+                                <span class="seq-item">25</span>
+                                <span class="seq-item">30</span>
+                                <span class="seq-item">35</span>
+                                <span class="seq-item">40</span>
+                                <span class="seq-item">45</span>
+                                <span class="seq-item current">50</span>
+                                <span class="seq-item">60</span>
+                                <span class="seq-item">65</span>
+                                <span class="seq-item">70</span>
+                                <span class="seq-item">75</span>
+                                <span class="seq-item">80</span>
+                                <span class="seq-item">90</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div style="display: flex; gap: 12px; margin-top: 14px; align-items: center; flex-wrap: wrap;">
+                        <div class="btn-group" id="traversal-buttons">
+                            <button class="btn sm on" data-traversal="inorder">in-ordem</button>
+                            <button class="btn sm" data-traversal="preorder">pré-ordem</button>
+                            <button class="btn sm" data-traversal="postorder">pós-ordem</button>
+                            <button class="btn sm" data-traversal="bfs">largura (BFS)</button>
+                        </div>
+                        <div style="flex: 1;"></div>
+                        <button class="btn sm" id="btn-reset">↺ Reiniciar</button>
+                        <button class="btn sm" id="btn-prev">‹ Passo</button>
+                        <button class="btn primary sm" id="btn-play">▶ Reproduzir</button>
+                        <button class="btn sm" id="btn-next">Passo ›</button>
+                    </div>
+                </div>
+
+                <!-- Side panel -->
+                <div class="side-panel">
+                    <div class="panel">
+                        <h4>VELOCIDADE</h4>
+                        <div class="slider">
+                            <div class="head"><span>0.5×</span><span id="speed-value">2.0×</span><span>5×</span></div>
+                            <input type="range" min="0.5" max="5" step="0.5" value="2" id="speed-slider" />
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <h4>ESTADO</h4>
+                        <div class="row"><span class="k">ATUAL</span><span class="v hi" id="current-node">50</span></div>
+                        <div class="row"><span class="k">VISITADOS</span><span class="v" id="visited-count">1 / 13</span></div>
+                        <div class="row"><span class="k">RESTANTES</span><span class="v" id="remaining-count">12</span></div>
+                        <div class="row"><span class="k">depth</span><span class="v">3</span></div>
+                    </div>
+
+                    <div class="panel">
+                        <h4>COMPLEXIDADE</h4>
+                        <div class="row"><span class="k">time</span><span class="v">O(n)</span></div>
+                        <div class="row"><span class="k">space (DFS)</span><span class="v">O(h) = O(log n)</span></div>
+                        <div class="row"><span class="k">space (BFS)</span><span class="v">O(w) = O(n/2)</span></div>
+                        <p style="font-family: var(--font-serif); font-size: 12.5px; line-height: 1.55; color: var(--ink-3); margin: 12px 0 0; border-top: 1px dashed var(--rule); padding-top: 10px;">
+                            Travessia DFS recursiva consome O(h) na pilha de chamadas. BFS consome O(w) onde w é a largura máxima — para árvores balanceadas, w = n/2.
+                        </p>
+                    </div>
+
+                    <div class="panel" style="background: var(--paper-2);">
+                        <h4>INVARIANTE</h4>
+                        <p style="font-family: var(--font-serif); font-style: italic; font-size: 13px; color: var(--ink-2); margin: 0; line-height: 1.55;">
+                            Para cada nó n: chaves em sub-árvore esquerda &lt; n.key &lt; chaves em sub-árvore direita.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var traversals = {
+        inorder: [20, 25, 30, 35, 40, 45, 50, 60, 65, 70, 75, 80, 90],
+        preorder: [50, 30, 20, 25, 40, 35, 45, 70, 60, 65, 80, 75, 90],
+        postorder: [25, 20, 35, 45, 40, 30, 65, 60, 75, 90, 80, 70, 50],
+        bfs: [50, 30, 70, 20, 40, 60, 80, 25, 35, 45, 65, 75, 90]
+    };
+
+    var currentTraversal = 'inorder';
+    var step = 1;
+    var playing = false;
+    var speed = 2;
+    var intervalId = null;
+
+    var traversalLabels = {
+        inorder: 'in-ordem',
+        preorder: 'pré-ordem',
+        postorder: 'pós-ordem',
+        bfs: 'largura (BFS)'
+    };
+
+    var seq = traversals[currentTraversal];
+    var nodes = document.querySelectorAll('.stage .node');
+    var ribbon = document.getElementById('sequence-ribbon');
+    var badge = document.getElementById('traversal-badge');
+    var currentNodeEl = document.getElementById('current-node');
+    var visitedCountEl = document.getElementById('visited-count');
+    var remainingCountEl = document.getElementById('remaining-count');
+
+    function updateNodeStates() {
+        nodes.forEach(function(node) {
+            var value = parseInt(node.getAttribute('data-value'), 10);
+            var idx = seq.indexOf(value);
+            var circle = node.querySelector('circle');
+            var text = node.querySelector('text');
+
+            circle.setAttribute('fill', 'var(--paper)');
+            circle.setAttribute('stroke', 'var(--ink-3)');
+            text.setAttribute('fill', 'var(--ink-2)');
+
+            if (idx < step - 1) {
+                circle.setAttribute('fill', 'var(--accent-soft)');
+                circle.setAttribute('stroke', 'var(--accent)');
+                text.setAttribute('fill', 'var(--accent-2)');
+            } else if (idx === step - 1) {
+                circle.setAttribute('fill', 'var(--accent)');
+                circle.setAttribute('stroke', 'var(--accent)');
+                text.setAttribute('fill', 'white');
+            }
+        });
+
+        var items = ribbon.querySelectorAll('.seq-item');
+        items.forEach(function(item, i) {
+            item.classList.remove('visited', 'current');
+            if (i < step - 1) item.classList.add('visited');
+            if (i === step - 1) item.classList.add('current');
+        });
+
+        var currentVal = step > 0 && step <= seq.length ? seq[step - 1] : '—';
+        currentNodeEl.textContent = currentVal;
+        visitedCountEl.textContent = Math.min(step, seq.length) + ' / ' + seq.length;
+        remainingCountEl.textContent = seq.length - Math.min(step, seq.length);
+    }
+
+    function setTraversal(t) {
+        currentTraversal = t;
+        step = 1;
+        playing = false;
+        clearInterval(intervalId);
+        badge.textContent = traversalLabels[t];
+        seq = traversals[t];
+
+        var items = ribbon.querySelectorAll('.seq-item');
+        items.forEach(function(item, i) {
+            item.textContent = seq[i];
+        });
+
+        document.querySelectorAll('#traversal-buttons .btn').forEach(function(btn) {
+            btn.classList.toggle('on', btn.getAttribute('data-traversal') === t);
+        });
+
+        updateNodeStates();
+        document.getElementById('btn-play').textContent = '▶ Reproduzir';
+    }
+
+    function play() {
+        playing = true;
+        document.getElementById('btn-play').textContent = '❚❚ Pausar';
+
+        intervalId = setInterval(function() {
+            if (step >= seq.length) {
+                playing = false;
+                clearInterval(intervalId);
+                document.getElementById('btn-play').textContent = '▶ Reproduzir';
+                return;
+            }
+            step++;
+            updateNodeStates();
+        }, 1100 / speed);
+    }
+
+    function pause() {
+        playing = false;
+        clearInterval(intervalId);
+        document.getElementById('btn-play').textContent = '▶ Reproduzir';
+    }
+
+    function reset() {
+        pause();
+        step = 1;
+        updateNodeStates();
+    }
+
+    // Event listeners
+    document.querySelectorAll('#traversal-buttons .btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            setTraversal(this.getAttribute('data-traversal'));
+        });
+    });
+
+    document.getElementById('btn-play').addEventListener('click', function() {
+        if (playing) pause();
+        else {
+            if (step >= seq.length) step = 0;
+            play();
+        }
+    });
+
+    document.getElementById('btn-reset').addEventListener('click', reset);
+
+    document.getElementById('btn-prev').addEventListener('click', function() {
+        pause();
+        step = Math.max(0, step - 1);
+        updateNodeStates();
+    });
+
+    document.getElementById('btn-next').addEventListener('click', function() {
+        pause();
+        step = Math.min(seq.length, step + 1);
+        updateNodeStates();
+    });
+
+    document.getElementById('speed-slider').addEventListener('input', function(e) {
+        speed = parseFloat(e.target.value);
+        document.getElementById('speed-value').textContent = speed.toFixed(1) + '×';
+        if (playing) {
+            clearInterval(intervalId);
+            play();
+        }
+    });
+
+    updateNodeStates();
+})();
+</script>

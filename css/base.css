@@ -1,0 +1,95 @@
+:root {
+    /* Typography */
+    --font-serif:
+        "Source Serif 4", "Source Serif Pro", "Iowan Old Style", Georgia, serif;
+    --font-sans:
+        "Inter Tight", "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    --font-mono:
+        "JetBrains Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo,
+        monospace;
+
+    --paper: #fbfcfe;
+    --paper-2: #f8fbff;
+    --ink: #0b1220;
+    --ink-2: #1f2937;
+    --ink-3: #475569;
+    --ink-4: #94a3b8;
+    --rule: #dde5ef;
+    --rule-2: #e8edf4;
+
+    --accent: #0a6cff;
+    --accent-2: #0957cc;
+    --accent-soft: #dbeafe;
+
+    --grid-line: #c9ddf5;
+    --grid-line-2: #e7f0fa;
+    --grid-size: 28px;
+    --grid-alpha: 0.55;
+
+    --marker-yellow: #fef08a;
+    --marker-red: #dc2626;
+    --marker-green: #16a34a;
+
+    /* Code surface */
+    --code-bg: #0b1220;
+    --code-fg: #e2e8f0;
+    --code-dim: #64748b;
+    --code-line: #1e293b;
+
+    --density-pad: 1;
+    --density-lh: 1;
+
+    --shadow-1:
+        0 1px 0 rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-2: 0 4px 20px -8px rgba(15, 23, 42, 0.15);
+
+    --radius: 10px;
+    --radius-sm: 6px;
+
+    color-scheme: light;
+
+    --bubble-filter: drop-shadow(0 4px 14px rgba(135, 187, 251, 0.45));
+}
+
+[data-theme="dark"] {
+    --paper: #0a0f1a;
+    --paper-2: #0f1523;
+    --ink: #e6edf6;
+    --ink-2: #cbd5e1;
+    --ink-3: #94a3b8;
+    --ink-4: #64748b;
+    --rule: #1e293b;
+    --rule-2: #162033;
+
+    --accent: #4c9dff;
+    --accent-2: #7cb6ff;
+    --accent-soft: #13284a;
+
+    --grid-line: #1a2a44;
+    --grid-line-2: #121d32;
+
+    --code-bg: #060a13;
+    --code-fg: #e2e8f0;
+    --code-dim: #475569;
+    --code-line: #141e30;
+
+    color-scheme: dark;
+    --bubble-filter: invert(1) drop-shadow(0 4px 14px rgba(135, 187, 251, 0.3));
+}
+
+/* Base */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--paper);
+    font-feature-settings: "onum", "kern", "liga";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}

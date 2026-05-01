@@ -11,8 +11,7 @@ author:
   email: gilmar_custodio_@hotmail.com
   description: Estudante de Ciências da Computação no Instituto Federal Goiano.
 social_links:
-  twitter: Gilmarxd0
-  github: gilmarxd
+  github: gilmar-sales
 
 paginate: 5
 paginate_path: "/page/:num/"

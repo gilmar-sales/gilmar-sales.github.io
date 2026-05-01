@@ -3,39 +3,230 @@ layout: default
 title: Projetos
 ---
 
-<div class="projects">
-  <h1>Projetos</h1>
-  <div class="project-grid">
-    
-    <div class="project-card">
-      <h2><a href="https://github.com/gilmar-sales/Frigga" target="_blank">Frigga</a></h2>
-      <p>A C++ library to write data-driven and configurable systems</p>
-      <a href="https://github.com/gilmar-sales/Frigga" target="_blank">Ver no GitHub →</a>
+<div class="screen paper">
+    <div class="scroll">
+        <div class="projects">
+            <!-- Header -->
+            <header class="projects-head">
+                <div class="t">
+                    <div class="eyebrow">PROJETOS · CÓDIGO ABERTO</div>
+                    <h1>Onde eu testo as ideias</h1>
+                    <p>Repositórios onde eu implemento o que escrevo. A maioria é educacional; alguns viraram produção. Sincronizado com github.com/gilmar-sales.</p>
+                </div>
+                <div class="stats">
+                    <div><span class="num">8</span><span>repos públicos</span></div>
+                    <div><span class="num">15</span><span>seguidores</span></div>
+                    <div><span class="num">47</span><span>stars · totais</span></div>
+                    <div><span class="num">412</span><span>commits / 12 mo</span></div>
+                </div>
+            </header>
+
+            <!-- Contribution Graph -->
+            <div class="contribution-graph">
+                <div class="header">
+                    <span>ATIVIDADE · ÚLTIMOS 12 MESES</span>
+                    <span>menos
+                        <span class="legend">
+                            <span style="background: var(--rule);"></span>
+                            <span style="background: color-mix(in oklab, var(--accent) 25%, var(--paper));"></span>
+                            <span style="background: color-mix(in oklab, var(--accent) 50%, var(--paper));"></span>
+                            <span style="background: color-mix(in oklab, var(--accent) 75%, var(--paper));"></span>
+                            <span style="background: var(--accent);"></span>
+                        </span>
+                        mais
+                    </span>
+                </div>
+                <div class="graph-grid">
+                    {% for i in (0..363) %}
+                    {% assign level = i | modulo: 5 %}
+                    <span style="background: {% if level == 0 %}var(--rule){% elsif level == 1 %}color-mix(in oklab, var(--accent) 25%, var(--paper)){% elsif level == 2 %}color-mix(in oklab, var(--accent) 50%, var(--paper)){% elsif level == 3 %}color-mix(in oklab, var(--accent) 75%, var(--paper)){% else %}var(--accent){% endif %};"></span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Repo Grid -->
+            <div class="repo-grid">
+                <!-- Featured Card -->
+                <div class="repo-card featured">
+                    <div class="info">
+                        <div class="row-top">
+                            <div>
+                                <span class="tag blue" style="margin-bottom: 8px; display: inline-block;">EM DESTAQUE</span>
+                                <div class="name" style="font-size: 18px; margin-top: 4px;">phantom</div>
+                            </div>
+                            <div class="star">★ 12</div>
+                        </div>
+                        <p class="desc">Engine de renderização e ECS em C++20 sobre Vulkan/OpenGL. Tese de graduação.</p>
+                        <p class="desc" style="font-size: 13px; color: var(--ink-3); font-style: italic;">Engine modular para experimentar técnicas modernas: ECS de archetypes, render graph, frustum culling SIMD, sistema de jobs work-stealing.</p>
+                        <div class="tag-row">
+                            <span class="tag">vulkan</span>
+                            <span class="tag">opengl</span>
+                            <span class="tag">ecs</span>
+                            <span class="tag">simd</span>
+                            <span class="tag">render-graph</span>
+                        </div>
+                    </div>
+                    <div class="preview">
+                        <!-- Mock render-graph diagram -->
+                        <svg viewBox="0 0 320 240" style="width: 100%; height: 100%; max-height: 220px;">
+                            <defs>
+                                <linearGradient id="rg" x1="0" x2="1">
+                                    <stop offset="0" stop-color="#0a6cff" stop-opacity="0.25"/>
+                                    <stop offset="1" stop-color="#0a6cff" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- nodes -->
+                            <g>
+                                <rect x="30" y="30" width="60" height="28" rx="4" fill="var(--paper)" stroke="var(--accent)" stroke-width="1" />
+                                <text x="60" y="49" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)" text-anchor="middle">depth</text>
+                            </g>
+                            <g>
+                                <rect x="30" y="100" width="60" height="28" rx="4" fill="var(--paper)" stroke="var(--accent)" stroke-width="1" />
+                                <text x="60" y="119" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)" text-anchor="middle">gbuffer</text>
+                            </g>
+                            <g>
+                                <rect x="30" y="170" width="60" height="28" rx="4" fill="var(--paper)" stroke="var(--accent)" stroke-width="1" />
+                                <text x="60" y="189" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)" text-anchor="middle">shadow</text>
+                            </g>
+                            <g>
+                                <rect x="150" y="60" width="60" height="28" rx="4" fill="var(--paper)" stroke="var(--accent)" stroke-width="1" />
+                                <text x="180" y="79" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)" text-anchor="middle">lighting</text>
+                            </g>
+                            <g>
+                                <rect x="150" y="140" width="60" height="28" rx="4" fill="var(--paper)" stroke="var(--accent)" stroke-width="1" />
+                                <text x="180" y="159" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)" text-anchor="middle">ssao</text>
+                            </g>
+                            <g>
+                                <rect x="260" y="100" width="60" height="28" rx="4" fill="var(--paper)" stroke="var(--accent)" stroke-width="1" />
+                                <text x="290" y="119" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)" text-anchor="middle">post</text>
+                            </g>
+                            <!-- edges -->
+                            <path d="M 90 44 C 120 44, 150 74, 150 74" fill="none" stroke="var(--ink-4)" stroke-width="1" />
+                            <path d="M 90 114 C 120 114, 150 74, 150 74" fill="none" stroke="var(--ink-4)" stroke-width="1" />
+                            <path d="M 90 114 C 120 114, 150 154, 150 154" fill="none" stroke="var(--ink-4)" stroke-width="1" />
+                            <path d="M 90 184 C 120 184, 150 154, 150 154" fill="none" stroke="var(--ink-4)" stroke-width="1" />
+                            <path d="M 210 74 C 235 74, 260 114, 260 114" fill="none" stroke="var(--ink-4)" stroke-width="1" />
+                            <path d="M 210 154 C 235 154, 260 114, 260 114" fill="none" stroke="var(--ink-4)" stroke-width="1" />
+                            <text x="160" y="220" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--ink-4)" text-anchor="middle">render-graph DAG</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Filter Row -->
+                <div class="filter-row">
+                    <div class="filters">
+                        <button class="btn sm" style="background: var(--ink); color: var(--paper); border-color: var(--ink);">todos · 8</button>
+                        <button class="btn sm">C++ · 4</button>
+                        <button class="btn sm">Zig · 1</button>
+                        <button class="btn sm">Rust · 1</button>
+                        <button class="btn sm">outros · 2</button>
+                    </div>
+                    <div class="sort">ordenar por: <b>atualizados</b> ↓</div>
+                </div>
+
+                <!-- Regular Repo Cards -->
+                <div class="repo-card">
+                    <div class="row-top">
+                        <div class="name">zigdb</div>
+                        <span class="vis">WIP</span>
+                    </div>
+                    <p class="desc">Banco de dados embutido educacional escrito em Zig. WAL + B-tree + MVCC.</p>
+                    <div class="foot">
+                        <span style="display: inline-flex; align-items: center; gap: 6px;">
+                            <span class="lang-dot" style="background: #ec915c;"></span>
+                            Zig
+                        </span>
+                        <span>★ 21</span>
+                        <span>⑂ 4</span>
+                        <span style="margin-left: auto; color: var(--ink-4);">updated 2d ago</span>
+                    </div>
+                </div>
+
+                <div class="repo-card">
+                    <div class="row-top">
+                        <div class="name">ecs-archetypes</div>
+                        <span class="vis">PUBLIC</span>
+                    </div>
+                    <p class="desc">Implementação de ECS baseado em archetypes, com SoA storage e query system.</p>
+                    <div class="foot">
+                        <span style="display: inline-flex; align-items: center; gap: 6px;">
+                            <span class="lang-dot" style="background: #f34b7d;"></span>
+                            C++
+                        </span>
+                        <span>★ 8</span>
+                        <span>⑂ 0</span>
+                        <span style="margin-left: auto; color: var(--ink-4);">updated 5d ago</span>
+                    </div>
+                </div>
+
+                <div class="repo-card">
+                    <div class="row-top">
+                        <div class="name">gartico</div>
+                        <span class="vis">PUBLIC</span>
+                    </div>
+                    <p class="desc">Jogo multiplayer estilo Gartic em Flask + Socket.IO + JS vanilla.</p>
+                    <div class="foot">
+                        <span style="display: inline-flex; align-items: center; gap: 6px;">
+                            <span class="lang-dot" style="background: #f1e05a;"></span>
+                            JavaScript
+                        </span>
+                        <span>★ 6</span>
+                        <span>⑂ 2</span>
+                        <span style="margin-left: auto; color: var(--ink-4);">updated 7d ago</span>
+                    </div>
+                </div>
+
+                <div class="repo-card">
+                    <div class="row-top">
+                        <div class="name">raft-toy</div>
+                        <span class="vis">PUBLIC</span>
+                    </div>
+                    <p class="desc">Brinquedo Raft em ~600 linhas de Go para acompanhar a leitura do paper.</p>
+                    <div class="foot">
+                        <span style="display: inline-flex; align-items: center; gap: 6px;">
+                            <span class="lang-dot" style="background: #00ADD8;"></span>
+                            Go
+                        </span>
+                        <span>★ 5</span>
+                        <span>⑂ 1</span>
+                        <span style="margin-left: auto; color: var(--ink-4);">updated 12d ago</span>
+                    </div>
+                </div>
+
+                <div class="repo-card">
+                    <div class="row-top">
+                        <div class="name">spatial-data-partitioning</div>
+                        <span class="vis">PUBLIC</span>
+                    </div>
+                    <p class="desc">Estudo comparativo de octree, k-d tree e BVH para colisão em tempo real.</p>
+                    <div class="foot">
+                        <span style="display: inline-flex; align-items: center; gap: 6px;">
+                            <span class="lang-dot" style="background: #f34b7d;"></span>
+                            C++
+                        </span>
+                        <span>★ 4</span>
+                        <span>⑂ 0</span>
+                        <span style="margin-left: auto; color: var(--ink-4);">updated 18d ago</span>
+                    </div>
+                </div>
+
+                <div class="repo-card">
+                    <div class="row-top">
+                        <div class="name">casa-das-flores</div>
+                        <span class="vis">PUBLIC</span>
+                    </div>
+                    <p class="desc">Loja virtual com Next.js + tRPC. Projeto da disciplina de Engenharia de Software.</p>
+                    <div class="foot">
+                        <span style="display: inline-flex; align-items: center; gap: 6px;">
+                            <span class="lang-dot" style="background: #3178c6;"></span>
+                            TypeScript
+                        </span>
+                        <span>★ 3</span>
+                        <span>⑂ 1</span>
+                        <span style="margin-left: auto; color: var(--ink-4);">updated 1mo ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="project-card">
-      <h2><a href="https://github.com/gilmar-sales/Baldr" target="_blank">Baldr</a></h2>
-      <p>A C++ microframework for the web with native support for dependency injection and logging</p>
-      <a href="https://github.com/gilmar-sales/Baldr" target="_blank">Ver no GitHub →</a>
-    </div>
-    
-    <div class="project-card">
-      <h2><a href="https://github.com/gilmar-sales/Freya" target="_blank">Freya</a></h2>
-      <p>Freya is an open-source project, aimed at providing a comprehensive framework for graphics and game development</p>
-      <a href="https://github.com/gilmar-sales/Freya" target="_blank">Ver no GitHub →</a>
-    </div>
-    
-    <div class="project-card">
-      <h2><a href="https://github.com/gilmar-sales/Freyr" target="_blank">Freyr</a></h2>
-      <p>A multithreaded ECS library with focus on parallelism based on task queues by archetype chunks</p>
-      <a href="https://github.com/gilmar-sales/Freyr" target="_blank">Ver no GitHub →</a>
-    </div>
-    
-    <div class="project-card">
-      <h2><a href="https://github.com/gilmar-sales/Skirnir" target="_blank">Skirnir</a></h2>
-      <p>Skirnir provides an IoC Container, it uses the 'C++ Type Loophole' to get the list of constructor parameters and allow register services for dependency injection</p>
-      <a href="https://github.com/gilmar-sales/Skirnir" target="_blank">Ver no GitHub →</a>
-    </div>
-    
-  </div>
 </div>

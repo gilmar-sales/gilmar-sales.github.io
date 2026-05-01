@@ -1,28 +1,164 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: default
 title: gilmar sales
 ---
 
-<div class="hero">
-  <div class="profile">
-    <img class="bubble" src="{{ site.baseurl }}/images/bubble.svg"/>
-    <img class="portrait" src="https://avatars.githubusercontent.com/u/7975964"/>
-  </div>
-  <div class="hero-info">
-    <h1 class="hero-name">{{ site.author.name }}</h1>
-    <p class="hero-description">{{ site.author.description }}</p>
-  </div>
+<div class="home">
+    <div class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="tagline">
+                <span class="pulse"></span>
+                <!--<span class="mono-label">escrevendo · status: online</span>-->
+            </div>
+            <div class="eyebrow">
+                NOTAS · ENG. DE SOFTWARE · ESTRUTURAS DE DADOS
+            </div>
+
+            <div class="meta-row">
+                <div class="profile">
+                    <img
+                        class="bubble"
+                        src="{{ site.baseurl }}/images/bubble.svg"
+                    />
+                    <img
+                        class="portrait"
+                        src="https://avatars.githubusercontent.com/u/7975964"
+                    />
+                </div>
+                <h1 class="h-display" style="margin-top: auto">Gilmar Sales</h1>
+            </div>
+            <p class="lead">
+                Engenheiro de sistemas, estudando o que faz o
+                <em>silício</em> cantar. 
+            </p>
+            <div class="meta-row">
+                <span><b>{{site.posts | size }}</b> posts</span>
+                <span><b>{{site.categories | size }}</b> categorias</span>
+                <span style="margin-left: auto; color: var(--ink-4)">
+                    v4.0 · 2026
+                </span>
+            </div>
+        </section>
+
+        <!-- Post List -->
+        <div class="h-section" style="padding-bottom: 16px">
+            ESCRITOS RECENTES
+        </div>
+        <div class="post-list">
+            {% for post in site.posts limit:5 %}
+            <a href="{{ post.url }}" class="post-item">
+                <div class="date">{{ post.date | date: "%Y.%m.%d" }}</div>
+                <div>
+                    <h3 class="title">{{ post.title }}</h3>
+                    {% if post.excerpt %}
+                    <p class="desc">
+                        {{ post.excerpt | strip_html | truncate: 120 }}
+                    </p>
+                    {% endif %}
+                    <div class="meta">
+                        {% for tag in post.categories limit:3 %}
+                        <span>{{ tag }}</span>
+                        {% if forloop.last == false %}<span class="dot"></span
+                        >{% endif %} {% endfor %}
+                    </div>
+                </div>
+                <div class="reading">
+                    {{ post.readtime | default: '8 min' }}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: 32px">
+            <a href="/archive/" class="btn">
+                Ver arquivo completo
+                <span style="margin-left: 4px">→</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="side">
+        <!-- About Card -->
+        <div class="side-card">
+            <h3>SOBRE</h3>
+            <div class="about-card">
+                <div class="avatar">GS</div>
+                <div class="who">
+                    <div class="name">Gilmar Sales</div>
+                    <div class="role">Eng. de Software · Goiás, BR</div>
+                </div>
+            </div>
+            <p class="about-text">
+                Morrinhos, Goiás. 
+                Tese de graduação sobre uma biblioteca ECS. 
+            </p>
+            {% include social.html %}
+        </div>
+
+        <!-- Now Card -->
+        <div class="side-card">
+            <h3>AGORA</h3>
+            <div class="now-list">
+                <div class="now-item">
+                    <span class="label">LIVRO</span>
+                    <span>Crafting Interpreters — cap. 14</span>
+                </div>
+                <div class="now-item">
+                    <span class="label">CÓDIGO</span>
+                    <span>phantom · ECS archetypes</span>
+                </div>
+                <div class="now-item">
+                    <span class="label">PAPER</span>
+                    <span>"The Log-Structured Merge-Tree" (1996)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Series Card -->
+        <div class="side-card">
+            <h3>SÉRIES</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+                <div class="series-card">
+                    <div class="count">SÉRIE · 6 PARTES</div>
+                    <div class="t">Um banco de dados do zero em Zig</div>
+                    <div class="d">
+                        Página-por-página, de B-tree a WAL a MVCC.
+                    </div>
+                    <div class="bar">
+                        <span class="on"></span>
+                        <span class="on"></span>
+                        <span class="on"></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="series-card">
+                    <div class="count">SÉRIE · 4 PARTES</div>
+                    <div class="t">Padrões de concorrência sem locks</div>
+                    <div class="d">De atomics a hazard pointers.</div>
+                    <div class="bar">
+                        <span class="on"></span>
+                        <span class="on"></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topics Card -->
+        <div class="side-card">
+            <h3>TÓPICOS</h3>
+            <div class="topics">
+                {% for category in site.categories %}
+                <span class="tag">{{ category[0] }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </aside>
 </div>
 
-{% include pagination.html paginator='paginator' %}
-
-<!-- This loops through the paginated posts -->
-{% for post in paginator.posts %}
-  {% include post.html post=post %}
-{% endfor %}
-
-<!-- Pagination links -->
-{% include pagination.html paginator='paginator' %}
+{% include pagination.html %}

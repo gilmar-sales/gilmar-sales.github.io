@@ -17,12 +17,17 @@
             });
         })();
     </script>
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/normalize.css"/>
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/main.css"/>
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/mobile.css"/>
-    <link rel="stylesheet" href="{{ site.baseurl }}/css/typography.css"/>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/base.css"/>
     <link rel="stylesheet" href="{{ site.baseurl }}/css/tables.css"/>
     <link rel="stylesheet" href="{{ site.baseurl }}/css/highlight-dark.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/nova-ui-tokens.css"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/nova-ui-screens.css"/>
+    <!-- Font Awesome -->
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -30,42 +35,53 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
     />
+    <!-- MathJax -->
     <script
             id="MathJax-script"
             async
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scaleable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scaleable=no">
 </head>
-<body class="grid">
+<body class="grid paper">
 <div class="container">
     <nav class="nav">
-        <span class="nav-brand">gs</span>
-        <div class="nav-links">
-            <a href="/">início</a>
-            <a href="/projects/">projetos</a>
-            <a href="/tools/">ferramentas</a>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <a href="/" class="nav-brand">gs</a>
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); letter-spacing: 0.04em;">gilmar-sales</div>
         </div>
-        <div class="nav-links">
-            <button
-                    class="search-toggle"
-                    id="search-toggle"
-                    aria-label="Buscar"
-            >
+        <nav>
+            <a href="/" {% if page.url == "/" %}class="active"{% endif %}>início</a>
+            <a href="/projects/" {% if page.url contains "/projects" %}class="active"{% endif %}>projetos</a>
+            <a href="/tools/" {% if page.url contains "/tools" %}class="active"{% endif %}>ferramentas</a>
+        </nav>
+        <div class="tools">
+            <button class="lang-pill" id="lang-toggle">
+                <b>PT</b> <span style="opacity: .5">/</span> EN
+            </button>
+            <button class="icon-btn" id="search-toggle" aria-label="Buscar">
                 <i class="fas fa-search"></i>
             </button>
-            <button
-                    class="theme-toggle"
-                    id="theme-toggle"
-                    aria-label="Alternar tema claro/escuro"
-            >
-                <i id="theme-icon"></i>
+            <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema">
+                <i id="theme-icon" class="fas fa-moon"></i>
             </button>
         </div>
+        <div
+            style="
+                position: fixed;
+                background: var(--accent);
+                top: 4rem;
+                left: 0;
+                height: 2px;
+                width: 0%;
+                border-radius: 2px;
+            "
+            id="top-progress-bar"
+        ></div>
     </nav>
     <div class="content">
         <div class="main-wrapper">
-            <section>{{ content }}</section>
+            {{ content }}
             {% include footer.html %}
         </div>
     </div>
@@ -92,6 +108,12 @@
             html.setAttribute("data-theme", next);
             localStorage.setItem("gs-theme", next);
             updateIcon();
+        });
+
+        // Language toggle (placeholder for future i18n)
+        var langBtn = document.getElementById("lang-toggle");
+        langBtn.addEventListener("click", function() {
+            // Future: switch between PT/EN content
         });
     })();
 </script>

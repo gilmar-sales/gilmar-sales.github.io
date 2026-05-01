@@ -1,0 +1,324 @@
+.paper {
+    position: relative;
+    background-color: var(--paper);
+    background-image:
+        linear-gradient(
+            to right,
+            color-mix(
+                    in oklab,
+                    var(--grid-line) calc(var(--grid-alpha) * 100%),
+                    transparent
+                )
+                1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            color-mix(
+                    in oklab,
+                    var(--grid-line) calc(var(--grid-alpha) * 100%),
+                    transparent
+                )
+                1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to right,
+            color-mix(
+                    in oklab,
+                    var(--grid-line-2) calc(var(--grid-alpha) * 100%),
+                    transparent
+                )
+                1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            color-mix(
+                    in oklab,
+                    var(--grid-line-2) calc(var(--grid-alpha) * 100%),
+                    transparent
+                )
+                1px,
+            transparent 1px
+        );
+    background-size:
+        calc(var(--grid-size) * 5) calc(var(--grid-size) * 5),
+        calc(var(--grid-size) * 5) calc(var(--grid-size) * 5),
+        var(--grid-size) var(--grid-size),
+        var(--grid-size) var(--grid-size);
+    background-position: -1px -1px;
+}
+
+.paper-fade::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 80% 60% at 50% 0%,
+        transparent 40%,
+        var(--paper) 100%
+    );
+    pointer-events: none;
+}
+
+/* =========================================================
+   Nav
+   ========================================================= */
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: color-mix(in oklab, var(--paper) 85%, transparent);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--rule);
+}
+
+.nav .logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 34px;
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    background: var(--paper);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+}
+
+.nav-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 34px;
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    background: var(--paper);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+}
+
+.nav nav {
+    display: flex;
+    gap: 28px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+}
+
+.nav nav a {
+    color: var(--ink-2);
+    text-decoration: none;
+    padding: 6px 4px;
+    position: relative;
+    transition: color 0.15s;
+}
+
+.nav nav a:hover {
+    color: var(--ink);
+}
+
+.nav nav a.active {
+    color: var(--accent);
+}
+
+.nav nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -15px;
+    height: 2px;
+    background: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.nav .tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink-2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        color 0.15s,
+        border-color 0.15s;
+}
+
+.icon-btn:hover {
+    background: var(--paper-2);
+    color: var(--ink);
+    border-color: var(--ink-4);
+}
+
+.lang-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 6px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: var(--paper);
+    color: var(--ink-3);
+    cursor: pointer;
+}
+
+.lang-pill b {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+/* =========================================================
+   Type scale — academic
+   ========================================================= */
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+
+.h-display {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(36px, 4.2vw, 58px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+}
+
+.h-display em {
+    font-style: italic;
+    color: var(--accent);
+}
+
+.h-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+.h-section {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+.body {
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.mono-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.02em;
+}
+
+/* link */
+.inline-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+    transition: border-color 0.15s;
+}
+
+.inline-link:hover {
+    border-bottom-color: var(--accent);
+}
+
+/* Tag */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--paper-2);
+    color: var(--ink-3);
+    border: 1px solid var(--rule);
+}
+
+.tag.blue {
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-color: color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
+/* Tiny scroll niceties */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--rule);
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-4);
+}
+
+/* Focus ring */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Container */
+.container {
+    margin: 0 auto;
+}
+
+/* Grid layout */
+.grid {
+    min-height: 100vh;
+}
+
+/* Content area */
+.content {
+    padding: 0;
+}
+
+.main-wrapper {
+    min-height: calc(100vh - 200px);
+}
