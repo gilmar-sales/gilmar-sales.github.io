@@ -23,19 +23,23 @@
         display: grid;
         grid-template-columns: 1fr 0 !important;
     }
+
     aside.side {
         display: none;
     }
+
     .article {
         display: grid;
         grid-template-columns: 1fr 0px 0px !important;
         max-width: 100vw;
         overflow-x: hidden !important;
     }
+
     .article .main {
         width: calc(100vw - 7rem) !important;
         overflow-x: hidden;
     }
+
     .toc {
         display: none;
     }
