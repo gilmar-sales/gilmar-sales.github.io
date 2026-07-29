@@ -1,0 +1,20 @@
+<a href="{{ include.post.url }}" class="post-item">
+    <div class="date">{{ include.post.date | date: "%Y.%m.%d" }}</div>
+    <div>
+        <h3 class="title">{{ include.post.title }}</h3>
+        {% if include.post.excerpt %}
+        <p class="desc">
+            {{ include.post.excerpt | strip_html | truncate: 120 }}
+        </p>
+        {% endif %}
+        <div class="meta">
+            {% for tag in include.post.categories limit:3 %}
+            <span>{{ tag }}</span>
+            {% if forloop.last == false %}<span class="dot"></span>{% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="reading">
+        {{ include.post.readtime | default: '8 min' }}
+    </div>
+</a>

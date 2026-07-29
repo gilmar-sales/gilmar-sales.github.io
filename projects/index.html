@@ -1,7 +1,11 @@
 ---
 layout: default
 title: Projetos
+permalink: /projects/
 ---
+
+{% assign featured = site.projects | where: "featured", true | first %}
+{% assign others = site.projects | where_exp: "p", "p.featured != true" %}
 
 <div class="projects">
     <!-- Header -->
@@ -35,253 +39,6 @@ title: Projetos
 
     <!-- Repo Grid -->
     <div class="repo-grid">
-        <!-- Featured Card -->
-        <div class="repo-card featured">
-            <div class="info">
-                <div class="row-top">
-                    <div>
-                        <span
-                            class="tag blue"
-                            style="margin-bottom: 8px; display: inline-block"
-                            >EM DESTAQUE</span
-                        >
-                        <div
-                            class="name"
-                            style="font-size: 18px; margin-top: 4px"
-                        >
-                            phantom
-                        </div>
-                    </div>
-                    <div class="star">★ 12</div>
-                </div>
-                <p class="desc">
-                    Engine de renderização e ECS em C++20 sobre Vulkan. Tese de
-                    graduação.
-                </p>
-                <p
-                    class="desc"
-                    style="
-                        font-size: 13px;
-                        color: var(--ink-3);
-                        font-style: italic;
-                    "
-                >
-                    Engine modular para experimentar técnicas modernas: ECS de
-                    archetypes, render graph, frustum culling SIMD, sistema de
-                    jobs work-stealing.
-                </p>
-                <div class="tag-row">
-                    <span class="tag">vulkan</span>
-                    <span class="tag">cpp</span>
-                    <span class="tag">ecs</span>
-                    <span class="tag">simd</span>
-                    <span class="tag">render-graph</span>
-                </div>
-            </div>
-            <div class="preview">
-                <!-- Mock render-graph diagram -->
-                <svg
-                    viewBox="0 0 320 240"
-                    style="width: 100%; height: 100%; max-height: 220px"
-                >
-                    <defs>
-                        <linearGradient id="rg" x1="0" x2="1">
-                            <stop
-                                offset="0"
-                                stop-color="#0a6cff"
-                                stop-opacity="0.25"
-                            />
-                            <stop
-                                offset="1"
-                                stop-color="#0a6cff"
-                                stop-opacity="0"
-                            />
-                        </linearGradient>
-                    </defs>
-                    <!-- nodes -->
-                    <g>
-                        <rect
-                            x="30"
-                            y="30"
-                            width="60"
-                            height="28"
-                            rx="4"
-                            fill="var(--paper)"
-                            stroke="var(--accent)"
-                            stroke-width="1"
-                        />
-                        <text
-                            x="60"
-                            y="49"
-                            font-family="JetBrains Mono, monospace"
-                            font-size="10"
-                            fill="var(--accent)"
-                            text-anchor="middle"
-                        >
-                            depth
-                        </text>
-                    </g>
-                    <g>
-                        <rect
-                            x="30"
-                            y="100"
-                            width="60"
-                            height="28"
-                            rx="4"
-                            fill="var(--paper)"
-                            stroke="var(--accent)"
-                            stroke-width="1"
-                        />
-                        <text
-                            x="60"
-                            y="119"
-                            font-family="JetBrains Mono, monospace"
-                            font-size="10"
-                            fill="var(--accent)"
-                            text-anchor="middle"
-                        >
-                            gbuffer
-                        </text>
-                    </g>
-                    <g>
-                        <rect
-                            x="30"
-                            y="170"
-                            width="60"
-                            height="28"
-                            rx="4"
-                            fill="var(--paper)"
-                            stroke="var(--accent)"
-                            stroke-width="1"
-                        />
-                        <text
-                            x="60"
-                            y="189"
-                            font-family="JetBrains Mono, monospace"
-                            font-size="10"
-                            fill="var(--accent)"
-                            text-anchor="middle"
-                        >
-                            shadow
-                        </text>
-                    </g>
-                    <g>
-                        <rect
-                            x="150"
-                            y="60"
-                            width="60"
-                            height="28"
-                            rx="4"
-                            fill="var(--paper)"
-                            stroke="var(--accent)"
-                            stroke-width="1"
-                        />
-                        <text
-                            x="180"
-                            y="79"
-                            font-family="JetBrains Mono, monospace"
-                            font-size="10"
-                            fill="var(--accent)"
-                            text-anchor="middle"
-                        >
-                            lighting
-                        </text>
-                    </g>
-                    <g>
-                        <rect
-                            x="150"
-                            y="140"
-                            width="60"
-                            height="28"
-                            rx="4"
-                            fill="var(--paper)"
-                            stroke="var(--accent)"
-                            stroke-width="1"
-                        />
-                        <text
-                            x="180"
-                            y="159"
-                            font-family="JetBrains Mono, monospace"
-                            font-size="10"
-                            fill="var(--accent)"
-                            text-anchor="middle"
-                        >
-                            ssao
-                        </text>
-                    </g>
-                    <g>
-                        <rect
-                            x="260"
-                            y="100"
-                            width="60"
-                            height="28"
-                            rx="4"
-                            fill="var(--paper)"
-                            stroke="var(--accent)"
-                            stroke-width="1"
-                        />
-                        <text
-                            x="290"
-                            y="119"
-                            font-family="JetBrains Mono, monospace"
-                            font-size="10"
-                            fill="var(--accent)"
-                            text-anchor="middle"
-                        >
-                            post
-                        </text>
-                    </g>
-                    <!-- edges -->
-                    <path
-                        d="M 90 44 C 120 44, 150 74, 150 74"
-                        fill="none"
-                        stroke="var(--ink-4)"
-                        stroke-width="1"
-                    />
-                    <path
-                        d="M 90 114 C 120 114, 150 74, 150 74"
-                        fill="none"
-                        stroke="var(--ink-4)"
-                        stroke-width="1"
-                    />
-                    <path
-                        d="M 90 114 C 120 114, 150 154, 150 154"
-                        fill="none"
-                        stroke="var(--ink-4)"
-                        stroke-width="1"
-                    />
-                    <path
-                        d="M 90 184 C 120 184, 150 154, 150 154"
-                        fill="none"
-                        stroke="var(--ink-4)"
-                        stroke-width="1"
-                    />
-                    <path
-                        d="M 210 74 C 235 74, 260 114, 260 114"
-                        fill="none"
-                        stroke="var(--ink-4)"
-                        stroke-width="1"
-                    />
-                    <path
-                        d="M 210 154 C 235 154, 260 114, 260 114"
-                        fill="none"
-                        stroke="var(--ink-4)"
-                        stroke-width="1"
-                    />
-                    <text
-                        x="160"
-                        y="220"
-                        font-family="JetBrains Mono, monospace"
-                        font-size="9"
-                        fill="var(--ink-4)"
-                        text-anchor="middle"
-                    >
-                        render-graph DAG
-                    </text>
-                </svg>
-            </div>
-        </div>
-
         <!-- Filter Row -->
         <div class="filter-row">
             <div id="filters" class="filters">
@@ -300,53 +57,25 @@ title: Projetos
             <div class="sort">ordenar por: <b>atualizados</b> ↓</div>
         </div>
 
+        {% if featured %}
+            {% include project-card-featured.html project=featured %}
+        {% endif %}
+
+        <div id="static-repos">
+            {% for p in others %}
+                {% include project-card.html project=p %}
+            {% endfor %}
+        </div>
         <div id="dynamic-repos" style="display: contents">
-            <!-- The JS will inject the regular repo cards here -->
+            <!-- JS injects live repo cards here (skips any name already shown statically) -->
         </div>
     </div>
 </div>
+
 <script>
-    async function syncGitHubStats() {
+    (function () {
         const username = "gilmar-sales";
 
-        try {
-            // 1. Fetch Basic Profile Stats (Followers & Public Repos)
-            const profileRes = await fetch(
-                `https://api.github.com/users/${username}`,
-            );
-            if (profileRes.ok) {
-                const profileData = await profileRes.json();
-                document.getElementById("gh-repos").textContent =
-                    profileData.public_repos;
-                document.getElementById("gh-followers").textContent =
-                    profileData.followers;
-            }
-
-            // 2. Fetch Repositories to calculate Total Stars
-            // ?per_page=100 ensures we get up to 100 repos in one request
-            const reposRes = await fetch(
-                `https://api.github.com/users/${username}/repos?per_page=100`,
-            );
-            if (reposRes.ok) {
-                const reposData = await reposRes.json();
-                // Reduce loops through all repos and adds up the stargazers_count
-                const totalStars = reposData.reduce(
-                    (acc, repo) => acc + repo.stargazers_count,
-                    0,
-                );
-                document.getElementById("gh-stars").textContent = totalStars;
-            }
-        } catch (error) {
-            console.error("Failed to sync GitHub stats:", error);
-            // We don't need to do anything here because the hardcoded
-            // HTML numbers act as a perfect fallback!
-        }
-    }
-    async function syncRepos() {
-        const username = "gilmar-sales";
-        const container = document.getElementById("dynamic-repos");
-
-        // GitHub language colors map
         const langColors = {
             "C++": "#f34b7d",
             Zig: "#ec915c",
@@ -359,76 +88,31 @@ title: Projetos
             CSS: "#563d7c",
         };
 
-        // Helper function to create "2d ago", "1mo ago", etc.
         function timeAgo(dateString) {
             const date = new Date(dateString);
             const now = new Date();
             const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
-
             if (diffDays >= 30) return `${Math.floor(diffDays / 30)}mo ago`;
             if (diffDays > 0) return `${diffDays}d ago`;
             return "today";
         }
 
-        try {
-            // Fetch repos sorted by latest push
-            const response = await fetch(
-                `https://api.github.com/users/${username}/repos?sort=pushed&per_page=10`,
-            );
-            if (!response.ok) throw new Error("Failed to load repos");
-
-            let repos = await response.json();
-
-            // Remove the featured repo so it isn't duplicated, and grab the top 6
-            repos = repos.filter((repo) => repo.name !== "phantom").slice(0, 6);
-
-            const filterAll = document.querySelector("#filter-all");
-            filterAll.textContent = `todos · ${repos.length}`;
-
-            const filters = document.querySelector("#filters");
-            filters.innerHTML = "";
-
-            const langCounts = {};
-            repos.forEach((repo) => {
-                const lang = repo.language || "Text";
-                langCounts[lang] = (langCounts[lang] || 0) + 1;
-            });
-
-            filters.replaceChildren(filterAll);
-            filters.insertAdjacentHTML(
-                "beforeend",
-                Object.entries(langCounts)
-                    .map(([lang, count]) => {
-                        return `<a href="#" class="filter" data-lang="${lang}">${lang} · ${count}</a>`;
-                    })
-                    .join(""),
-            );
-
-            // Generate the HTML for the cards
-            const cardsHTML = repos
-                .map((repo) => {
-                    const langColor = langColors[repo.language] || "#8b949e"; // Default gray
-                    const language = repo.language || "Text";
-                    const desc = repo.description || "Sem descrição.";
-                    const vis = repo.visibility
-                        ? repo.visibility.toUpperCase()
-                        : "PUBLIC";
-
-                    console.log(repo);
-
-                    return `
-                <div class="repo-card" data-language="${language}">
+        function liveCardHTML(repo, langColor) {
+            const language = repo.language || "Text";
+            const desc = repo.description || "Sem descrição.";
+            return `
+                <div class="repo-card" data-repo-name="${repo.name}" data-language="${language}">
                     <div class="row-top">
-                        <a  rel="noopener noreferrer" class="name" style="text-decoration: none; color: inherit;">
-                              ${repo.name}
+                        <a class="name" href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                            ${repo.name}
                         </a>
                         <div>
                             <span class="view">
-                                <a href="${repo.html_url}" target="_blank" style="text-decoration: none;">
+                                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
                                     ★ ${repo.stargazers_count} · Ver
                                 </a>
                             </span>
-                            <span class="vis">${vis}</span>
+                            <span class="vis">PUBLIC</span>
                         </div>
                     </div>
                     <p class="desc">${desc}</p>
@@ -437,49 +121,113 @@ title: Projetos
                             <span class="lang-dot" style="background: ${langColor}"></span>
                             ${language}
                         </span>
-                        <span>★ ${repo.stargazers_count}</span>
-                        <span>⑂ ${repo.forks_count}</span>
-                        <span style="margin-left: auto; color: var(--ink-4)">
+                        <span class="js-stars">★ ${repo.stargazers_count}</span>
+                        <span class="js-forks">⑂ ${repo.forks_count}</span>
+                        <span style="margin-left: auto; color: var(--ink-4)" class="js-pushed">
                             updated ${timeAgo(repo.pushed_at)}
                         </span>
                     </div>
-                </div>
-                `;
-                })
-                .join("");
-
-            // Inject into the grid
-            container.innerHTML = cardsHTML;
-
-            bindFilterHandlers(container);
-        } catch (error) {
-            console.error(error);
-            container.innerHTML = `<p style="grid-column: 1/-1; color: var(--ink-4);">Erro ao carregar repositórios do GitHub.</p>`;
+                </div>`;
         }
-    }
 
-    function bindFilterHandlers(container) {
-        const filters = document.querySelector("#filters");
-        filters.addEventListener("click", (e) => {
-            const target = e.target.closest("a.filter, #filter-all");
-            if (!target) return;
-            e.preventDefault();
-
-            const lang = target.dataset.lang || null;
-            const isAll = target.id === "filter-all";
-
-            filters.querySelectorAll("a.filter, #filter-all").forEach((el) =>
-                el.classList.remove("active"),
-            );
-            target.classList.add("active");
-
-            container.querySelectorAll(".repo-card").forEach((card) => {
-                const matches = isAll || card.dataset.language === lang;
-                card.style.display = matches ? "" : "none";
+        function updateStaticCard(name, repo) {
+            const cards = document.querySelectorAll(`[data-repo-name="${name}"]`);
+            cards.forEach((card) => {
+                const starsEl = card.querySelector(".js-stars");
+                const forksEl = card.querySelector(".js-forks");
+                const pushedEl = card.querySelector(".js-pushed");
+                if (starsEl) starsEl.textContent = `★ ${repo.stargazers_count}`;
+                if (forksEl) forksEl.textContent = `⑂ ${repo.forks_count}`;
+                if (pushedEl) pushedEl.textContent = `updated ${timeAgo(repo.pushed_at)}`;
             });
-        });
-    }
+        }
 
-    syncRepos();
-    syncGitHubStats();
+        async function syncGitHubStats() {
+            try {
+                const profileRes = await fetch(`https://api.github.com/users/${username}`);
+                if (profileRes.ok) {
+                    const profileData = await profileRes.json();
+                    document.getElementById("gh-repos").textContent = profileData.public_repos;
+                    document.getElementById("gh-followers").textContent = profileData.followers;
+                }
+                const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+                if (reposRes.ok) {
+                    const reposData = await reposRes.json();
+                    const totalStars = reposData.reduce((acc, r) => acc + r.stargazers_count, 0);
+                    document.getElementById("gh-stars").textContent = totalStars;
+                }
+            } catch (e) {
+                console.error("Failed to sync GitHub stats:", e);
+            }
+        }
+
+        async function syncRepos() {
+            const container = document.getElementById("dynamic-repos");
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=12`);
+                if (!response.ok) throw new Error("Failed to load repos");
+                const repos = await response.json();
+
+                const existingNames = new Set(
+                    Array.from(document.querySelectorAll("[data-repo-name]")).map(el => el.dataset.repoName)
+                );
+
+                const newRepos = repos.filter(r => !existingNames.has(r.name)).slice(0, 6);
+
+                newRepos.forEach((repo) => {
+                    const langColor = langColors[repo.language] || "#8b949e";
+                    container.insertAdjacentHTML("beforeend", liveCardHTML(repo, langColor));
+                });
+
+                repos.forEach((repo) => {
+                    if (existingNames.has(repo.name)) updateStaticCard(repo.name, repo);
+                });
+
+                const allCards = document.querySelectorAll("#dynamic-repos .repo-card, #static-repos .repo-card, .repo-card.featured");
+                const langCounts = {};
+                allCards.forEach(card => {
+                    const lang = card.dataset.language || "Text";
+                    langCounts[lang] = (langCounts[lang] || 0) + 1;
+                });
+                document.getElementById("filter-all").textContent = `todos · ${allCards.length}`;
+
+                const filters = document.getElementById("filters");
+                filters.innerHTML = "";
+                const allBtn = document.getElementById("filter-all");
+                filters.appendChild(allBtn);
+                Object.entries(langCounts).forEach(([lang, count]) => {
+                    filters.insertAdjacentHTML(
+                        "beforeend",
+                        `<a href="#" class="filter" data-lang="${lang}">${lang} · ${count}</a>`
+                    );
+                });
+
+                bindFilterHandlers();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function bindFilterHandlers() {
+            const filters = document.getElementById("filters");
+            const container = document.querySelector(".repo-grid");
+            filters.addEventListener("click", (e) => {
+                const target = e.target.closest("a.filter, #filter-all");
+                if (!target) return;
+                e.preventDefault();
+                const lang = target.dataset.lang || null;
+                const isAll = target.id === "filter-all";
+                filters.querySelectorAll("a.filter, #filter-all").forEach(el => el.classList.remove("active"));
+                target.classList.add("active");
+                container.querySelectorAll(".repo-card").forEach(card => {
+                    const matches = isAll || card.dataset.language === lang;
+                    card.style.display = matches ? "" : "none";
+                });
+            });
+        }
+
+        bindFilterHandlers();
+        syncRepos();
+        syncGitHubStats();
+    })();
 </script>

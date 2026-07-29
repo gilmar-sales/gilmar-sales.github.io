@@ -1,0 +1,27 @@
+{% assign p = include.project %}
+
+<div class="repo-card" data-repo-name="{{ p.name }}" data-language="{{ p.language }}">
+    <div class="row-top">
+        <a class="name" href="{{ p.url }}" style="text-decoration: none; color: inherit;">
+            {{ p.name }}
+        </a>
+        <div>
+            <span class="view">
+                <a href="{{ p.repo_url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    ★ {{ p.stars | default: 0 }} · Ver
+                </a>
+            </span>
+            <span class="vis">PUBLIC</span>
+        </div>
+    </div>
+    <p class="desc">{{ p.description | strip_html | truncate: 140 }}</p>
+    <div class="foot">
+        <span style="display: inline-flex; align-items: center; gap: 6px">
+            <span class="lang-dot" style="background: #8b949e"></span>
+            {{ p.language | default: 'Text' }}
+        </span>
+        <span class="js-stars">★ {{ p.stars | default: 0 }}</span>
+        <span class="js-forks">⑂ 0</span>
+        <span style="margin-left: auto; color: var(--ink-4)" class="js-pushed">—</span>
+    </div>
+</div>

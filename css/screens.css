@@ -853,22 +853,25 @@
 
 /* Featured project card */
 .featured {
-    grid-column: span 2;
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: 1fr;
     gap: 0;
     padding: 0;
     overflow: hidden;
-    min-height: 260px;
+    min-height: 170px;
 }
 .featured .info {
     padding: 28px 28px 24px;
     display: flex;
     flex-direction: column;
 }
+#static-repos {
+    display: contents;
+}
+
 .featured .preview {
     background: var(--paper-2);
-    border-left: 1px solid var(--rule);
+    border-top: 1px solid var(--rule);
     padding: 24px;
     position: relative;
     display: flex;

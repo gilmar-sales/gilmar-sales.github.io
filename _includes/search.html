@@ -64,7 +64,10 @@
                 var categoryMatch = item.categories && item.categories.some(function (cat) {
                     return normalizeText(cat).includes(normalizedQuery);
                 });
-                return titleMatch || contentMatch || categoryMatch;
+                var tagMatch = item.tags && item.tags.some(function (t) {
+                    return normalizeText(t).includes(normalizedQuery);
+                });
+                return titleMatch || contentMatch || categoryMatch || tagMatch;
             });
 
             displayResults(results);

@@ -36,26 +36,7 @@ title: gilmar sales
         </div>
         <div class="post-list">
             {% for post in site.posts limit:5 %}
-            <a href="{{ post.url }}" class="post-item">
-                <div class="date">{{ post.date | date: "%Y.%m.%d" }}</div>
-                <div>
-                    <h3 class="title">{{ post.title }}</h3>
-                    {% if post.excerpt %}
-                    <p class="desc">
-                        {{ post.excerpt | strip_html | truncate: 120 }}
-                    </p>
-                    {% endif %}
-                    <div class="meta">
-                        {% for tag in post.categories limit:3 %}
-                        <span>{{ tag }}</span>
-                        {% if forloop.last == false %}<span class="dot"></span
-                        >{% endif %} {% endfor %}
-                    </div>
-                </div>
-                <div class="reading">
-                    {{ post.readtime | default: '8 min' }}
-                </div>
-            </a>
+                {% include post-card.html post=post %}
             {% endfor %}
         </div>
 
@@ -106,18 +87,12 @@ title: gilmar sales
         <div class="side-card">
             <h3>AGORA</h3>
             <div class="now-list">
+                {% for item in site.data.now %}
                 <div class="now-item">
-                    <span class="label">LIVRO</span>
-                    <span>Crafting Interpreters — cap. 14</span>
+                    <span class="label">{{ item.label }}</span>
+                    <span>{{ item.value }}</span>
                 </div>
-                <div class="now-item">
-                    <span class="label">CÓDIGO</span>
-                    <span>phantom · ECS archetypes</span>
-                </div>
-                <div class="now-item">
-                    <span class="label">PAPER</span>
-                    <span>"The Log-Structured Merge-Tree" (1996)</span>
-                </div>
+                {% endfor %}
             </div>
         </div>
 
@@ -125,32 +100,18 @@ title: gilmar sales
         <div class="side-card">
             <h3>SÉRIES</h3>
             <div style="display: flex; flex-direction: column; gap: 10px">
+                {% for s in site.data.series %}
                 <div class="series-card">
-                    <div class="count">SÉRIE · 6 PARTES</div>
-                    <div class="t">Um banco de dados do zero em Zig</div>
-                    <div class="d">
-                        Página-por-página, de B-tree a WAL a MVCC.
-                    </div>
+                    <div class="count">{{ s.count }}</div>
+                    <div class="t">{{ s.title }}</div>
+                    <div class="d">{{ s.desc }}</div>
                     <div class="bar">
-                        <span class="on"></span>
-                        <span class="on"></span>
-                        <span class="on"></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        {% for i in (1..s.completed) %}<span class="on"></span>{% endfor %}
+                        {% assign remaining = s.total | minus: s.completed %}
+                        {% for i in (1..remaining) %}<span></span>{% endfor %}
                     </div>
                 </div>
-                <div class="series-card">
-                    <div class="count">SÉRIE · 4 PARTES</div>
-                    <div class="t">Padrões de concorrência sem locks</div>
-                    <div class="d">De atomics a hazard pointers.</div>
-                    <div class="bar">
-                        <span class="on"></span>
-                        <span class="on"></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
 

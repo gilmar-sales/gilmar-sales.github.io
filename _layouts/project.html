@@ -1,0 +1,27 @@
+---
+layout: default
+---
+
+<article class="project">
+    <header class="project-head">
+        <div class="eyebrow">
+            {% for t in page.tags %}<span class="tag">{{ t }}</span>{% endfor %}
+        </div>
+        <h1>{{ page.name | default: page.title }}</h1>
+        {% if page.description %}
+        <p class="sub">{{ page.description }}</p>
+        {% endif %}
+        <div class="byline">
+            {% if page.language %}<span>{{ page.language }}</span>{% endif %}
+            {% if page.language and page.stars %}<span class="dot"></span>{% endif %}
+            {% if page.stars %}<span>★ {{ page.stars }}</span>{% endif %}
+            {% if page.repo_url %}<span class="dot"></span><a href="{{ page.repo_url }}" target="_blank" rel="noopener noreferrer">repositório →</a>{% endif %}
+        </div>
+    </header>
+
+    {% if page.preview_svg %}
+        {% include project-preview-render-graph.html %}
+    {% endif %}
+
+    {{ content }}
+</article>

@@ -1,0 +1,23 @@
+---
+layout: default
+title: Tags
+permalink: /tags/
+---
+
+<div class="taxonomy-list">
+    <header class="taxonomy-head">
+        <div class="eyebrow">TAGS</div>
+        <h1>{{ site.tags | size }} tags</h1>
+    </header>
+
+    {% for tag in site.tags %}
+    <section class="taxonomy-section">
+        <h2 class="taxonomy-title">#{{ tag[0] }}</h2>
+        <div class="post-list">
+            {% for post in tag[1] %}
+                {% include post-card.html post=post %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+</div>

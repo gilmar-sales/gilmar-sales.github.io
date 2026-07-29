@@ -141,6 +141,17 @@ layout: default
             </ol>
         </div>
         {% endif %}
+
+        {% if site.related_posts and site.related_posts.size > 0 %}
+        <section class="related">
+            <h3>POSTS RELACIONADOS</h3>
+            <div class="post-list">
+                {% for rp in site.related_posts limit:4 %}
+                    {% include post-card.html post=rp %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
     </article>
 
     <!-- Margins -->

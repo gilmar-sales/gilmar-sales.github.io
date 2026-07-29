@@ -1,0 +1,10 @@
+- count: "SÉRIE · 6 PARTES"
+  title: "Um banco de dados do zero em Zig"
+  desc: "Página-por-página, de B-tree a WAL a MVCC."
+  total: 6
+  completed: 3
+- count: "SÉRIE · 4 PARTES"
+  title: "Padrões de concorrência sem locks"
+  desc: "De atomics a hazard pointers."
+  total: 4
+  completed: 2

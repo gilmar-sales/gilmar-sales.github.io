@@ -1,25 +1,19 @@
 ---
 layout: default
-title: gilmar sales
+title: Arquivo
+permalink: /archive/
 ---
 
-<div class="post-list">
-    {% for post in site.posts %}
-    <a href="{{ post.url }}" class="post-item">
-        <div class="date">{{ post.date | date: "%Y.%m.%d" }}</div>
-        <div>
-            <h3 class="title">{{ post.title }}</h3>
-            {% if post.excerpt %}
-            <p class="desc">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-            {% endif %}
-            <div class="meta">
-                {% for tag in post.categories limit:3 %}
-                <span>{{ tag }}</span>
-                {% if forloop.last == false %}<span class="dot"></span>{% endif
-                %} {% endfor %}
-            </div>
+<div class="archive">
+    {% assign grouped = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+    {% for year in grouped %}
+    <section class="archive-year">
+        <h2 class="archive-year-heading">{{ year.name }}</h2>
+        <div class="post-list">
+            {% for post in year.items %}
+                {% include post-card.html post=post %}
+            {% endfor %}
         </div>
-        <div class="reading">{{ post.readtime | default: '8 min' }}</div>
-    </a>
+    </section>
     {% endfor %}
 </div>

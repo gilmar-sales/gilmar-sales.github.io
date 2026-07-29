@@ -24,3 +24,20 @@ plugins:
 sass:
   style: compressed
   sass_dir: _sass
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+defaults:
+  - scope: {path: ""}
+    values:
+      layout: default
+      author: Gilmar Sales
+  - scope: {path: _posts}
+    values:
+      layout: post
+  - scope: {path: _projects}
+    values:
+      layout: project
