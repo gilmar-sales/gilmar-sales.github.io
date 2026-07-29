@@ -1290,6 +1290,30 @@
 .filter-row .filters {
     display: flex;
     gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.filter-row .filters a.filter {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+    text-decoration: none;
+    transition: all 0.15s;
+    cursor: pointer;
+}
+.filter-row .filters a.filter:hover {
+    border-color: var(--ink-4);
+    background: var(--paper-2);
+}
+.filter-row .filters a.filter.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
 }
 .filter-row .sort {
     font-family: var(--font-mono);

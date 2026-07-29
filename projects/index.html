@@ -29,66 +29,8 @@ title: Projetos
                     <span class="num" id="gh-stars"></span
                     ><span>stars · totais</span>
                 </div>
-                <div>
-                    <span class="num" id="gh-commits"></span
-                    ><span>commits / 12 meses</span>
-                </div>
             </div>
         </header>
-
-        <!-- Contribution Graph -->
-        <div
-            style="
-                flex-grow: 1;
-                margin-left: 2rem;
-                background-color: var(--paper);
-            "
-            class="contribution-graph"
-        >
-            <div class="header">
-                <span>ATIVIDADE · ÚLTIMOS 12 MESES</span>
-                <span
-                    >menos
-                    <span class="legend">
-                        <span style="background: var(--rule)"></span>
-                        <span
-                            style="
-                                background: color-mix(
-                                    in oklab,
-                                    var(--accent) 25%,
-                                    var(--paper)
-                                );
-                            "
-                        ></span>
-                        <span
-                            style="
-                                background: color-mix(
-                                    in oklab,
-                                    var(--accent) 50%,
-                                    var(--paper)
-                                );
-                            "
-                        ></span>
-                        <span
-                            style="
-                                background: color-mix(
-                                    in oklab,
-                                    var(--accent) 75%,
-                                    var(--paper)
-                                );
-                            "
-                        ></span>
-                        <span style="background: var(--accent)"></span>
-                    </span>
-                    mais
-                </span>
-            </div>
-            <div id="github-graph-grid" class="graph-grid">
-                {% for i in (0..363) %} {% assign level = i | modulo: 5 %}
-                <span style="background: var(--rule)"></span>
-                {% endfor %}
-            </div>
-        </div>
     </div>
 
     <!-- Repo Grid -->
@@ -364,65 +306,6 @@ title: Projetos
     </div>
 </div>
 <script>
-    async function loadGitHubActivity() {
-        const username = "gilmar-sales"; // <-- Put your username here
-        const grid = document.getElementById("github-graph-grid");
-
-        try {
-            const response = await fetch(
-                `https://github-contributions-api.deno.dev/${username}.json`,
-            );
-            const data = await response.json();
-
-            const days = data.contributions.flat();
-
-            const lastYearDays = days.slice(-365);
-
-            grid.children = [];
-            grid.replaceChildren(
-                ...lastYearDays.map((day) => {
-                    const span = document.createElement("span");
-                    const count = day.contributionCount;
-
-                    let level = 0;
-                    if (count > 0) level = 1;
-                    if (count > 4) level = 2;
-                    if (count > 8) level = 3;
-                    if (count > 12) level = 4;
-
-                    if (level === 0) {
-                        span.style.background = "var(--rule)";
-                    } else if (level === 1) {
-                        span.style.background =
-                            "color-mix(in oklab, var(--accent) 25%, var(--paper))";
-                    } else if (level === 2) {
-                        span.style.background =
-                            "color-mix(in oklab, var(--accent) 50%, var(--paper))";
-                    } else if (level === 3) {
-                        span.style.background =
-                            "color-mix(in oklab, var(--accent) 75%, var(--paper))";
-                    } else {
-                        span.style.background = "var(--accent)";
-                    }
-
-                    span.style.cursor = "pointer";
-                    const dateObj = new Date(day.date + "T00:00:00");
-
-                    const formattedDate = new Intl.DateTimeFormat("pt-BR", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                    }).format(dateObj);
-                    span.title = `${count} contribuições em ${formattedDate}`;
-
-                    return span;
-                }),
-            );
-        } catch (error) {
-            console.error("Error loading GitHub activity:", error);
-            grid.innerHTML = "<span>Failed to load data.</span>";
-        }
-    }
     async function syncGitHubStats() {
         const username = "gilmar-sales";
 
@@ -452,28 +335,6 @@ title: Projetos
                     0,
                 );
                 document.getElementById("gh-stars").textContent = totalStars;
-            }
-
-            // 3. Fetch Contributions for the last 12 months
-            // This reuses the same Deno API from your contribution graph!
-            const contribRes = await fetch(
-                `https://github-contributions-api.deno.dev/${username}.json`,
-            );
-            if (contribRes.ok) {
-                const contribData = await contribRes.json();
-
-                // Flatten the array and slice the last 365 days
-                const lastYearDays = contribData.contributions
-                    .flat()
-                    .slice(-365);
-
-                // Add up all the contributions from those days
-                const totalCommits = lastYearDays.reduce(
-                    (acc, day) => acc + day.contributionCount,
-                    0,
-                );
-                document.getElementById("gh-commits").textContent =
-                    totalCommits;
             }
         } catch (error) {
             console.error("Failed to sync GitHub stats:", error);
@@ -533,12 +394,15 @@ title: Projetos
                 langCounts[lang] = (langCounts[lang] || 0) + 1;
             });
 
-            filters.replaceChildren([
-                filterAll,
-                ...Object.entries(langCounts).map(([lang, count]) => {
-                    return `<a href="#" class="filter" data-lang="${lang}">${lang} · ${count}</a>`;
-                }),
-            ]);
+            filters.replaceChildren(filterAll);
+            filters.insertAdjacentHTML(
+                "beforeend",
+                Object.entries(langCounts)
+                    .map(([lang, count]) => {
+                        return `<a href="#" class="filter" data-lang="${lang}">${lang} · ${count}</a>`;
+                    })
+                    .join(""),
+            );
 
             // Generate the HTML for the cards
             const cardsHTML = repos
@@ -553,7 +417,7 @@ title: Projetos
                     console.log(repo);
 
                     return `
-                <div class="repo-card">
+                <div class="repo-card" data-language="${language}">
                     <div class="row-top">
                         <a  rel="noopener noreferrer" class="name" style="text-decoration: none; color: inherit;">
                               ${repo.name}
@@ -586,13 +450,36 @@ title: Projetos
 
             // Inject into the grid
             container.innerHTML = cardsHTML;
+
+            bindFilterHandlers(container);
         } catch (error) {
             console.error(error);
             container.innerHTML = `<p style="grid-column: 1/-1; color: var(--ink-4);">Erro ao carregar repositórios do GitHub.</p>`;
         }
     }
 
+    function bindFilterHandlers(container) {
+        const filters = document.querySelector("#filters");
+        filters.addEventListener("click", (e) => {
+            const target = e.target.closest("a.filter, #filter-all");
+            if (!target) return;
+            e.preventDefault();
+
+            const lang = target.dataset.lang || null;
+            const isAll = target.id === "filter-all";
+
+            filters.querySelectorAll("a.filter, #filter-all").forEach((el) =>
+                el.classList.remove("active"),
+            );
+            target.classList.add("active");
+
+            container.querySelectorAll(".repo-card").forEach((card) => {
+                const matches = isAll || card.dataset.language === lang;
+                card.style.display = matches ? "" : "none";
+            });
+        });
+    }
+
     syncRepos();
     syncGitHubStats();
-    loadGitHubActivity();
 </script>
