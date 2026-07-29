@@ -42,9 +42,7 @@ $$D[S[n]] == n$$
 
 Ex: {5, 1, 4}
 
-<center>
-<img src="/images/sparse-sets.png" />
-</center>
+<img src="/images/sparse-sets.png" width="500" alt="Sparse Sets" style="display:block; margin:0 auto;" />
 
 ## Vantagens
 
