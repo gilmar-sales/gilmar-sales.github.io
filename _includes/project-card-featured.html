@@ -1,6 +1,6 @@
 {% assign p = include.project %}
 
-<div class="repo-card featured" data-repo-name="{{ p.name }}" data-language="{{ p.language }}">
+<div class="repo-card featured" data-repo-name="{{ p.name }}" data-language="{{ p.language }}" data-stars="{{ p.stars | default: 0 }}" data-forks="0" data-pushed="{{ p.pushed_at | default: '' }}" data-name="{{ p.name | downcase }}">
     <div class="info">
         <div class="row-top">
             <div>

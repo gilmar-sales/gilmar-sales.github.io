@@ -16,7 +16,7 @@ permalink: /projects/
                 <h1>Onde eu testo as ideias</h1>
                 <p>
                     Repositórios onde eu implemento o que escrevo. A maioria é
-                    educacional; alguns viraram produção. Sincronizado com
+                    educacional. Sincronizado com
                     github.com/gilmar-sales.
                 </p>
             </div>
@@ -28,10 +28,6 @@ permalink: /projects/
                 <div>
                     <span class="num" id="gh-followers"></span
                     ><span>seguidores</span>
-                </div>
-                <div>
-                    <span class="num" id="gh-stars"></span
-                    ><span>stars · totais</span>
                 </div>
             </div>
         </header>
@@ -54,7 +50,16 @@ permalink: /projects/
                     todos · 0
                 </button>
             </div>
-            <div class="sort">ordenar por: <b>atualizados</b> ↓</div>
+            <div class="sort">
+                ordenar por:
+                <select id="sort-select" class="sort-select">
+                    <option value="updated" selected>atualizados</option>
+                    <option value="stars">stars</option>
+                    <option value="forks">forks</option>
+                    <option value="name">nome</option>
+                </select>
+                <span id="sort-dir" class="sort-dir" title="Inverter ordem">↓</span>
+            </div>
         </div>
 
         {% if featured %}
@@ -74,7 +79,8 @@ permalink: /projects/
 
 <script>
     (function () {
-        const username = "gilmar-sales";
+                const username = "gilmar-sales";
+                const excludedRepos = new Set(["gilmar-sales.github.io"]);
 
         const langColors = {
             "C++": "#f34b7d",
@@ -101,7 +107,7 @@ permalink: /projects/
             const language = repo.language || "Text";
             const desc = repo.description || "Sem descrição.";
             return `
-                <div class="repo-card" data-repo-name="${repo.name}" data-language="${language}">
+                <div class="repo-card" data-repo-name="${repo.name}" data-language="${language}" data-stars="${repo.stargazers_count}" data-forks="${repo.forks_count}" data-pushed="${repo.pushed_at}" data-name="${repo.name.toLowerCase()}">
                     <div class="row-top">
                         <a class="name" href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
                             ${repo.name}
@@ -139,6 +145,10 @@ permalink: /projects/
                 if (starsEl) starsEl.textContent = `★ ${repo.stargazers_count}`;
                 if (forksEl) forksEl.textContent = `⑂ ${repo.forks_count}`;
                 if (pushedEl) pushedEl.textContent = `updated ${timeAgo(repo.pushed_at)}`;
+                card.dataset.stars = repo.stargazers_count;
+                card.dataset.forks = repo.forks_count;
+                card.dataset.pushed = repo.pushed_at || "";
+                card.dataset.name = (repo.name || "").toLowerCase();
             });
         }
 
@@ -150,12 +160,6 @@ permalink: /projects/
                     document.getElementById("gh-repos").textContent = profileData.public_repos;
                     document.getElementById("gh-followers").textContent = profileData.followers;
                 }
-                const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
-                if (reposRes.ok) {
-                    const reposData = await reposRes.json();
-                    const totalStars = reposData.reduce((acc, r) => acc + r.stargazers_count, 0);
-                    document.getElementById("gh-stars").textContent = totalStars;
-                }
             } catch (e) {
                 console.error("Failed to sync GitHub stats:", e);
             }
@@ -166,7 +170,7 @@ permalink: /projects/
             try {
                 const response = await fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=12`);
                 if (!response.ok) throw new Error("Failed to load repos");
-                const repos = await response.json();
+                const repos = (await response.json()).filter(r => !excludedRepos.has(r.name));
 
                 const existingNames = new Set(
                     Array.from(document.querySelectorAll("[data-repo-name]")).map(el => el.dataset.repoName)
@@ -192,8 +196,8 @@ permalink: /projects/
                 document.getElementById("filter-all").textContent = `todos · ${allCards.length}`;
 
                 const filters = document.getElementById("filters");
+                const allBtn = filters.querySelector("#filter-all");
                 filters.innerHTML = "";
-                const allBtn = document.getElementById("filter-all");
                 filters.appendChild(allBtn);
                 Object.entries(langCounts).forEach(([lang, count]) => {
                     filters.insertAdjacentHTML(
@@ -203,6 +207,7 @@ permalink: /projects/
                 });
 
                 bindFilterHandlers();
+                applySort();
             } catch (e) {
                 console.error(e);
             }
@@ -226,7 +231,58 @@ permalink: /projects/
             });
         }
 
+        function sortValue(card, key) {
+            if (key === "name") return card.dataset.name || "";
+            if (key === "stars") return parseInt(card.dataset.stars || "0", 10) || 0;
+            if (key === "forks") return parseInt(card.dataset.forks || "0", 10) || 0;
+            const pushed = card.dataset.pushed;
+            return pushed ? new Date(pushed).getTime() : 0;
+        }
+
+        function applySort() {
+            const key = document.getElementById("sort-select").value;
+            const dirEl = document.getElementById("sort-dir");
+            const dir = dirEl.dataset.dir === "asc" ? 1 : -1;
+
+            const containers = [
+                document.getElementById("static-repos"),
+                document.getElementById("dynamic-repos"),
+            ];
+
+            const cards = [];
+            containers.forEach(c => {
+                if (!c) return;
+                Array.from(c.querySelectorAll(".repo-card")).forEach(card => {
+                    cards.push(card);
+                });
+            });
+
+            cards.sort((a, b) => {
+                const va = sortValue(a, key);
+                const vb = sortValue(b, key);
+                if (va < vb) return -1 * dir;
+                if (va > vb) return 1 * dir;
+                return 0;
+            });
+
+            const target = document.getElementById("static-repos");
+            cards.forEach(card => target.appendChild(card));
+        }
+
+        function bindSortHandlers() {
+            const select = document.getElementById("sort-select");
+            const dirEl = document.getElementById("sort-dir");
+            select.addEventListener("change", applySort);
+            dirEl.addEventListener("click", () => {
+                dirEl.dataset.dir = dirEl.dataset.dir === "asc" ? "desc" : "asc";
+                dirEl.textContent = dirEl.dataset.dir === "asc" ? "↑" : "↓";
+                applySort();
+            });
+            dirEl.dataset.dir = "desc";
+        }
+
         bindFilterHandlers();
+        bindSortHandlers();
         syncRepos();
         syncGitHubStats();
     })();
