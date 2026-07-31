@@ -1,0 +1,112 @@
+<script>
+    (function () {
+        var COPIED_MS = 1800;
+
+        function codeBlocks() {
+            var blocks = [];
+            document
+                .querySelectorAll(".prose div.highlight")
+                .forEach(function (el) {
+                    blocks.push(el);
+                });
+            document.querySelectorAll(".prose pre").forEach(function (pre) {
+                if (pre.closest(".highlight")) return;
+                if (pre.closest(".codeblock")) return;
+                blocks.push(pre);
+            });
+            return blocks;
+        }
+
+        function getCodeText(block) {
+            var code = block.querySelector("code");
+            var source = code || block.querySelector("pre") || block;
+            return (source.innerText || source.textContent || "").replace(
+                /\n$/,
+                "",
+            );
+        }
+
+        function setCopied(btn, copied) {
+            btn.classList.toggle("is-copied", copied);
+            btn.setAttribute(
+                "aria-label",
+                copied ? "Código copiado" : "Copiar código",
+            );
+            var icon = btn.querySelector("i");
+            if (!icon) return;
+            icon.className = copied ? "fas fa-check" : "fas fa-copy";
+        }
+
+        function copyText(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(text);
+            }
+            return new Promise(function (resolve, reject) {
+                var ta = document.createElement("textarea");
+                ta.value = text;
+                ta.setAttribute("readonly", "");
+                ta.style.position = "fixed";
+                ta.style.top = "-9999px";
+                document.body.appendChild(ta);
+                ta.select();
+                try {
+                    if (!document.execCommand("copy")) {
+                        reject(new Error("copy failed"));
+                    } else {
+                        resolve();
+                    }
+                } catch (err) {
+                    reject(err);
+                } finally {
+                    document.body.removeChild(ta);
+                }
+            });
+        }
+
+        function enhance(block) {
+            if (block.querySelector(":scope > .code-copy")) return;
+
+            if (block.tagName === "PRE") {
+                block.classList.add("code-with-copy");
+            }
+
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "code-copy";
+            btn.setAttribute("aria-label", "Copiar código");
+            btn.innerHTML = '<i class="fas fa-copy" aria-hidden="true"></i>';
+
+            btn.addEventListener("click", function () {
+                var text = getCodeText(block);
+                copyText(text).then(
+                    function () {
+                        setCopied(btn, true);
+                        window.clearTimeout(btn._copyTimer);
+                        btn._copyTimer = window.setTimeout(function () {
+                            setCopied(btn, false);
+                        }, COPIED_MS);
+                    },
+                    function () {
+                        btn.setAttribute("aria-label", "Falha ao copiar");
+                        window.clearTimeout(btn._copyTimer);
+                        btn._copyTimer = window.setTimeout(function () {
+                            setCopied(btn, false);
+                        }, COPIED_MS);
+                    },
+                );
+            });
+
+            block.appendChild(btn);
+        }
+
+        function init() {
+            codeBlocks().forEach(enhance);
+        }
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", init);
+        } else {
+            init();
+        }
+    })();
+</script>
