@@ -1046,6 +1046,13 @@
     align-items: start;
     margin-bottom: 8px;
 }
+.repo-card .title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
+}
 .repo-card .name {
     font-family: var(--font-mono);
     font-size: 14.5px;
@@ -1105,49 +1112,12 @@
     border-radius: 50%;
 }
 
-/* Featured project card */
-.featured {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 0;
-    overflow: hidden;
-    min-height: 170px;
-}
-.featured .info {
-    padding: 28px 28px 24px;
-    display: flex;
-    flex-direction: column;
-}
 #static-repos {
     display: contents;
 }
 
-.featured .preview {
-    background: var(--paper-2);
-    border-top: 1px solid var(--rule);
-    padding: 24px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-.featured .star {
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-.featured .tag-row {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: auto;
-    padding-top: 12px;
+.repo-card.featured {
+    border-color: var(--accent);
 }
 
 /* Contribution graph */

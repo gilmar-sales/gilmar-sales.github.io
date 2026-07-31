@@ -4,7 +4,7 @@ title: Projetos
 permalink: /projects/
 ---
 
-{% assign featured = site.projects | where: "featured", true | first %}
+{% assign featured_order = "Skirnir,Baldr,Freyr,Freya" | split: "," %}
 {% assign others = site.projects | where_exp: "p", "p.featured != true" %}
 
 <div class="projects">
@@ -62,9 +62,14 @@ permalink: /projects/
             </div>
         </div>
 
-        {% if featured %}
-            {% include project-card-featured.html project=featured %}
-        {% endif %}
+        <div id="featured-repos" style="display: contents">
+            {% for name in featured_order %}
+                {% assign p = site.projects | where: "name", name | first %}
+                {% if p %}
+                    {% include project-card.html project=p %}
+                {% endif %}
+            {% endfor %}
+        </div>
 
         <div id="static-repos">
             {% for p in others %}
@@ -106,13 +111,22 @@ permalink: /projects/
         function liveCardHTML(repo, langColor) {
             const language = repo.language || "Text";
             const desc = repo.description || "Sem descrição.";
+            const homepage = (repo.homepage || "").trim();
+            const docsBtn = homepage
+                ? `<span class="docs">
+                        <a href="${homepage}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                            Site
+                        </a>
+                    </span>`
+                : "";
             return `
                 <div class="repo-card" data-repo-name="${repo.name}" data-language="${language}" data-stars="${repo.stargazers_count}" data-forks="${repo.forks_count}" data-pushed="${repo.pushed_at}" data-name="${repo.name.toLowerCase()}">
                     <div class="row-top">
                         <a class="name" href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
                             ${repo.name}
                         </a>
-                        <div>
+                        <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end;">
+                            ${docsBtn}
                             <span class="view">
                                 <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
                                     ★ ${repo.stargazers_count} · Ver
@@ -187,7 +201,7 @@ permalink: /projects/
                     if (existingNames.has(repo.name)) updateStaticCard(repo.name, repo);
                 });
 
-                const allCards = document.querySelectorAll("#dynamic-repos .repo-card, #static-repos .repo-card, .repo-card.featured");
+                const allCards = document.querySelectorAll("#featured-repos .repo-card, #static-repos .repo-card, #dynamic-repos .repo-card");
                 const langCounts = {};
                 allCards.forEach(card => {
                     const lang = card.dataset.language || "Text";

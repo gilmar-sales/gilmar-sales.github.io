@@ -1,11 +1,23 @@
 {% assign p = include.project %}
 
-<div class="repo-card" data-repo-name="{{ p.name }}" data-language="{{ p.language }}" data-stars="{{ p.stars | default: 0 }}" data-forks="0" data-pushed="{{ p.pushed_at | default: '' }}" data-name="{{ p.name | downcase }}">
+<div class="repo-card{% if p.featured %} featured{% endif %}" data-repo-name="{{ p.name }}" data-language="{{ p.language }}" data-stars="{{ p.stars | default: 0 }}" data-forks="0" data-pushed="{{ p.pushed_at | default: '' }}" data-name="{{ p.name | downcase }}">
     <div class="row-top">
-        <a class="name" href="{{ p.url }}" style="text-decoration: none; color: inherit;">
-            {{ p.name }}
-        </a>
-        <div>
+        <div class="title-row">
+            <a class="name" href="{{ p.repo_url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                {{ p.name }}
+            </a>
+            {% if p.featured %}
+            <span class="tag blue">destaque</span>
+            {% endif %}
+        </div>
+        <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end;">
+            {% if p.homepage and p.homepage != "" %}
+            <span class="docs">
+                <a href="{{ p.homepage }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+                    Site
+                </a>
+            </span>
+            {% endif %}
             <span class="view">
                 <a href="{{ p.repo_url }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
                     ★ {{ p.stars | default: 0 }} · Ver
