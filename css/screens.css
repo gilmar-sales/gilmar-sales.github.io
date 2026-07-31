@@ -529,7 +529,7 @@
 .article .main {
     padding: 48px 56px 80px;
     width: 100%;
-    max-width: 46rem;
+    max-width: 50rem;
     margin: 0 auto;
     border: 1px solid var(--rule);
     border-top: 0;
@@ -544,6 +544,25 @@
     color: var(--ink-3);
     line-height: 1.5;
     min-width: 0;
+}
+
+@media (min-width: 1600px) {
+    :root {
+        --prose-measure: 76ch;
+    }
+    .article .main {
+        max-width: 54rem;
+        padding: 52px 64px 88px;
+    }
+}
+
+@media (min-width: 2200px) {
+    :root {
+        --prose-measure: 80ch;
+    }
+    .article .main {
+        max-width: 58rem;
+    }
 }
 
 .article-head {
