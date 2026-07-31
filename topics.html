@@ -4,22 +4,24 @@ title: Tópicos
 permalink: /topics/
 ---
 
-<div class="taxonomy-list">
+<div class="taxonomy-list topics-index">
     <header class="taxonomy-head">
         <div class="eyebrow">TÓPICOS</div>
         <h1>{{ site.categories | size }} tópicos</h1>
     </header>
 
-    {% for category in site.categories %}
-    <section class="taxonomy-section" id="{{ category[0] | slugify }}">
-        <h2 class="taxonomy-title">
-            <a href="/topics/{{ category[0] | slugify }}/">#{{ category[0] }}</a>
-        </h2>
-        <div class="post-list">
-            {% for post in category[1] %}
-                {% include post-card.html post=post %}
-            {% endfor %}
-        </div>
-    </section>
-    {% endfor %}
+    <nav class="topics-index-list" aria-label="Tópicos">
+        {% assign sorted_categories = site.categories | sort %}
+        {% for category in sorted_categories %}
+        {% assign cat_name = category[0] %}
+        {% assign cat_posts = category[1] %}
+        <a class="topics-index-row" href="/topics/{{ cat_name | slugify }}/">
+            <span class="topics-index-name">#{{ cat_name }}</span>
+            <span class="topics-index-count">
+                {{ cat_posts | size }}
+                {% if cat_posts.size == 1 %}post{% else %}posts{% endif %}
+            </span>
+        </a>
+        {% endfor %}
+    </nav>
 </div>

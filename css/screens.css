@@ -1965,6 +1965,41 @@
 .taxonomy-title a:hover {
     color: var(--accent);
 }
+
+/* Topics index — lean directory */
+.topics-index-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+}
+.topics-index-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.15s;
+}
+.topics-index-row:hover .topics-index-name {
+    color: var(--accent);
+}
+.topics-index-name {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+}
+.topics-index-count {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-4);
+}
+
 .archive-year {
     margin-bottom: 48px;
 }
