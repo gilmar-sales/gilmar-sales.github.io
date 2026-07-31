@@ -23,10 +23,10 @@
     --accent-2: #0847ad;
     --accent-soft: #e6effc;
 
-    --grid-line: #c5d4e8;
-    --grid-line-2: #e2eaf4;
+    --grid-line: #a8bcd8;
+    --grid-line-2: #cfdceb;
     --grid-size: 28px;
-    --grid-alpha: 0.32;
+    --grid-alpha: 0.45;
 
     --marker-yellow: #fef08a;
     --marker-red: #dc2626;
@@ -85,9 +85,9 @@
     --accent-2: #8fc0ff;
     --accent-soft: #152a48;
 
-    --grid-line: #1a2a44;
-    --grid-line-2: #141e30;
-    --grid-alpha: 0.28;
+    --grid-line: #2a3f5c;
+    --grid-line-2: #1e2c42;
+    --grid-alpha: 0.4;
 
     --code-bg: #080c14;
     --code-fg: #e2e8f0;
