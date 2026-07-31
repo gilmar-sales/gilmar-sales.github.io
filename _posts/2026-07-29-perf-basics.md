@@ -4,7 +4,6 @@ title:  "Medindo Desempenho com perf: Coleta de Eventos de CPU"
 date:   2026-07-29 20:56:24 -0300
 author: Gilmar Sales
 categories: linux performance profiling
-tags: [linux, perf, profiling, cpu, performance]
 ---
 
 Quando um programa está mais lento do que deveria, medir é o primeiro passo antes de otimizar. No Linux, a ferramenta `perf` é uma das formas mais completas de obter dados de baixo nível sobre o que está acontecendo no processador: tempo de execução, comportamento do cache, e desvios de ramos. Este post apresenta uma introdução prática à coleta desses três tipos de métrica.

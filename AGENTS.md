@@ -32,9 +32,11 @@ layout: post
 title:  "Post Title"
 date:   YYYY-MM-DD HH:MM:SS -0300
 author: Gilmar Sales
-categories: category1 category2
+categories: topic1 topic2
 ---
 ```
+
+Posts use Jekyll `categories` as tópicos (`/topics/`). Do not add a separate `tags` taxonomy for posts.
 
 ## Key Quirks
 

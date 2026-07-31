@@ -4,7 +4,6 @@ title:  "Particionamento Espacial de Dados"
 date:   2021-11-22 09:53:10 -0300
 author: Gilmar Sales
 categories: computer-graphics computer-science
-tags: [quadtree, particionamento, simulação, open-gl, cpp]
 ---
 
 Estruturas de particionamento espacial são técnicas usadas para organizar objetos no espaço 2D (ou 3D), com o objetivo de tornar buscas, renderizações e detecções de colisão muito mais rápidas. Uma das estruturas mais conhecidas para esse fim é a **QuadTree**.

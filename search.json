@@ -10,7 +10,6 @@ layout: null
       "content": {{ post.content | strip_html | jsonify }},
       "type": "post",
       "categories": {{ post.categories | jsonify }},
-      "tags": {{ post.tags | jsonify }},
       "date": {{ post.date | date: "%Y-%m-%d" | jsonify }}
     }{% if forloop.last == false %},{% endif %}
   {% endfor %}

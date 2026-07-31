@@ -88,12 +88,7 @@
                     item.categories.some(function (cat) {
                         return normalizeText(cat).includes(normalizedQuery);
                     });
-                var tagMatch =
-                    item.tags &&
-                    item.tags.some(function (t) {
-                        return normalizeText(t).includes(normalizedQuery);
-                    });
-                return titleMatch || contentMatch || categoryMatch || tagMatch;
+                return titleMatch || contentMatch || categoryMatch;
             });
 
             displayResults(results);

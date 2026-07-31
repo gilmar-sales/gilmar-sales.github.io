@@ -3,8 +3,7 @@ layout: post
 title:  "Sparse Sets - Uma Representação Eficiente de Conjuntos Numéricos"
 date:   2022-04-03 14:00:10 -0300
 author: Gilmar Sales
-categories: estrutura-de-dados 
-tags: [estruturas-de-dados, conjuntos, performance, complexidade]
+categories: estrutura-de-dados
 ---
 
 # Conjuntos
