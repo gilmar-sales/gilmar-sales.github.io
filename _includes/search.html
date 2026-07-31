@@ -1,34 +1,54 @@
-<div class="search-container">
-    <div class="search-wrapper">
-        <input
+<div class="search-container" id="search-container" hidden>
+    <div
+        class="search-backdrop"
+        id="search-backdrop"
+        aria-hidden="true"
+    ></div>
+    <div
+        class="search-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Buscar posts"
+    >
+        <div class="search-bar">
+            <i class="fas fa-search search-bar-icon" aria-hidden="true"></i>
+            <input
                 type="text"
                 id="search-input"
                 class="search-input"
                 placeholder="Buscar posts..."
                 autocomplete="off"
-        />
-        <button id="search-close" class="search-close" aria-label="Fechar busca">
-            <i class="fas fa-times"></i>
-        </button>
+                aria-controls="search-results"
+            />
+            <kbd class="search-kbd">esc</kbd>
+            <button
+                id="search-close"
+                class="search-close"
+                aria-label="Fechar busca"
+                type="button"
+            >
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="search-results" class="search-results" role="listbox"></div>
     </div>
-    <div id="search-results" class="search-results"></div>
 </div>
 
 <script>
     (function () {
-        var searchContainer = document.querySelector('.search-container');
-        var searchInput = document.getElementById('search-input');
-        var searchResults = document.getElementById('search-results');
-        var searchClose = document.getElementById('search-close');
+        var searchContainer = document.getElementById("search-container");
+        var searchInput = document.getElementById("search-input");
+        var searchResults = document.getElementById("search-results");
+        var searchClose = document.getElementById("search-close");
+        var searchBackdrop = document.getElementById("search-backdrop");
         var searchData = null;
         var isOpen = false;
 
-        // Carregar dados de busca
         function loadSearchData() {
             if (searchData) return Promise.resolve(searchData);
-            return fetch('/search.json')
+            return fetch("/search.json")
                 .then(function (response) {
-                    if (!response.ok) throw new Error('Search data not found');
+                    if (!response.ok) throw new Error("Search data not found");
                     return response.json();
                 })
                 .then(function (data) {
@@ -36,118 +56,137 @@
                     return data;
                 })
                 .catch(function (error) {
-                    console.log(error)
+                    console.log(error);
                     searchData = [];
                     return [];
                 });
         }
 
-        // Normalizar texto para busca
         function normalizeText(text) {
-            return text
+            return String(text || "")
                 .toLowerCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '');
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
         }
 
-        // Buscar posts
         function search(query) {
             if (!searchData || !query.trim()) {
-                searchResults.innerHTML = '';
+                searchResults.innerHTML = "";
                 return;
             }
 
             var normalizedQuery = normalizeText(query);
             var results = searchData.filter(function (item) {
-                var titleMatch = normalizeText(item.title).includes(normalizedQuery);
-                var contentMatch = normalizeText(item.content).includes(normalizedQuery);
-                var categoryMatch = item.categories && item.categories.some(function (cat) {
-                    return normalizeText(cat).includes(normalizedQuery);
-                });
-                var tagMatch = item.tags && item.tags.some(function (t) {
-                    return normalizeText(t).includes(normalizedQuery);
-                });
+                var titleMatch = normalizeText(item.title).includes(
+                    normalizedQuery,
+                );
+                var contentMatch = normalizeText(item.content).includes(
+                    normalizedQuery,
+                );
+                var categoryMatch =
+                    item.categories &&
+                    item.categories.some(function (cat) {
+                        return normalizeText(cat).includes(normalizedQuery);
+                    });
+                var tagMatch =
+                    item.tags &&
+                    item.tags.some(function (t) {
+                        return normalizeText(t).includes(normalizedQuery);
+                    });
                 return titleMatch || contentMatch || categoryMatch || tagMatch;
             });
 
             displayResults(results);
         }
 
-        // Exibir resultados
         function displayResults(results) {
             if (results.length === 0) {
-                searchResults.innerHTML = '<div class="search-no-results">Nenhum resultado encontrado</div>';
+                searchResults.innerHTML =
+                    '<div class="search-no-results">Nenhum resultado encontrado</div>';
                 return;
             }
 
             var html = '<ul class="search-results-list">';
             results.forEach(function (item) {
                 html += '<li class="search-result-item">';
-                html += '<a href="' + item.url + '" class="search-result-link">';
-                html += '<span class="search-result-title">' + item.title + '</span>';
+                html +=
+                    '<a href="' +
+                    item.url +
+                    '" class="search-result-link" role="option">';
+                html +=
+                    '<span class="search-result-title">' +
+                    item.title +
+                    "</span>";
                 if (item.excerpt) {
-                    html += '<span class="search-result-excerpt">' + item.excerpt + '</span>';
+                    html +=
+                        '<span class="search-result-excerpt">' +
+                        item.excerpt +
+                        "</span>";
                 }
                 if (item.categories && item.categories.length > 0) {
-                    html += '<span class="search-result-categories">' + item.categories.join(', ') + '</span>';
+                    html +=
+                        '<span class="search-result-categories">' +
+                        item.categories.join(", ") +
+                        "</span>";
                 }
-                html += '</a></li>';
+                html += "</a></li>";
             });
-            html += '</ul>';
+            html += "</ul>";
             searchResults.innerHTML = html;
         }
 
-        // Toggle busca
         function toggleSearch(show) {
             isOpen = show;
             if (show) {
-                searchContainer.classList.add('active');
+                searchContainer.hidden = false;
+                searchContainer.classList.add("active");
+                document.body.style.overflow = "hidden";
                 searchInput.focus();
                 loadSearchData();
             } else {
-                searchContainer.classList.remove('active');
-                searchInput.value = '';
-                searchResults.innerHTML = '';
+                searchContainer.classList.remove("active");
+                searchContainer.hidden = true;
+                document.body.style.overflow = "";
+                searchInput.value = "";
+                searchResults.innerHTML = "";
             }
         }
 
-        // Event listeners
-        searchInput.addEventListener('input', function (e) {
+        searchInput.addEventListener("input", function (e) {
             search(e.target.value);
         });
 
-        searchClose.addEventListener('click', function () {
+        searchClose.addEventListener("click", function () {
             toggleSearch(false);
         });
 
-        // Tecla Escape fecha a busca
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && isOpen) {
+        searchBackdrop.addEventListener("click", function () {
+            toggleSearch(false);
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && isOpen) {
                 toggleSearch(false);
             }
         });
 
-        // Expor função para abrir busca externamente
         window.openSearch = function () {
             toggleSearch(true);
         };
 
-        // Adicionar event listener ao botão de busca
-        var searchToggle = document.getElementById('search-toggle');
+        var searchToggle = document.getElementById("search-toggle");
         if (searchToggle) {
-            searchToggle.addEventListener('click', function (event) {
+            searchToggle.addEventListener("click", function (event) {
                 event.preventDefault();
                 toggleSearch(true);
             });
         }
 
-        // Atalho Ctrl+K para abrir busca
-        document.addEventListener('keydown', function (e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        document.addEventListener("keydown", function (e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === "k") {
                 e.preventDefault();
-                toggleSearch(true);
+                toggleSearch(!isOpen);
             }
         });
-
     })();
 </script>

@@ -75,11 +75,31 @@
                 <!--<button class="lang-pill" id="lang-toggle">
                     <b>PT</b> <span style="opacity: .5">/</span> EN
                 </button>-->
-                <button class="icon-btn" id="search-toggle" aria-label="Buscar">
-                    <i class="fas fa-search"></i>
+                <button
+                    class="icon-btn tip-btn"
+                    id="search-toggle"
+                    type="button"
+                    aria-label="Buscar"
+                    aria-keyshortcuts="Control+K Meta+K"
+                >
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <span class="tip" role="tooltip">
+                        Buscar
+                        <span class="tip-keys" data-keys="mod+k"></span>
+                    </span>
                 </button>
-                <button class="icon-btn" id="theme-toggle" aria-label="Alternar tema">
-                    <i id="theme-icon" class="fas fa-moon"></i>
+                <button
+                    class="icon-btn tip-btn"
+                    id="theme-toggle"
+                    type="button"
+                    aria-label="Alternar tema"
+                    aria-keyshortcuts="Control+Shift+L Meta+Shift+L"
+                >
+                    <i id="theme-icon" class="fas fa-moon" aria-hidden="true"></i>
+                    <span class="tip" role="tooltip">
+                        Alternar tema
+                        <span class="tip-keys" data-keys="mod+shift+l"></span>
+                    </span>
                 </button>
             </div>
             <div
@@ -96,6 +116,48 @@
                 var html = document.documentElement;
                 var btn = document.getElementById("theme-toggle");
                 var icon = document.getElementById("theme-icon");
+                var searchBtn = document.getElementById("search-toggle");
+                var isMac =
+                    /Mac|iPhone|iPad|iPod/.test(navigator.platform) ||
+                    (navigator.userAgentData &&
+                        navigator.userAgentData.platform === "macOS");
+
+                function formatKeys(spec) {
+                    return spec.split("+").map(function (part) {
+                        if (part === "mod") return isMac ? "⌘" : "Ctrl";
+                        if (part === "shift") return isMac ? "⇧" : "Shift";
+                        if (part === "alt") return isMac ? "⌥" : "Alt";
+                        return part.toUpperCase();
+                    });
+                }
+
+                function renderTipKeys() {
+                    document
+                        .querySelectorAll(".tip-keys[data-keys]")
+                        .forEach(function (el) {
+                            var keys = formatKeys(el.getAttribute("data-keys"));
+                            el.innerHTML = keys
+                                .map(function (k) {
+                                    return "<kbd>" + k + "</kbd>";
+                                })
+                                .join("");
+                        });
+
+                    if (searchBtn) {
+                        var searchLabel =
+                            "Buscar (" +
+                            formatKeys("mod+k").join(isMac ? "" : "+") +
+                            ")";
+                        searchBtn.setAttribute("aria-label", searchLabel);
+                    }
+                    if (btn) {
+                        var themeLabel =
+                            "Alternar tema (" +
+                            formatKeys("mod+shift+l").join(isMac ? "" : "+") +
+                            ")";
+                        btn.setAttribute("aria-label", themeLabel);
+                    }
+                }
 
                 function updateIcon() {
                     icon.className =
@@ -104,9 +166,7 @@
                             : "fas fa-moon";
                 }
 
-                updateIcon();
-
-                btn.addEventListener("click", function () {
+                function toggleTheme() {
                     var next =
                         html.getAttribute("data-theme") === "dark"
                             ? "light"
@@ -114,6 +174,32 @@
                     html.setAttribute("data-theme", next);
                     localStorage.setItem("gs-theme", next);
                     updateIcon();
+                }
+
+                function isTypingTarget(el) {
+                    if (!el) return false;
+                    var tag = el.tagName;
+                    return (
+                        tag === "INPUT" ||
+                        tag === "TEXTAREA" ||
+                        tag === "SELECT" ||
+                        el.isContentEditable
+                    );
+                }
+
+                renderTipKeys();
+                updateIcon();
+
+                btn.addEventListener("click", function () {
+                    toggleTheme();
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (!(e.ctrlKey || e.metaKey) || !e.shiftKey) return;
+                    if (e.key.toLowerCase() !== "l") return;
+                    if (isTypingTarget(e.target)) return;
+                    e.preventDefault();
+                    toggleTheme();
                 });
 
                 // Language toggle (placeholder for future i18n)
