@@ -737,7 +737,7 @@
 }
 .prose pre {
     margin: 1.35em 0;
-    padding: 1em 1.15em;
+    padding: 1.25em 1.5em;
     overflow-x: auto;
     background: var(--code-bg);
     color: var(--code-fg);
@@ -766,8 +766,10 @@
     background: var(--code-bg);
     box-shadow: var(--shadow-1);
 }
-.prose .highlight pre {
+.prose .highlight pre,
+.prose pre.highlight {
     margin: 0;
+    padding: 1.25em 1.5em;
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -787,13 +789,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.03);
+    background: color-mix(in oklab, var(--ink) 4%, transparent);
     border-bottom: 1px solid var(--code-line);
     font-size: 11px;
     color: var(--code-dim);
 }
 .codeblock .cb-head .file {
-    color: #94a3b8;
+    color: var(--code-dim);
 }
 .codeblock .cb-head .lang {
     color: var(--accent-2);
@@ -803,7 +805,7 @@
 }
 .codeblock pre {
     margin: 0;
-    padding: 16px 18px 18px;
+    padding: 1.25em 1.5em;
     font-family: var(--font-mono);
     font-size: 13px;
     line-height: 1.65;

@@ -32,13 +32,20 @@
     --marker-red: #dc2626;
     --marker-green: #16a34a;
 
-    /* Code surface */
-    --code-bg: #0f1520;
-    --code-fg: #e2e8f0;
-    --code-dim: #7b879c;
-    --code-line: #1c2534;
+    /* Code surface — light theme */
+    --code-bg: #eef1f5;
+    --code-fg: #0c1222;
+    --code-dim: #5c6b7e;
+    --code-line: #d5dbe6;
     --code-inline-bg: #e8edf4;
     --code-inline-fg: #0c1222;
+
+    /* Syntax tokens — light theme */
+    --code-comment: #64748b;
+    --code-keyword: #6d28d9;
+    --code-name: #0369a1;
+    --code-number: #b45309;
+    --code-string: #be123c;
 
     --post-header-bg: var(--paper-2);
     --selection-bg: color-mix(in oklab, var(--accent) 22%, transparent);
@@ -88,6 +95,12 @@
     --code-line: #1a2436;
     --code-inline-bg: #1a2436;
     --code-inline-fg: #e2e8f0;
+
+    --code-comment: #8b95a8;
+    --code-keyword: #c4a1f0;
+    --code-name: #6cb6eb;
+    --code-number: #e0a05a;
+    --code-string: #e07a72;
 
     --post-header-bg: var(--paper-2);
     --selection-bg: color-mix(in oklab, var(--accent) 35%, transparent);

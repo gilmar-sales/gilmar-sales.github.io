@@ -1,7 +1,7 @@
 .highlight {
     display: block;
     overflow-x: auto;
-    padding: 0.5em;
+    padding: 1.25em 1.5em;
     color: var(--code-fg);
     background: var(--code-bg);
     font-family: var(--font-mono);
@@ -12,7 +12,7 @@
 .highlight .c1,
 .highlight .c2,
 .highlight .cm {
-    color: #8b95a8;
+    color: var(--code-comment);
     font-style: italic;
 }
 
@@ -23,18 +23,18 @@
 .highlight .kp,
 .highlight .kr,
 .highlight .kt {
-    color: #c4a1f0;
+    color: var(--code-keyword);
 }
 
 .highlight .nb,
 .highlight .bp,
 .highlight .nt {
-    color: #6cb6eb;
+    color: var(--code-name);
 }
 
 .highlight .o,
 .highlight .ow {
-    color: #e0a05a;
+    color: var(--code-number);
 }
 
 .highlight .m,
@@ -42,7 +42,7 @@
 .highlight .mh,
 .highlight .mi,
 .highlight .mo {
-    color: #e0a05a;
+    color: var(--code-number);
 }
 
 .highlight .s,
@@ -57,28 +57,22 @@
 .highlight .si,
 .highlight .sr,
 .highlight .ss {
-    color: #e07a72;
+    color: var(--code-string);
 }
 
 .highlight .cp,
 .highlight .cpf,
 .highlight .nl,
 .highlight .nv {
-    color: #e07a72;
+    color: var(--code-string);
 }
 
 .highlight .nc,
 .highlight .nf,
 .highlight .nn {
-    color: #6cb6eb;
+    color: var(--code-name);
 }
 
 .highlight .p {
     color: inherit;
-}
-
-/* Light theme: keep dark code surfaces for consistent contrast */
-:root:not([data-theme="dark"]) .highlight {
-    color: var(--code-fg);
-    background: var(--code-bg);
 }
