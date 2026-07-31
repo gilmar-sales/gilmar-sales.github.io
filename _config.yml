@@ -4,7 +4,7 @@ description: >-
   estudando o que faz o
   <em>silício</em> cantar.
 baseurl: ""
-url: ""
+url: "https://gilmar-sales.github.io"
 author:
   name: Gilmar Sales
   email: gilmar_custodio_@hotmail.com
@@ -21,6 +21,7 @@ max_pages: 5
 # Build settings
 plugins:
   - jekyll-feed
+  - jekyll-paginate
 sass:
   style: compressed
   sass_dir: _sass
