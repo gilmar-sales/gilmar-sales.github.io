@@ -1,50 +1,228 @@
-/* landscape mode */
-@media screen and (min-aspect-ratio: 13/9) {
-}
+/* =========================================================
+   Responsive overrides — load AFTER screens.css
+   ========================================================= */
 
-/* portrait mode */
-@media screen and (max-aspect-ratio: 10/9) {
-    .grid {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-
-    .nav-name {
-        display: none;
-    }
-    .nav-progress-bar {
-        top: auto;
-        bottom: 4rem;
-    }
-}
-
-@media screen and (max-aspect-ratio: 9/10) {
+/* Narrow / tablet: collapse home sidebar + article chrome */
+@media screen and (max-width: 960px) {
     .home {
         display: grid;
-        grid-template-columns: 1fr 0 !important;
+        grid-template-columns: 1fr;
     }
 
     aside.side {
         display: none;
     }
 
+    .nav-name {
+        display: none;
+    }
+
     .article {
-        display: grid;
-        grid-template-columns: 1fr 0px 0px !important;
+        display: block;
         max-width: 100vw;
-        overflow-x: hidden !important;
+        overflow-x: hidden;
+    }
+
+    .article .margins {
+        display: none;
     }
 
     .article .main {
-        width: calc(100vw - 2.5rem) !important;
+        width: 100%;
         max-width: none;
-        padding: 32px 20px 64px;
+        padding: 32px 20px 88px;
         overflow-x: hidden;
         border-left: 0;
         border-right: 0;
+        box-sizing: border-box;
     }
 
+    /* Mobile TOC: compact bottom bar → expandable sheet */
     .toc {
+        position: fixed;
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        align-self: auto;
+        z-index: 55;
+        border-right: 0;
+        border-top: 1px solid var(--rule);
+        background: color-mix(in oklab, var(--paper) 92%, transparent);
+        backdrop-filter: saturate(140%) blur(10px);
+        -webkit-backdrop-filter: saturate(140%) blur(10px);
+        box-shadow: 0 -6px 24px color-mix(in oklab, var(--ink) 8%, transparent);
+        overflow: visible;
+        transition: transform 0.22s ease;
+    }
+
+    .toc-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        margin: 0;
+        padding: 12px 18px calc(12px + env(safe-area-inset-bottom, 0px));
+        border: 0;
+        background: transparent;
+        color: var(--ink);
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .toc-toggle-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .toc-toggle .label {
+        line-height: 1;
+    }
+
+    .toc-current {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 62vw;
+    }
+
+    .toc-toggle-right {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .toc-toggle-pct {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--ink-3);
+        letter-spacing: 0.02em;
+    }
+
+    .toc-toggle-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        border: 1px solid var(--rule);
+        background: var(--paper);
+        color: var(--ink-2);
+        font-size: 11px;
+        transition: transform 0.22s ease;
+    }
+
+    .toc.is-open .toc-toggle-icon {
+        transform: rotate(180deg);
+    }
+
+    .toc-panel {
         display: none;
+        flex-direction: column;
+        max-height: min(62vh, 28rem);
+        border-top: 1px solid var(--rule);
+        background: var(--paper);
+    }
+
+    .toc.is-open .toc-panel {
+        display: flex;
+    }
+
+    .toc.is-open .toc-toggle {
+        display: none;
+    }
+
+    .toc-head {
+        padding: 16px 18px 10px;
+    }
+
+    .toc-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        background: var(--paper);
+        color: var(--ink-2);
+        cursor: pointer;
+    }
+
+    .toc-body {
+        padding: 4px 12px 12px 14px;
+    }
+
+    .toc-progress {
+        display: none;
+    }
+
+    .toc:not(:has(.toc-list li)) {
+        display: none;
+    }
+
+    .toc-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 54;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: color-mix(in oklab, var(--ink) 28%, transparent);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .toc-backdrop.is-visible {
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    body.toc-sheet-open {
+        overflow: hidden;
+    }
+
+    .nav-progress-bar {
+        top: auto;
+        bottom: 0;
+    }
+}
+
+/* Very narrow phones */
+@media screen and (max-width: 480px) {
+    .article .main {
+        padding: 24px 16px 88px;
+    }
+
+    .toc-current {
+        max-width: 52vw;
+    }
+}
+
+/* Portrait-tall: keep older grid stack for non-article pages if needed */
+@media screen and (max-aspect-ratio: 10/9) and (max-width: 960px) {
+    .grid {
+        display: flex;
+        flex-direction: column;
     }
 }

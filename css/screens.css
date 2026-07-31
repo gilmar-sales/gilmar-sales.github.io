@@ -394,8 +394,24 @@
     overflow: hidden;
     box-sizing: border-box;
 }
+.toc-toggle,
+.toc-close,
+.toc-backdrop {
+    display: none;
+}
+.toc-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+}
 .toc-head {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
     padding: 28px 20px 12px 24px;
 }
 .toc .label {

@@ -3,14 +3,42 @@ layout: default
 ---
 
 <div class="article scroll">
-    <!-- TOC Sidebar -->
-    <aside class="toc">
-        <header class="toc-head">
-            <div class="label">SUMÁRIO</div>
-        </header>
+    <!-- TOC Sidebar / mobile sheet -->
+    <aside class="toc" id="toc">
+        <button
+            type="button"
+            class="toc-toggle"
+            id="toc-toggle"
+            aria-expanded="false"
+            aria-controls="toc-panel"
+        >
+            <span class="toc-toggle-meta">
+                <span class="label">SUMÁRIO</span>
+                <span class="toc-current" id="toc-current">Seções</span>
+            </span>
+            <span class="toc-toggle-right">
+                <span class="toc-toggle-pct" id="toc-toggle-pct">0%</span>
+                <span class="toc-toggle-icon" aria-hidden="true">
+                    <i class="fas fa-chevron-up"></i>
+                </span>
+            </span>
+        </button>
 
-        <nav class="toc-body" aria-label="Sumário">
-            <ul class="toc-list">
+        <div class="toc-panel" id="toc-panel">
+            <header class="toc-head">
+                <div class="label">SUMÁRIO</div>
+                <button
+                    type="button"
+                    class="toc-close"
+                    id="toc-close"
+                    aria-label="Fechar sumário"
+                >
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </header>
+
+            <nav class="toc-body" aria-label="Sumário">
+                <ul class="toc-list">
 {%- assign content_array = page.content | split: '<h' -%}
 {%- assign h1_counter = 0 -%}
 {%- assign h2_counter = 0 -%}
@@ -36,28 +64,31 @@ layout: default
       {%- else -%}
         {%- assign anchor_id = section_title | handleize -%}
       {%- endif -%}
-                <li class="{{ depth_class }}">
-                    <a href="#{{ anchor_id }}">
-                        <span class="toc-num">§{{ display_number }}</span>
-                        <span class="toc-text">{{ section_title }}</span>
-                    </a>
-                </li>
+                    <li class="{{ depth_class }}">
+                        <a href="#{{ anchor_id }}">
+                            <span class="toc-num">§{{ display_number }}</span>
+                            <span class="toc-text">{{ section_title }}</span>
+                        </a>
+                    </li>
     {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
-            </ul>
-        </nav>
+                </ul>
+            </nav>
 
-        <footer class="toc-progress">
-            <div class="label">PROGRESSO</div>
-            <div class="toc-progress-value" id="reading-progress">
-                0<span class="toc-progress-unit">%</span>
-            </div>
-            <div class="toc-progress-track">
-                <div class="toc-progress-fill" id="progress-bar"></div>
-            </div>
-        </footer>
+            <footer class="toc-progress">
+                <div class="label">PROGRESSO</div>
+                <div class="toc-progress-value" id="reading-progress">
+                    0<span class="toc-progress-unit">%</span>
+                </div>
+                <div class="toc-progress-track">
+                    <div class="toc-progress-fill" id="progress-bar"></div>
+                </div>
+            </footer>
+        </div>
     </aside>
+
+    <div class="toc-backdrop" id="toc-backdrop" aria-hidden="true"></div>
 
     <!-- Main Content -->
     <article class="main prose">
@@ -124,7 +155,14 @@ layout: default
         var progressBar = document.getElementById("progress-bar");
         var navProgressBar = document.getElementById("nav-progress-bar");
         var progressText = document.getElementById("reading-progress");
+        var toc = document.getElementById("toc");
+        var tocPanel = document.getElementById("toc-panel");
         var tocBody = document.querySelector(".toc-body");
+        var tocToggle = document.getElementById("toc-toggle");
+        var tocClose = document.getElementById("toc-close");
+        var tocBackdrop = document.getElementById("toc-backdrop");
+        var tocCurrent = document.getElementById("toc-current");
+        var tocTogglePct = document.getElementById("toc-toggle-pct");
         var tocLinks = tocBody
             ? Array.prototype.slice.call(
                   tocBody.querySelectorAll('a[href^="#"]'),
@@ -151,6 +189,21 @@ layout: default
         var activeId = null;
         var rafPending = false;
 
+        function isMobileToc() {
+            return window.matchMedia("(max-width: 960px)").matches;
+        }
+
+        function setTocOpen(open) {
+            if (!toc) return;
+            toc.classList.toggle("is-open", open);
+            if (tocToggle) tocToggle.setAttribute("aria-expanded", open ? "true" : "false");
+            if (tocBackdrop) {
+                tocBackdrop.classList.toggle("is-visible", open);
+                tocBackdrop.setAttribute("aria-hidden", open ? "false" : "true");
+            }
+            document.body.classList.toggle("toc-sheet-open", open && isMobileToc());
+        }
+
         function sectionOffset(el) {
             return (
                 el.getBoundingClientRect().top -
@@ -166,6 +219,7 @@ layout: default
                 totalHeight > 0
                     ? Math.min(100, (scrolled / totalHeight) * 100)
                     : 0;
+            var rounded = Math.round(progress);
 
             if (navProgressBar) {
                 navProgressBar.style.width = progress + "%";
@@ -177,8 +231,12 @@ layout: default
 
             if (progressText) {
                 progressText.innerHTML =
-                    Math.round(progress) +
+                    rounded +
                     '<span class="toc-progress-unit">%</span>';
+            }
+
+            if (tocTogglePct) {
+                tocTogglePct.textContent = rounded + "%";
             }
         }
 
@@ -196,7 +254,6 @@ layout: default
                 }
             }
 
-            // Near the end of the article, keep the last section active
             if (
                 article.scrollTop + article.clientHeight >=
                 article.scrollHeight - 8
@@ -218,7 +275,14 @@ layout: default
 
             activeId = next.id;
 
-            if (tocBody) {
+            if (tocCurrent) {
+                var textEl = next.link.querySelector(".toc-text");
+                tocCurrent.textContent = textEl
+                    ? textEl.textContent
+                    : next.link.textContent.trim();
+            }
+
+            if (tocBody && !isMobileToc()) {
                 var linkTop = next.link.offsetTop;
                 var linkBottom = linkTop + next.link.offsetHeight;
                 var viewTop = tocBody.scrollTop;
@@ -283,10 +347,37 @@ layout: default
                     behavior: "smooth",
                 });
                 history.replaceState(null, "", "#" + raw);
+                if (isMobileToc()) setTocOpen(false);
             });
         });
 
-        var toc = document.querySelector(".toc");
+        if (tocToggle) {
+            tocToggle.addEventListener("click", function () {
+                setTocOpen(!toc.classList.contains("is-open"));
+            });
+        }
+        if (tocClose) {
+            tocClose.addEventListener("click", function () {
+                setTocOpen(false);
+            });
+        }
+        if (tocBackdrop) {
+            tocBackdrop.addEventListener("click", function () {
+                setTocOpen(false);
+            });
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && toc && toc.classList.contains("is-open")) {
+                setTocOpen(false);
+            }
+        });
+
+        window.addEventListener("resize", function () {
+            if (!isMobileToc()) setTocOpen(false);
+            onScroll();
+        });
+
         var wheelLocked = false;
         var wheelUnlockTimer = null;
 
@@ -294,6 +385,7 @@ layout: default
             toc.addEventListener(
                 "wheel",
                 function (event) {
+                    if (isMobileToc()) return;
                     event.preventDefault();
                     if (wheelLocked || Math.abs(event.deltaY) < 2) return;
 
@@ -318,7 +410,6 @@ layout: default
         }
 
         article.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", onScroll);
         updateProgress();
         updateActiveSection();
     })();
