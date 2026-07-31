@@ -2,17 +2,17 @@
     display: block;
     overflow-x: auto;
     padding: 0.5em;
-    color: #2b2b2b;
-    background: #f7f7f7;
-    font-family: "JetBrains Mono", monospace;
-    margin: 2rem 0 2rem;
+    color: var(--code-fg);
+    background: var(--code-bg);
+    font-family: var(--font-mono);
+    margin: 2rem 0;
 }
 
 .highlight .c,
 .highlight .c1,
 .highlight .c2,
 .highlight .cm {
-    color: #6b7280;
+    color: #8b95a8;
     font-style: italic;
 }
 
@@ -23,18 +23,18 @@
 .highlight .kp,
 .highlight .kr,
 .highlight .kt {
-    color: #7c3aed;
+    color: #c4a1f0;
 }
 
 .highlight .nb,
 .highlight .bp,
 .highlight .nt {
-    color: #0369a1;
+    color: #6cb6eb;
 }
 
 .highlight .o,
 .highlight .ow {
-    color: #b45309;
+    color: #e0a05a;
 }
 
 .highlight .m,
@@ -42,7 +42,7 @@
 .highlight .mh,
 .highlight .mi,
 .highlight .mo {
-    color: #c2570a;
+    color: #e0a05a;
 }
 
 .highlight .s,
@@ -57,95 +57,28 @@
 .highlight .si,
 .highlight .sr,
 .highlight .ss {
-    color: #b83028;
+    color: #e07a72;
 }
 
 .highlight .cp,
 .highlight .cpf,
 .highlight .nl,
 .highlight .nv {
-    color: #b91c1c;
+    color: #e07a72;
 }
 
 .highlight .nc,
 .highlight .nf,
 .highlight .nn {
-    color: #0369a1;
+    color: #6cb6eb;
 }
 
 .highlight .p {
     color: inherit;
 }
 
-/* ===== DARK THEME ===== */
-
-[data-theme="dark"] {
-    .highlight {
-        color: #d1d1d1;
-        background: var(--paper-2);
-    }
-
-    .highlight .c,
-    .highlight .c1,
-    .highlight .c2,
-    .highlight .cm {
-        color: #7f8796;
-    }
-
-    .highlight .k,
-    .highlight .kc,
-    .highlight .kd,
-    .highlight .kn,
-    .highlight .kp,
-    .highlight .kr,
-    .highlight .kt {
-        color: #ca68e7;
-    }
-
-    .highlight .nb,
-    .highlight .bp,
-    .highlight .nt {
-        color: #49b6e9;
-    }
-
-    .highlight .o,
-    .highlight .ow {
-        color: #e48023;
-    }
-
-    .highlight .m,
-    .highlight .mf,
-    .highlight .mh,
-    .highlight .mi,
-    .highlight .mo {
-        color: #e48023;
-    }
-
-    .highlight .s,
-    .highlight .s1,
-    .highlight .s2,
-    .highlight .sa,
-    .highlight .sb,
-    .highlight .sc,
-    .highlight .sd,
-    .highlight .se,
-    .highlight .sh,
-    .highlight .si,
-    .highlight .sr,
-    .highlight .ss {
-        color: #ce594a;
-    }
-
-    .highlight .cp,
-    .highlight .cpf,
-    .highlight .nl,
-    .highlight .nv {
-        color: #e04956;
-    }
-
-    .highlight .nc,
-    .highlight .nf,
-    .highlight .nn {
-        color: #49b6e9;
-    }
+/* Light theme: keep dark code surfaces for consistent contrast */
+:root:not([data-theme="dark"]) .highlight {
+    color: var(--code-fg);
+    background: var(--code-bg);
 }

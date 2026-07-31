@@ -36,8 +36,12 @@
     }
 
     .article .main {
-        width: calc(100vw - 7rem) !important;
+        width: calc(100vw - 2.5rem) !important;
+        max-width: none;
+        padding: 32px 20px 64px;
         overflow-x: hidden;
+        border-left: 0;
+        border-right: 0;
     }
 
     .toc {
