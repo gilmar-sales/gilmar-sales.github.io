@@ -4,20 +4,6 @@ title: Categorias
 permalink: /categories/
 ---
 
-<div class="taxonomy-list">
-    <header class="taxonomy-head">
-        <div class="eyebrow">CATEGORIAS</div>
-        <h1>{{ site.categories | size }} categorias</h1>
-    </header>
-
-    {% for category in site.categories %}
-    <section class="taxonomy-section">
-        <h2 class="taxonomy-title">#{{ category[0] }}</h2>
-        <div class="post-list">
-            {% for post in category[1] %}
-                {% include post-card.html post=post %}
-            {% endfor %}
-        </div>
-    </section>
-    {% endfor %}
-</div>
+<meta http-equiv="refresh" content="0; url=/topics/" />
+<script>location.replace("/topics/");</script>
+<p><a href="/topics/">Redirecionando para tópicos…</a></p>

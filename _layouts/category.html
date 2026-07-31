@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<div class="taxonomy-list">
+    <header class="taxonomy-head">
+        <div class="eyebrow">TÓPICO</div>
+        <h1>{{ page.category }}</h1>
+        <p class="taxonomy-meta">
+            {{ site.categories[page.category] | size }}
+            {% if site.categories[page.category].size == 1 %}post{% else %}posts{% endif %}
+            ·
+            <a href="/topics/">← tópicos</a>
+        </p>
+    </header>
+
+    <div class="post-list">
+        {% for post in site.categories[page.category] %}
+            {% include post-card.html post=post %}
+        {% endfor %}
+    </div>
+</div>

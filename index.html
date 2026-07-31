@@ -23,7 +23,7 @@ title: gilmar sales
             <p class="lead">{{ site.description }}</p>
             <div class="meta-row">
                 <span><b>{{site.posts | size }}</b> posts</span>
-                <span><b>{{site.categories | size }}</b> categorias</span>
+                <span><b>{{site.categories | size }}</b> tópicos</span>
                 <span style="margin-left: auto; color: var(--ink-4)">
                     v4.0 · 2026
                 </span>
@@ -120,7 +120,7 @@ title: gilmar sales
             <h3>TÓPICOS</h3>
             <div class="topics">
                 {% for category in site.categories %}
-                <span class="tag">{{ category[0] }}</span>
+                <a class="tag" href="/topics/{{ category[0] | slugify }}/">{{ category[0] }}</a>
                 {% endfor %}
             </div>
         </div>

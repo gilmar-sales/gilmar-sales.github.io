@@ -1,0 +1,25 @@
+---
+layout: default
+title: Tópicos
+permalink: /topics/
+---
+
+<div class="taxonomy-list">
+    <header class="taxonomy-head">
+        <div class="eyebrow">TÓPICOS</div>
+        <h1>{{ site.categories | size }} tópicos</h1>
+    </header>
+
+    {% for category in site.categories %}
+    <section class="taxonomy-section" id="{{ category[0] | slugify }}">
+        <h2 class="taxonomy-title">
+            <a href="/topics/{{ category[0] | slugify }}/">#{{ category[0] }}</a>
+        </h2>
+        <div class="post-list">
+            {% for post in category[1] %}
+                {% include post-card.html post=post %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+</div>
