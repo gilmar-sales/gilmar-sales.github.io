@@ -4,105 +4,59 @@ layout: default
 
 <div class="article scroll">
     <!-- TOC Sidebar -->
-    <aside class="toc" style="background-color: var(--paper);">
-        <div class="label">SUMÁRIO</div>
-        <ul>
-{% assign content_array = page.content | split: '<h' %}
-{% assign h1_counter = 0 %}
-{% assign h2_counter = 0 %}
+    <aside class="toc">
+        <header class="toc-head">
+            <div class="label">SUMÁRIO</div>
+        </header>
 
-<ul style="list-style: none; padding-left: 0;">
-{% for chunk in content_array offset:1 %}
+        <nav class="toc-body" aria-label="Sumário">
+            <ul class="toc-list">
+{%- assign content_array = page.content | split: '<h' -%}
+{%- assign h1_counter = 0 -%}
+{%- assign h2_counter = 0 -%}
+{%- for chunk in content_array offset:1 -%}
+  {%- assign heading_level = chunk | slice: 0, 1 -%}
+  {%- if heading_level == '1' or heading_level == '2' -%}
+    {%- assign h_block = chunk | split: '</h' | first -%}
+    {%- assign attributes = h_block | split: '>' | first -%}
+    {%- assign section_title = h_block | remove_first: attributes | remove_first: '>' | strip_html | strip -%}
+    {%- if section_title != blank -%}
+      {%- if heading_level == '1' -%}
+        {%- assign h1_counter = h1_counter | plus: 1 -%}
+        {%- assign h2_counter = 0 -%}
+        {%- assign display_number = h1_counter -%}
+        {%- assign depth_class = "toc-item" -%}
+      {%- else -%}
+        {%- assign h2_counter = h2_counter | plus: 1 -%}
+        {%- assign display_number = h1_counter | append: "." | append: h2_counter -%}
+        {%- assign depth_class = "toc-item sub" -%}
+      {%- endif -%}
+      {%- if attributes contains 'id="' -%}
+        {%- assign anchor_id = attributes | split: 'id="' | last | split: '"' | first -%}
+      {%- else -%}
+        {%- assign anchor_id = section_title | handleize -%}
+      {%- endif -%}
+                <li class="{{ depth_class }}">
+                    <a href="#{{ anchor_id }}">
+                        <span class="toc-num">§{{ display_number }}</span>
+                        <span class="toc-text">{{ section_title }}</span>
+                    </a>
+                </li>
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+            </ul>
+        </nav>
 
-  {%- comment -%} Get the very first character after '<h' (will be '1', '2', 'e' for header, etc.) {%- endcomment -%}
-  {% assign heading_level = chunk | slice: 0, 1 %}
-
-  {%- comment -%} Only process if it is an h1 or h2 {%- endcomment -%}
-  {% if heading_level == '1' or heading_level == '2' %}
-
-    {%- comment -%} Isolate the block up to the closing tag {%- endcomment -%}
-    {% assign h_block = chunk | split: '</h' | first %}
-
-    {%- comment -%} Isolate attributes and the title {%- endcomment -%}
-    {% assign attributes = h_block | split: '>' | first %}
-    {% assign section_title = h_block | remove_first: attributes | remove_first: '>' | strip_html | strip %}
-
-    {% if section_title != blank %}
-
-      {%- comment -%} --- HIERARCHY LOGIC --- {%- endcomment -%}
-      {% if heading_level == '1' %}
-        {% assign h1_counter = h1_counter | plus: 1 %}
-        {% assign h2_counter = 0 %} {%- comment -%} Reset h2 counter {%- endcomment -%}
-        {% assign display_number = h1_counter %}
-        {% assign indent = "0px" %}
-      {% elsif heading_level == '2' %}
-        {% assign h2_counter = h2_counter | plus: 1 %}
-        {%- comment -%} If an h2 appears before any h1, just use 0.X {%- endcomment -%}
-        {% assign display_number = h1_counter | append: "." | append: h2_counter %}
-        {% assign indent = "16px" %} {%- comment -%} Indent sub-items {%- endcomment -%}
-      {% endif %}
-
-      {%- comment -%} --- EXTRACT ID FOR LINK --- {%- endcomment -%}
-      {%- comment -%} Try to find a real ID, fallback to handleized title if none exists {%- endcomment -%}
-      {% if attributes contains 'id="' %}
-        {% assign anchor_id = attributes | split: 'id="' | last | split: '"' | first %}
-      {% else %}
-        {% assign anchor_id = section_title | handleize %}
-      {% endif %}
-
-      {%- comment -%} --- OUTPUT HTML --- {%- endcomment -%}
-      <li style="margin-left: {{ indent }}; margin-bottom: 8px;">
-        <a href="#{{ anchor_id }}" style="text-decoration: none;">
-          <span style="font-family: var(--font-mono); font-size: 10px; color: var(--ink-4); margin-right: 8px;">
-            §{{ display_number }}
-          </span>
-          {{ section_title }}
-        </a>
-      </li>
-
-    {% endif %}
-  {% endif %}
-{% endfor %}
-</ul>
-        </ul>
-        <div
-            style="
-                margin-top: 28px;
-                border-top: 1px solid var(--rule);
-                padding-top: 14px;
-            "
-        >
+        <footer class="toc-progress">
             <div class="label">PROGRESSO</div>
-            <div
-                style="
-                    font-family: var(--font-mono);
-                    font-size: 22px;
-                    color: var(--ink);
-                    font-weight: 400;
-                "
-                id="reading-progress"
-            >
-                0<span style="color: var(--ink-4); font-size: 14px">%</span>
+            <div class="toc-progress-value" id="reading-progress">
+                0<span class="toc-progress-unit">%</span>
             </div>
-            <div
-                style="
-                    height: 3px;
-                    background: var(--rule);
-                    border-radius: 2px;
-                    margin-top: 4px;
-                "
-            >
-                <div
-                    style="
-                        height: 100%;
-                        background: var(--accent);
-                        width: 0%;
-                        border-radius: 2px;
-                    "
-                    id="progress-bar"
-                ></div>
+            <div class="toc-progress-track">
+                <div class="toc-progress-fill" id="progress-bar"></div>
             </div>
-        </div>
+        </footer>
     </aside>
 
     <!-- Main Content -->
@@ -130,7 +84,6 @@ layout: default
 
         {{ page.content }}
 
-        <!-- References section if available -->
         {% if page.references %}
         <div class="refs">
             <h3>REFERÊNCIAS</h3>
@@ -171,67 +124,155 @@ layout: default
         var progressBar = document.getElementById("progress-bar");
         var navProgressBar = document.getElementById("nav-progress-bar");
         var progressText = document.getElementById("reading-progress");
+        var tocBody = document.querySelector(".toc-body");
+        var tocLinks = tocBody
+            ? Array.prototype.slice.call(
+                  tocBody.querySelectorAll('a[href^="#"]'),
+              )
+            : [];
 
-        if (!article || !progressBar && !navProgressBar) return;
+        if (!article) return;
+
+        var sections = tocLinks
+            .map(function (link) {
+                var raw = link.getAttribute("href").slice(1);
+                var id;
+                try {
+                    id = decodeURIComponent(raw);
+                } catch (err) {
+                    id = raw;
+                }
+                var el = document.getElementById(id);
+                if (!el) return null;
+                return { id: id, el: el, link: link };
+            })
+            .filter(Boolean);
+
+        var activeId = null;
+        var rafPending = false;
+
+        function sectionOffset(el) {
+            return (
+                el.getBoundingClientRect().top -
+                article.getBoundingClientRect().top +
+                article.scrollTop
+            );
+        }
 
         function updateProgress() {
-            var totalHeight = article.scrollHeight - window.innerHeight;
+            var totalHeight = article.scrollHeight - article.clientHeight;
             var scrolled = Math.max(0, article.scrollTop);
-            var progress = Math.min(100, (scrolled / totalHeight) * 100);
+            var progress =
+                totalHeight > 0
+                    ? Math.min(100, (scrolled / totalHeight) * 100)
+                    : 0;
 
             if (navProgressBar) {
                 navProgressBar.style.width = progress + "%";
             }
 
-            progressBar.style.width = progress + "%";
-            progressText.innerHTML =
-                Math.round(progress) +
-                '<span style="color: var(--ink-4); font-size: 14px;">%</span>';
+            if (progressBar) {
+                progressBar.style.width = progress + "%";
+            }
+
+            if (progressText) {
+                progressText.innerHTML =
+                    Math.round(progress) +
+                    '<span class="toc-progress-unit">%</span>';
+            }
         }
 
-        article.addEventListener("scroll", updateProgress);
-        updateProgress();
-        document.addEventListener("DOMContentLoaded", function () {
-            // 1. Seleciona o container do conteúdo e onde o sumário será inserido
-            const postContent = document.querySelector(".post-content");
-            const tocContainer = document.querySelector("#toc-js");
+        function updateActiveSection() {
+            if (!sections.length) return;
 
-            if (!postContent || !tocContainer) return;
+            var marker = article.scrollTop + Math.min(140, article.clientHeight * 0.22);
+            var next = sections[0];
 
-            // 2. Busca todos os headers (h2 e h3) dentro do post
-            const headings = postContent.querySelectorAll("h2, h3");
-
-            if (headings.length === 0) return;
-
-            const tocList = document.createElement("ul");
-            tocList.classList.add("toc-list");
-
-            headings.forEach((heading) => {
-                // Garante que o header tenha um ID (Jekyll/Kramdown geralmente cria)
-                // Se não tiver, criamos um a partir do texto
-                if (!heading.id) {
-                    heading.id = heading.innerText
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")
-                        .replace(/[^\w-]/g, "");
+            for (var i = 0; i < sections.length; i++) {
+                if (sectionOffset(sections[i].el) <= marker + 1) {
+                    next = sections[i];
+                } else {
+                    break;
                 }
+            }
 
-                // 3. Cria o item da lista
-                const li = document.createElement("li");
-                li.classList.add(
-                    `toc-item`,
-                    `depth-${heading.tagName.toLowerCase()}`,
-                );
+            // Near the end of the article, keep the last section active
+            if (
+                article.scrollTop + article.clientHeight >=
+                article.scrollHeight - 8
+            ) {
+                next = sections[sections.length - 1];
+            }
 
-                const link = document.createElement("a");
-                link.setAttribute("href", `#${heading.id}`);
-                link.textContent = heading.innerText;
+            if (!next || next.id === activeId) return;
 
-                li.appendChild(link);
-                tocList.appendChild(li);
+            sections.forEach(function (section) {
+                var isActive = section === next;
+                section.link.classList.toggle("active", isActive);
+                if (isActive) {
+                    section.link.setAttribute("aria-current", "location");
+                } else {
+                    section.link.removeAttribute("aria-current");
+                }
             });
 
-            tocContainer.appendChild(tocList);
+            activeId = next.id;
+
+            if (tocBody) {
+                var linkTop = next.link.offsetTop;
+                var linkBottom = linkTop + next.link.offsetHeight;
+                var viewTop = tocBody.scrollTop;
+                var viewBottom = viewTop + tocBody.clientHeight;
+                var pad = 28;
+
+                if (linkTop < viewTop + pad) {
+                    tocBody.scrollTo({
+                        top: Math.max(0, linkTop - pad),
+                        behavior: "smooth",
+                    });
+                } else if (linkBottom > viewBottom - pad) {
+                    tocBody.scrollTo({
+                        top: linkBottom - tocBody.clientHeight + pad,
+                        behavior: "smooth",
+                    });
+                }
+            }
+        }
+
+        function onScroll() {
+            if (rafPending) return;
+            rafPending = true;
+            requestAnimationFrame(function () {
+                rafPending = false;
+                updateProgress();
+                updateActiveSection();
+            });
+        }
+
+        tocLinks.forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                var raw = link.getAttribute("href").slice(1);
+                var id;
+                try {
+                    id = decodeURIComponent(raw);
+                } catch (err) {
+                    id = raw;
+                }
+                var el = document.getElementById(id);
+                if (!el) return;
+
+                event.preventDefault();
+                article.scrollTo({
+                    top: Math.max(0, sectionOffset(el) - 24),
+                    behavior: "smooth",
+                });
+                history.replaceState(null, "", "#" + raw);
+            });
         });
+
+        article.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        updateProgress();
+        updateActiveSection();
     })();
 </script>
