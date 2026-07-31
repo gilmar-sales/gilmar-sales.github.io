@@ -151,7 +151,7 @@
     cursor: pointer;
 }
 .post-item:hover {
-    background: linear-gradient(
+    background-image: linear-gradient(
         to right,
         transparent,
         var(--paper-2) 30%,
@@ -1982,6 +1982,15 @@
     text-decoration: none;
     color: inherit;
     transition: color 0.15s;
+}
+.topics-index-row:hover {
+    background-image: linear-gradient(
+        to right,
+        transparent,
+        var(--paper-2) 30%,
+        var(--paper-2) 70%,
+        transparent
+    );
 }
 .topics-index-row:hover .topics-index-name {
     color: var(--accent);

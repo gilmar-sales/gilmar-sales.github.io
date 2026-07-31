@@ -1,6 +1,6 @@
 <a href="{{ include.post.url }}" class="post-item">
     <div class="date">{{ include.post.date | date: "%Y.%m.%d" }}</div>
-    <div>
+    <div class="post-body">
         <h3 class="title">{{ include.post.title }}</h3>
         {% if include.post.excerpt %}
         <p class="desc">
