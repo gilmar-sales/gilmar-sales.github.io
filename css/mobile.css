@@ -4,16 +4,125 @@
 
 /* Narrow / tablet: collapse home sidebar + article chrome */
 @media screen and (max-width: 960px) {
+    /* Compact topbar: brand + tools + menu sheet */
+    .nav {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "brand tools"
+            "menu menu";
+        align-items: center;
+        gap: 0;
+        padding: 10px 16px;
+        row-gap: 0;
+    }
+
+    .nav-brand-wrap {
+        grid-area: brand;
+        gap: 12px;
+    }
+
+    .nav .tools {
+        grid-area: tools;
+        justify-self: end;
+    }
+
+    .nav-name {
+        display: none;
+    }
+
+    .nav-menu-toggle,
+    .icon-btn.nav-menu-toggle {
+        display: inline-flex;
+    }
+
+    .nav.nav-open {
+        background: var(--paper);
+        z-index: 45;
+    }
+
+    .nav > .nav-menu {
+        grid-area: menu;
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        margin: 10px -16px -10px;
+        padding: 8px 12px 14px;
+        border-top: 1px solid var(--rule);
+        background: var(--paper);
+        font-size: 15px;
+    }
+
+    .nav.nav-open > .nav-menu {
+        display: flex;
+    }
+
+    .nav-menu a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 10px;
+        border-radius: 8px;
+        color: var(--ink-2);
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a:active {
+        background: var(--paper-2);
+        color: var(--ink);
+    }
+
+    .nav-menu a.active {
+        color: var(--accent);
+        background: var(--accent-soft);
+        font-weight: 600;
+    }
+
+    .nav-menu a.active::after {
+        content: none;
+    }
+
+    .nav-menu a.active::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        order: 1;
+        margin-left: auto;
+    }
+
+    .nav-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        top: 0;
+        z-index: 35;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: color-mix(in oklab, var(--ink) 28%, transparent);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .nav-backdrop.is-visible {
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    body.nav-menu-open {
+        overflow: hidden;
+    }
+
     .home {
         display: grid;
         grid-template-columns: 1fr;
     }
 
     aside.side {
-        display: none;
-    }
-
-    .nav-name {
         display: none;
     }
 
@@ -206,9 +315,7 @@
         top: auto;
         bottom: 0;
     }
-}
 
-@media screen and (max-width: 960px) {
     .taxonomy-list,
     .archive {
         padding: 32px 20px 64px;

@@ -58,12 +58,12 @@
         />
     </head>
     <body class="grid paper">
-        <nav class="nav">
-            <div style="display: flex; align-items: center; gap: 16px;">
+        <nav class="nav" id="site-nav">
+            <div class="nav-brand-wrap">
                 <a href="/" class="nav-brand">gs</a>
                 <div class="nav-name">gilmar-sales</div>
             </div>
-            <nav>
+            <nav class="nav-menu" id="nav-menu" aria-label="Seções">
                 <a href="/" {% if page.url == "/" %}class="active"{% endif %}>início</a>
                 <a href="/archive/" {% if page.url == "/archive/" %}class="active"{% endif %}>arquivo</a>
                 <a href="/topics/" {% if page.url == "/topics/" or page.url contains "/topics/" %}class="active"{% endif %}>tópicos</a>
@@ -100,12 +100,21 @@
                         <span class="tip-keys" data-keys="mod+shift+l"></span>
                     </span>
                 </button>
+                <button
+                    class="icon-btn nav-menu-toggle"
+                    id="nav-menu-toggle"
+                    type="button"
+                    aria-label="Abrir menu"
+                    aria-expanded="false"
+                    aria-controls="nav-menu"
+                >
+                    <i class="fas fa-bars" aria-hidden="true" data-icon="open"></i>
+                    <i class="fas fa-times" aria-hidden="true" data-icon="close"></i>
+                </button>
             </div>
-            <div
-                class="nav-progress-bar"
-                id="nav-progress-bar"
-            ></div>
+            <div class="nav-progress-bar" id="nav-progress-bar"></div>
         </nav>
+        <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
         <div class="container scroll">
             <div class="content ">{{ content }}</div>
             {% include search.html %}
@@ -193,12 +202,77 @@
                     toggleTheme();
                 });
 
+                // Mobile nav menu
+                var siteNav = document.getElementById("site-nav");
+                var navToggle = document.getElementById("nav-menu-toggle");
+                var navBackdrop = document.getElementById("nav-backdrop");
+                var navMenu = document.getElementById("nav-menu");
+
+                function isMobileNav() {
+                    return window.matchMedia("(max-width: 960px)").matches;
+                }
+
+                function setNavOpen(open) {
+                    if (!siteNav) return;
+                    siteNav.classList.toggle("nav-open", open);
+                    document.body.classList.toggle(
+                        "nav-menu-open",
+                        open && isMobileNav(),
+                    );
+                    if (navToggle) {
+                        navToggle.setAttribute(
+                            "aria-expanded",
+                            open ? "true" : "false",
+                        );
+                        navToggle.setAttribute(
+                            "aria-label",
+                            open ? "Fechar menu" : "Abrir menu",
+                        );
+                    }
+                    if (navBackdrop) {
+                        navBackdrop.classList.toggle("is-visible", open);
+                        navBackdrop.setAttribute(
+                            "aria-hidden",
+                            open ? "false" : "true",
+                        );
+                    }
+                }
+
+                if (navToggle) {
+                    navToggle.addEventListener("click", function () {
+                        setNavOpen(!siteNav.classList.contains("nav-open"));
+                    });
+                }
+                if (navBackdrop) {
+                    navBackdrop.addEventListener("click", function () {
+                        setNavOpen(false);
+                    });
+                }
+                if (navMenu) {
+                    navMenu.querySelectorAll("a").forEach(function (link) {
+                        link.addEventListener("click", function () {
+                            if (isMobileNav()) setNavOpen(false);
+                        });
+                    });
+                }
+
                 document.addEventListener("keydown", function (e) {
                     if (!(e.ctrlKey || e.metaKey) || !e.shiftKey) return;
                     if (e.key.toLowerCase() !== "l") return;
                     if (isTypingTarget(e.target)) return;
                     e.preventDefault();
                     toggleTheme();
+                });
+
+                document.addEventListener("keydown", function (e) {
+                    if (e.key !== "Escape") return;
+                    if (siteNav && siteNav.classList.contains("nav-open")) {
+                        setNavOpen(false);
+                    }
+                });
+
+                window.addEventListener("resize", function () {
+                    if (!isMobileNav()) setNavOpen(false);
                 });
 
                 // Language toggle (placeholder for future i18n)
