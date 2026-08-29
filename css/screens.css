@@ -1229,6 +1229,132 @@
 }
 
 /* =========================================================
+   TOOLS INDEX
+   ========================================================= */
+.tools-index {
+    max-height: calc(100vh - 8.1rem);
+    overflow: scroll;
+    padding: 2rem;
+}
+
+.tools-head {
+    margin-bottom: 36px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 28px;
+}
+
+.tools-head .t h1 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 42px;
+    margin: 8px 0 10px;
+    letter-spacing: -0.02em;
+}
+
+.tools-head .t p {
+    font-family: var(--font-serif);
+    font-size: 16.5px;
+    color: var(--ink-3);
+    max-width: 52ch;
+    margin: 0;
+}
+
+.tools-count {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: var(--paper-2);
+}
+
+.tool-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.tool-card {
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px;
+    background: var(--paper);
+    transition: all 0.15s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 150px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.tool-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-1px);
+}
+
+.tool-card .row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.tool-card .title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+.tool-card .name {
+    font-family: var(--font-mono);
+    font-size: 14.5px;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.tool-card .open {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-4);
+    padding: 2px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+}
+
+.tool-card:hover .open {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.tool-card .desc {
+    font-family: var(--font-serif);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-3);
+    margin: 0 0 auto;
+    flex: 1;
+}
+
+.tool-card .foot {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--rule);
+}
+
+/* =========================================================
    TOOL / DS DEMO
    ========================================================= */
 .tool {
@@ -1251,6 +1377,14 @@
     color: var(--ink-3);
     margin: 0;
     max-width: 64ch;
+}
+
+.tool-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: -12px 0 20px;
+    flex-wrap: wrap;
 }
 
 .tool-grid {
@@ -2062,4 +2196,389 @@
     color: var(--ink-4);
     letter-spacing: 0.08em;
     margin: 0 0 16px;
+}
+
+/* =========================================================
+   BENCHMARK VIEWER
+   ========================================================= */
+.benchmark-tool {
+    width: 100%;
+    max-width: none;
+    min-height: calc(100vh - 4.1rem);
+    max-height: none;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+.bench-dropzone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    margin-bottom: 16px;
+    padding: 32px 20px;
+    border: 2px dashed var(--rule);
+    border-radius: var(--radius);
+    background: var(--paper);
+    cursor: pointer;
+    transition:
+        border-color 0.15s,
+        background 0.15s,
+        transform 0.15s;
+    outline: none;
+}
+
+.bench-dropzone:hover,
+.bench-dropzone:focus-visible {
+    border-color: var(--accent);
+    background: color-mix(in oklab, var(--accent-soft) 40%, var(--paper));
+}
+
+.bench-dropzone.is-dragover {
+    border-style: solid;
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    transform: scale(1.01);
+}
+
+.bench-dropzone.has-runs {
+    min-height: 72px;
+    padding: 16px 20px;
+}
+
+.bench-dropzone-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.bench-dropzone-inner i {
+    font-size: 24px;
+    color: var(--accent);
+}
+
+.bench-dropzone.has-runs .bench-dropzone-inner i {
+    font-size: 18px;
+}
+
+.bench-dropzone-title {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-2);
+}
+
+.bench-dropzone.has-runs .bench-dropzone-title {
+    font-size: 13px;
+}
+
+.bench-dropzone-hint {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+}
+
+.bench-dropzone.has-runs .bench-dropzone-hint {
+    display: none;
+}
+
+.bench-upload-status {
+    min-height: 0;
+    margin: -8px 0 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--marker-green);
+}
+
+.bench-upload-status.is-error {
+    color: var(--marker-red);
+}
+
+.bench-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+}
+
+.bench-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bench-field select,
+.bench-field input[type="text"] {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    width: 100%;
+}
+
+.bench-field select:focus,
+.bench-field input[type="text"]:focus {
+    outline: 2px solid color-mix(in oklab, var(--accent) 40%, transparent);
+    border-color: var(--accent);
+}
+
+.bench-toolbar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bench-btn-danger {
+    color: var(--marker-red);
+}
+
+.bench-btn-danger:hover {
+    border-color: var(--marker-red);
+}
+
+.bench-runs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.run-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.run-chip.baseline {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.run-chip-label {
+    color: var(--ink);
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.run-chip-meta {
+    color: var(--ink-3);
+}
+
+.run-chip-remove {
+    border: none;
+    background: none;
+    padding: 0 4px;
+    color: var(--marker-red);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.bench-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.bench-stat {
+    padding: 10px 12px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-sm);
+}
+
+.bench-stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.bench-stat-value {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 4px;
+}
+
+.bench-stat-value-sm {
+    font-size: 12px;
+    font-weight: 500;
+    word-break: break-all;
+}
+
+.bench-chart-stage {
+    min-height: 360px;
+    margin-bottom: 20px;
+}
+
+.bench-chart-stage .bench-chart-wrap {
+    width: 100%;
+}
+
+.bench-chart-wrap {
+    overflow-x: auto;
+}
+
+.bench-chart {
+    min-width: 480px;
+    display: block;
+}
+
+.bench-chart-label {
+    fill: var(--ink-3);
+    font-size: 10px;
+    font-family: var(--font-sans);
+}
+
+.bench-chart-value {
+    fill: var(--ink);
+    font-size: 9px;
+    font-family: var(--font-mono);
+}
+
+.bench-chart-axis {
+    fill: var(--ink-3);
+    font-size: 10px;
+    font-family: var(--font-sans);
+}
+
+.bench-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-2);
+}
+
+.bench-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+    word-break: break-all;
+}
+
+.bench-swatch {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.bench-table-panel h4 {
+    margin-bottom: 12px;
+}
+
+.bench-table-scroll {
+    max-height: min(520px, 40vh);
+    overflow: auto;
+    width: 100%;
+}
+
+.bench-table-scroll table {
+    max-width: none;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.bench-table-scroll th,
+.bench-table-scroll td {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.bench-table-scroll th:first-child,
+.bench-table-scroll td:first-child {
+    text-align: left;
+}
+
+.bench-table-scroll th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.bench-empty {
+    padding: 24px;
+    text-align: center;
+    color: var(--ink-3);
+    border: 1px dashed var(--rule);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: 13px;
+}
+
+.bench-empty-inline {
+    border: none;
+    padding: 8px 0;
+    text-align: left;
+}
+
+.delta-good {
+    color: var(--marker-green);
+    font-weight: 600;
+}
+
+.delta-bad {
+    color: var(--marker-red);
+    font-weight: 600;
+}
+
+.delta-neutral {
+    color: var(--ink-3);
+}
+
+@media screen and (min-width: 641px) {
+    .bench-toolbar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-end;
+    }
+
+    .bench-field {
+        flex: 0 1 auto;
+        min-width: 140px;
+    }
+
+    .bench-field-grow {
+        flex: 1 1 180px;
+    }
+
+    .bench-toolbar-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-left: auto;
+    }
+
+    .bench-stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }

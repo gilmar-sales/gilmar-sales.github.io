@@ -1,0 +1,17 @@
+- slug: tree-traversal
+  title: Travessia de árvore
+  eyebrow: Estruturas de dados
+  description: >-
+    Compare in-ordem, pré-ordem, pós-ordem e BFS lado a lado em uma BST
+    balanceada de 13 nós.
+  url: /tools/tree-traversal/
+  tag: interativo
+
+- slug: benchmarks
+  title: Benchmark Compare
+  eyebrow: Benchmarks
+  description: >-
+    Carregue JSONs do Google Benchmark, salve no navegador e compare execuções
+    ao longo do tempo.
+  url: /tools/benchmarks/
+  tag: visualização

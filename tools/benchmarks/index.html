@@ -1,0 +1,99 @@
+---
+layout: default
+title: Benchmark Compare
+---
+
+<div class="tool benchmark-tool">
+    <header class="tool-head">
+        <div class="eyebrow">FERRAMENTA · BENCHMARKS</div>
+        <h1>Benchmark Compare</h1>
+        <p>
+            Carregue JSONs do Google Benchmark, salve no navegador e compare
+            execuções ao longo do tempo.
+        </p>
+    </header>
+
+    <nav class="tool-links" aria-label="Voltar às ferramentas">
+        <a href="{{ site.baseurl }}/tools/" class="inline-link">← Todas as ferramentas</a>
+    </nav>
+
+    <div
+        id="dropzone"
+        class="bench-dropzone"
+        tabindex="0"
+        role="button"
+        aria-label="Arraste arquivos JSON de benchmark ou clique para selecionar"
+    >
+        <input
+            id="fileInput"
+            type="file"
+            accept=".json,application/json"
+            multiple
+            hidden
+        />
+        <div class="bench-dropzone-inner">
+            <i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i>
+            <p class="bench-dropzone-title">Arraste arquivos .json aqui</p>
+            <p class="bench-dropzone-hint">
+                ou clique para selecionar · múltiplos arquivos
+            </p>
+        </div>
+    </div>
+
+    <div id="uploadStatus" class="bench-upload-status" aria-live="polite"></div>
+
+    <div class="bench-toolbar">
+        <label class="bench-field">
+            <span class="mono-label">Família</span>
+            <select id="familySelect">
+                <option value="">— carregue runs —</option>
+            </select>
+        </label>
+        <label class="bench-field">
+            <span class="mono-label">Métrica</span>
+            <select id="metricSelect">
+                <option value="real_time">Tempo real</option>
+                <option value="cpu_time">Tempo CPU</option>
+                <option value="items_per_second">Items/s</option>
+            </select>
+        </label>
+        <label class="bench-field bench-field-grow">
+            <span class="mono-label">Busca</span>
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="filtrar benchmark…"
+            />
+        </label>
+        <div class="bench-toolbar-actions">
+            <button id="saveBtn" class="btn primary sm">Salvar runs</button>
+            <button id="exportBtn" class="btn sm">Exportar CSV</button>
+            <button id="clearBtn" class="btn sm bench-btn-danger">Limpar</button>
+        </div>
+    </div>
+
+    <div id="runs" class="bench-runs"></div>
+    <div id="stats" class="bench-stats" aria-live="polite"></div>
+
+    <div class="stage bench-chart-stage">
+        <div class="stage-head">
+            <span id="chartTitle">Comparação por argumentos</span>
+            <span class="badge">chart</span>
+        </div>
+        <div id="chartArea" class="bench-chart-wrap" aria-live="polite">
+            <div class="bench-empty">Selecione uma família de benchmark.</div>
+        </div>
+        <div id="legend" class="bench-legend"></div>
+    </div>
+
+    <div class="panel bench-table-panel">
+        <h4>Tabela comparativa</h4>
+        <div class="bench-table-scroll">
+            <div id="tableArea">
+                <div class="bench-empty">Nenhum dado carregado.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ site.baseurl }}/assets/js/benchmark-viewer.js"></script>

@@ -1,0 +1,17 @@
+{% assign t = include.tool %}
+
+<a class="tool-card" href="{{ site.baseurl }}{{ t.url }}">
+    <div class="row-top">
+        <div class="title-row">
+            <span class="name">{{ t.title }}</span>
+            {% if t.tag %}
+            <span class="tag blue">{{ t.tag }}</span>
+            {% endif %}
+        </div>
+        <span class="open">abrir →</span>
+    </div>
+    <p class="desc">{{ t.description }}</p>
+    <div class="foot">
+        <span class="mono-label">{{ t.eyebrow }}</span>
+    </div>
+</a>

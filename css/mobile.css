@@ -426,6 +426,34 @@
         grid-template-columns: 1fr;
     }
 
+    .tools-index {
+        padding: 1.25rem 1rem 2.5rem;
+    }
+
+    .tools-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .tools-head .t h1 {
+        font-size: 28px;
+        margin: 6px 0 8px;
+    }
+
+    .tools-head .t p {
+        font-size: 15px;
+    }
+
+    .tool-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tool-card {
+        min-height: 0;
+        padding: 16px;
+    }
+
     .filter-row {
         grid-column: 1;
         flex-direction: column;
@@ -444,6 +472,31 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
+    }
+
+    /* Benchmark viewer */
+    .tool.benchmark-tool {
+        padding: 1.25rem 1rem 2.5rem;
+        min-height: calc(100vh - 4.1rem);
+    }
+
+    .bench-chart-stage {
+        min-height: 280px;
+    }
+
+    .bench-toolbar-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .bench-dropzone.has-runs .bench-dropzone-title {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 641px) {
+    .bench-toolbar-actions .btn {
+        width: auto;
     }
 }
 
