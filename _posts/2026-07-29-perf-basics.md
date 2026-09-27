@@ -59,7 +59,7 @@ Saída típica:
 
 A métrica mais importante aqui é **IPC (Instructions Per Cycle)**. Um valor próximo de 4 indica boa exploração de *pipeline*; valores muito abaixo de 1 geralmente denunciam *stalls* frequentes (cache misses, por exemplo).
 
-O *pipeline* é uma técnica pela qual a CPU decompõe a execução de uma instrução em estágios (*fetch*, *decode*, *execute*, *memory*, *writeback*) e processa várias instruções em paralelo nos estágios. O IPC mede quantas instruções a CPU termina por ciclo: quanto mais alto, mais o processador está ocupado. Valores muito abaixo de 1 indicam *stalls* — geralmente esperando memória.
+O *pipeline* é uma técnica pela qual a CPU decompõe a execução de uma instrução em estágios (*fetch*, *decode*, *execute*, *memory*, *writeback*) e processa várias instruções em paralelo nos estágios. O IPC mede quantas instruções a CPU termina por ciclo: quanto mais alto, mais o processador está ocupado. Valores muito abaixo de 1 indicam *stalls* geralmente esperando memória.
 
 ## Perfilar por função com `perf record` + `perf report`
 
@@ -136,7 +136,7 @@ Como o número de contadores físicos é pequeno, o `perf` multiplexa: ele rotac
 
 ## Sobre a multiplexação
 
-CPUs modernas têm poucos **PMCs** (Performance Monitoring Counters) — tipicamente 4 a 8 por núcleo. Cada PMC conta **um único tipo de evento** por vez. Quando o `perf` precisa medir mais eventos do que cabem nos PMC's disponíveis, ele divide o tempo em janelas curtas e, em cada janela, programa os PMC's com um subconjunto diferente de eventos.
+CPUs modernas têm poucos **PMCs** (Performance Monitoring Counters) tipicamente 4 a 8 por núcleo. Cada PMC conta **um único tipo de evento** por vez. Quando o `perf` precisa medir mais eventos do que cabem nos PMC's disponíveis, ele divide o tempo em janelas curtas e, em cada janela, programa os PMC's com um subconjunto diferente de eventos.
 
 Por exemplo, se você pede 8 eventos e a CPU só tem 4 contadores, o `perf` alterna entre o evento A e o evento B a cada janela. Cada número é então uma **estimativa amostrada**, não uma contagem exata.
 
@@ -184,7 +184,7 @@ perf report --stdio --sort=sym --no-children
 # Dicas Práticas
 
 - **Sempre compare com referência.** Otimize após medir e meça de novo; diferença dentro de ~3% costuma ser ruído.
-- **Desative `cpu-frequency scaling` ou fixe a frequência** em testes reprodutíveis — variações de clock distorcem contagens de `cycles`.
+- **Desative `cpu-frequency scaling` ou fixe a frequência** em testes reprodutíveis variações de clock distorcem contagens de `cycles`.
 - **Construa com `-fno-omit-frame-pointer`** para que o `perf` consiga resolver a *call stack* de forma confiável.
 - **Prefira Linux nu para perfis de baixa granularidade.** Containers e VMs adicionam ruído, embora ainda funcionem.
 - **Multiplique rodadas.** Coletar o programa repetidas vezes reduz variância estatística:
