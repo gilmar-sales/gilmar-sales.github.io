@@ -173,11 +173,13 @@ BENCHMARK(BM_matrix_mul)
 
 ## Produto cartesiano
 
+{% raw %}
 ```cpp
 BENCHMARK(BM_algo)
     ->ArgsProduct({{64, 256, 1024}, {1, 4, 16}});
 // 9 combinações: (64,1), (64,4), ..., (1024,16)
 ```
+{% endraw %}
 
 ---
 
