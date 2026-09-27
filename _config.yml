@@ -1,14 +1,12 @@
-title: gilmar sales
+title: Gilmar Sales
 description: >-
-  Engenheiro de sistemas,
-  estudando o que faz o
-  <em>silício</em> cantar.
+  Entusiasta de computação gráfica e programação de jogos.
 baseurl: ""
 url: "https://gilmar-sales.github.io"
 author:
   name: Gilmar Sales
   email: gilmar_custodio_@hotmail.com
-  profession: Eng. de Software
+  profession: Analista de Desenvolvimento Pleno (.NET/VueJS).
   city: Morrinhos
   country: GO
   description: Ciêntista da Computação pelo Instituto Federal Goiano.
@@ -18,7 +16,7 @@ social_links:
 paginate: 5
 paginate_path: "/page/:num/"
 max_pages: 5
-# Build settings
+
 plugins:
   - jekyll-feed
   - jekyll-paginate
